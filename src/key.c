@@ -5,7 +5,7 @@
  */
 
 #include <key.h>
-#include "inc\SC92F837X_C.h"
+#include "inc\SC92F844x_C.h"
 #include "data_type.h"
 #include "lib\SensorMethod.h"
 #include "fan.h"
@@ -46,12 +46,20 @@ void Sys_Scan(void)
 }
 
 
+//0x0100--power
+//0x2000--香薰
+//0x1000--ion
+//0x0080--模式
+//0x0040--童锁
+//0x0020--timer
+//0x31e0
+
 void key_task(void)       
 //按键任务, 1ms调用一次
 {	
 	
-	if(read_over_voltage_flag() == 1) return;  //电压超过按键不处理直接返回
-	if((exKeyValueFlag & 0x000000f00) == 0x000000800)//电压键  //灵敏度不够
+	//if(read_over_voltage_flag() == 1) return;  //电压超过按键不处理直接返回
+	if((exKeyValueFlag & 0x0000031e0) == 0x000000100)//电源键  //灵敏度不够
 	{
 		if(0 == KEY_POWER_FLAG)
 		{
@@ -59,6 +67,7 @@ void key_task(void)
 			{
 				KEY_POWER_FLAG = 1;
 				key_power_com();
+				P51 = ~P51;
 			}
 		}
 	}
@@ -150,6 +159,7 @@ void key_speed_long_com(void)
 
 void key_sleep_com(void)
 {	
+	P50 = ~P50;
 	if(read_fan_speed() != 0) 
 	{
 		set_fan_speed(0);
