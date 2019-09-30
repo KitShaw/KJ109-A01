@@ -1,0 +1,123 @@
+C51 COMPILER V9.52.0.0   EEPROM                                                            09/30/2019 22:24:00 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE EEPROM
+OBJECT MODULE PLACED IN .\obj\eeprom.obj
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE src\eeprom.c BROWSE INCDIR(.\inc;.\lib) DEBUG OBJECTEXTEND PRINT(.\list\eep
+                    -rom.lst) TABS(2) OBJECT(.\obj\eeprom.obj)
+
+line level    source
+
+   1          
+   2          
+   3          /*
+   4           * eeprom.c
+   5           */
+   6          
+   7          #include "SC92F837X_C.h"
+   8          #include "intrins.h"
+   9          #include "eeprom.h"
+  10          
+  11          unsigned char dd_add;
+  12          unsigned char ee_data;
+  13          unsigned char code *point = 0x0000;
+  14          //unsigned char code *point_flash = 0x0000;
+  15          
+  16          void eeprom_init(void)
+  17          {
+  18   1        
+  19   1      }
+  20          
+  21          unsigned char eeprom_write_byte(unsigned char addr, unsigned char e_data)
+  22          //写一个字节操作
+  23          {
+  24   1        EA = 0;
+  25   1        IAPADE = 0x02;
+  26   1        IAPDAT = e_data;
+  27   1        IAPADH = 0x00;
+  28   1        IAPADL = addr;
+  29   1        IAPKEY = 0xF0;
+  30   1        IAPCTL = 0x0A;
+  31   1        _nop_();
+  32   1        _nop_();
+  33   1        _nop_();
+  34   1        _nop_();
+  35   1        _nop_();
+  36   1        _nop_();
+  37   1        _nop_();
+  38   1        _nop_();
+  39   1        _nop_();
+  40   1        _nop_();
+  41   1        IAPADE = 0x00;
+  42   1        EA = 1;
+  43   1        if(eeprom_read_byte(addr) == e_data) return 1;//写入的数据和读的相同返回1, 否则返回0
+  44   1        else return 0;
+  45   1      }
+  46          
+  47          unsigned char eeprom_read_byte(unsigned char addr)
+  48          //读一个字节
+  49          {
+  50   1        unsigned char data_buf;
+  51   1        EA = 0;
+  52   1        IAPADE = 0x02;
+  53   1        data_buf = *(point + addr) ;
+  54   1        IAPADE = 0x00;  //返回code区
+C51 COMPILER V9.52.0.0   EEPROM                                                            09/30/2019 22:24:00 PAGE 2   
+
+  55   1        EA = 1;
+  56   1        return data_buf;
+  57   1      }
+  58          
+  59          /*
+  60          unsigned char flash_write_byte(unsigned short addr, unsigned char e_data)
+  61          //写一个字节操作
+  62          {
+  63            //EA = 0;
+  64            IAPADE = 0x00;
+  65            IAPDAT = e_data;
+  66            IAPADH = 0x1c;
+  67            IAPADL = addr;
+  68            IAPKEY = 0xF0;
+  69            IAPCTL = 0x0A;
+  70            _nop_();
+  71            _nop_();
+  72            _nop_();
+  73            _nop_();
+  74            _nop_();
+  75            _nop_();
+  76            _nop_();
+  77            _nop_();
+  78            _nop_();
+  79            _nop_();
+  80            //IAPADE = 0x00;
+  81            //EA = 1;
+  82            if(flash_read_byte(addr) == e_data) return 1;//写入的数据和读的相同返回1, 否则返回0
+  83            else return 0;
+  84          }
+  85          
+  86          unsigned char flash_read_byte(unsigned short addr)
+  87          //读一个字节
+  88          {
+  89            unsigned char data_buf;
+  90            EA = 0;
+  91            //IAPADE = 0x00;
+  92            data_buf = *((unsigned short *)addr + 0x1c00) ;
+  93            //IAPADE = 0x00;  //返回code区
+  94            EA = 1;
+  95            return data_buf;
+  96          }
+  97          */
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     73    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      4       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,50 @@
+C51 COMPILER V9.52.0.0   ION                                                               09/30/2019 22:24:00 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE ION
+OBJECT MODULE PLACED IN .\obj\ion.obj
+COMPILER INVOKED BY: d:\Keil\C51\BIN\C51.EXE src\ion.c BROWSE INCDIR(.\inc;.\lib) DEBUG OBJECTEXTEND PRINT(.\list\ion.ls
+                    -t) TABS(2) OBJECT(.\obj\ion.obj)
+
+line level    source
+
+   1          
+   2          /*
+   3           * ion.c
+   4           */
+   5           
+   6          #include "SC92F837X_C.h"
+   7          #include "ion.h"
+   8          
+   9          
+  10          void ion_init(void)
+  11          {
+  12   1        P0PH &= ~(1<<1);  //关闭P01的上拉
+  13   1        P01 = 0;
+  14   1        P0CON |= 1<<1;  //P01输出模式
+  15   1        ion_off();
+  16   1      }
+  17          
+  18          void ion_on(void)
+  19          {
+  20   1        P01 = 1;
+  21   1      }
+  22          
+  23          void ion_off(void)
+  24          {
+  25   1        P01 = 0;
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     17    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,1 @@
+"src\key.c" BROWSE INCDIR(.\inc;.\lib) DEBUG OBJECTEXTEND PRINT(.\list\key.lst) TABS (2) OBJECT(.\obj\key.obj)
