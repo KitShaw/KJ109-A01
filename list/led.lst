@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LED                                                               09/30/2019 22:52:25 PAGE 1   
+C51 COMPILER V9.52.0.0   LED                                                               10/01/2019 18:01:44 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
@@ -10,273 +10,78 @@ line level    source
 
    1          
    2          /*
-   3           *led.c
-   4           */
-   5           
-   6          
-   7          #include "led.h"
-   8          #include "SC92F844X_C.h"
-   9          #include "data_type.h"
-  10          #include "fan.h"
-  11          
-  12          bitval led_flag;
-  13          unsigned char night_light_level; //夜灯的档位
-  14          
-  15          //sbit LED_POWER_R = P1^3;  //P1.1, P1.2 ,P1.3,  3个叫位都调试在用了
-  16          //sbit LED_POWER_W = P1^4;
-  17          //sbit LED_SPEED_W = P1^2;
-  18          //sbit LED_SPEED_R = P1^1;
-  19          //sbit led_com1 = P0^4;
-  20          //sbit led_com2 = P0^5;
-  21          
-  22          void led_init(void)
-  23          {
-  24   1        //P11, 12, 13, 14  P04 05  输出
-  25   1        //P1PH &= 0xe1;
-  26   1        P1PH |= 0x1e;
-  27   1        P1 &= 0xe1; //P11,12, 13, 14输出低
-  28   1        P1CON &= 0xe1;
-  29   1        P1CON |= 0x1e; //P11, 12, 13, 14输出
-  30   1        
-  31   1        P1PH &= ~(1<<5);
-  32   1        P1 &= ~(1<<5);
-  33   1        P1CON |= (1<<5);
-  34   1          
-  35   1        P0PH |= ((1<<4) | (1<<5)); // P04 P05
-  36   1        P0 |= ((1<<4) | (1<<5));
-  37   1        P0CON &= 0x9f;
-  38   1        P0CON |= 0x60;
-  39   1        
-  40   1        P0 |= ((1<<4) | (1<<5));
-  41   1        P1 |= 0x1e; //P11,12, 13, 14输出高
-  42   1      
-  43   1        //P5PH |= ((1<<0) | (1<<1)| (1<<2)); // P04 P05
-  44   1        
-  45   1        P5CON |= ((1<<0) | (1<<1)| (1<<2)); //
-  46   1        P5 &= ~((1<<0) | (1<<1)| (1<<2)); 
-  47   1        P50 = 1;  //B
-  48   1        P51 = 0; //G
-  49   1        P52 = 1; //R
-  50   1        
-  51   1        //led_power_off();
-  52   1      }
-  53          
-  54          void led_task(void)
-C51 COMPILER V9.52.0.0   LED                                                               09/30/2019 22:52:25 PAGE 2   
+   3           *  led.c
+   4           *  Kit Shaw
+   5           *  2019/10/01
+   6           */
+   7           
+   8          
+   9          #include "led.h"
+  10          #include "SC92F844X_C.h"
+  11          #include "data_type.h"
+  12          #include "fan.h"
+  13          
+  14          unsigned char xdata LEDRAM[30] _at_ 0x700;
+  15          
+  16          void led_init(void)
+  17          { 
+  18   1        P5CON |= ((1<<0) | (1<<1)| (1<<2)); //
+  19   1        P5 &= ~((1<<0) | (1<<1)| (1<<2)); 
+  20   1        LED_RED = 1;
+  21   1        LED_GREEN = 1;
+  22   1        LED_BLUE = 0; 
+  23   1        
+  24   1        DDRCON |= 0xef;
+  25   1        //IOHCON0 = 0xc0;
+  26   1        //IOHCON1 = 0x00;
+  27   1        
+  28   1        //P1CON |= (1<<7);
+  29   1        P1VO |=  (1<<7);  //打开P17口的显示驱动输出功能
+  30   1        P2VO |= 0xff;     //P2口都用做led的显示
+  31   1        P0VO |= (1<<1) | (1<<0);  //P11, P01
+  32   1        //s11-s21
+  33   1        P3VO |= (1<<3) | (1<<4) |(1<<5) | (1<<6) | (1<<7);  //P33-P37LED驱动
+  34   1        //c3, c4, c5, c6, c7  
+  35   1        OTCON = 0x00;
+  36   1        LEDRAM[11] = 0x08;  // 童锁图标
+  37   1        LEDRAM[12] = 0x18;  //0x10 -P2.5  0x08-8H
+  38   1        LEDRAM[13] = 0x18;  //0x10 - 高, 0x08 - 4H
+  39   1        LEDRAM[14] = 0x78;  //0x10 - 中, 0x08 - 2H  
+  40   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+  41   1        LEDRAM[15] = 0xf8;  //0x10 - 低, 0x08 - 1H
+  42   1        //数码管g段
+  43   1        LEDRAM[16] = 0xf8;  //0x10 - ION图标, 0x08香薰按键,   
+  44   1        //数码管F段
+  45   1        LEDRAM[17] = 0xf8;   //0x10- 高速 和 0x08-负离子按键
+  46   1        //数码管E段
+  47   1        LEDRAM[18] = 0xf8;   //0x10- 中速 , 0x08 - 模式按键
+  48   1        //数码管D段
+  49   1        LEDRAM[19] = 0xf8;  //低速 ,  童锁按键
+  50   1        //数码管C段
+  51   1        LEDRAM[20] = 0xf8;  //智能, 定时按键
+  52   1        //数码管B段
+  53   1        LEDRAM[21] = 0xf8;  //滤网, 电源按键
+  54   1        //数码管A段
+C51 COMPILER V9.52.0.0   LED                                                               10/01/2019 18:01:44 PAGE 2   
 
-  55          //1ms调用一次
-  56          {
-  57   1          static unsigned short over_voltage_flash_count;
-  58   1          
-  59   1          /*
-  60   1          P04 = LED_NIGHT_LIGHT_INDICATOR_FLAG;
-  61   1          P05 = LED_SLEEP_INDICATOR_FLAG;   
-  62   1          P14 = LED_POWER_W_INDICATOR_FLAG;
-  63   1          P12 = LED_SPEED_W_INDICATOR_FLAG;
-  64   1          P11 = LED_SPEED_R_INDICATOR_FLAG;
-  65   1          */
-  66   1          ++over_voltage_flash_count;
-  67   1        /*
-  68   1          if(read_over_voltage_flag() == 1){      
-  69   1              if(++over_voltage_flash_count>=250)
-  70   1              { 
-  71   1                over_voltage_flash_count = 0;
-  72   1                LED_OVER_VOLTAGE_FLASH_FLAG = ~LED_OVER_VOLTAGE_FLASH_FLAG;         
-  73   1              }
-  74   1          }
-  75   1        */
-  76   1          if(1 == LED_SWITCH_FLAG)
-  77   1        {
-  78   2          LED_SWITCH_FLAG = 0;
-  79   2          //P1 |= 0x1e;
-  80   2          P04 = 1;//led_com1 = 1;
-  81   2          P05 = 1;//led_com2 = 1;
-  82   2          //P13 = LED_POWER_R_INDICATOR_FLAG;
-  83   2          if(read_over_voltage_flag() == 1){
-  84   3              if(over_voltage_flash_count >= 250)
-  85   3              { 
-  86   4                over_voltage_flash_count = 0;
-  87   4                LED_OVER_VOLTAGE_FLASH_FLAG = ~LED_OVER_VOLTAGE_FLASH_FLAG;         
-  88   4              }
-  89   3              if(LED_ON == LED_OVER_VOLTAGE_FLASH_FLAG){ led_on(3);}
-  90   3              else {led_off(3);}
-  91   3          }
-  92   2          else
-  93   2          {
-  94   3            if(LED_ON == LED_POWER_R_INDICATOR_FLAG){ led_on(3);}
-  95   3            else {led_off(3);}
-  96   3          }
-  97   2          if(LED_ON == LED_POWER_W_INDICATOR_FLAG){ led_on(4);}
-  98   2            else {led_off(4);}
-  99   2          //P14 = LED_POWER_W_INDICATOR_FLAG;
- 100   2          P12 = LED_SPEED_W_INDICATOR_FLAG;
- 101   2          P11 = LED_SPEED_R_INDICATOR_FLAG;
- 102   2          P04 = 0;
- 103   2        }
- 104   1        else
- 105   1        {
- 106   2          LED_SWITCH_FLAG = 1;
- 107   2          //P1 |= 0x1e;
- 108   2          P04 = 1;//led_com1 = 1;
- 109   2          P05 = 1;//led_com2 = 1;
- 110   2          //P13 = LED_NIGHT_LIGHT_INDICATOR_FLAG;
- 111   2          if(LED_ON == LED_NIGHT_LIGHT_INDICATOR_FLAG){ led_on(4);}
- 112   2            else {led_off(4);}
- 113   2          if(LED_ON == LED_SLEEP_INDICATOR_FLAG){ led_on(3);}
- 114   2            else {led_off(3);}
- 115   2          //P14 = LED_SLEEP_INDICATOR_FLAG;
- 116   2          P12 = LED_OFF;
-C51 COMPILER V9.52.0.0   LED                                                               09/30/2019 22:52:25 PAGE 3   
-
- 117   2          P11 = LED_OFF;
- 118   2          P05 = 0;    
- 119   2          //P0CON 
- 120   2        }
- 121   1      }
- 122          
- 123          void led_on(unsigned char pin)
- 124          {
- 125   1        //P1CON |= (1<<pin);
- 126   1        //P1PH  &= ~(1<<pin);
- 127   1        P1 &= ~(1<<pin);
- 128   1      }
- 129          
- 130          void led_off(unsigned char pin)
- 131          {
- 132   1        //P1CON &= ~(1<<pin);
- 133   1        //P1PH  |= (1<<pin);
- 134   1        P1 |= (1<<pin);
- 135   1      }
- 136          
- 137          void led_filter_out_time(void)
- 138          {
- 139   1        LED_SPEED_R_INDICATOR_FLAG = ~LED_SPEED_R_INDICATOR_FLAG;
- 140   1      }
- 141          
- 142          void reset_led_flter_out_time(void)
- 143          {
- 144   1        LED_SPEED_R_INDICATOR_FLAG = LED_OFF;
- 145   1      }
- 146          
- 147          void led_key_speed(void)
- 148          //按下speed键的显示
- 149          {
- 150   1        unsigned char speed_temp;
- 151   1        speed_temp = read_fan_speed();
- 152   1        switch(speed_temp)
- 153   1        {
- 154   2          case 0:  //静音
- 155   2            LED_POWER_W_INDICATOR_FLAG = LED_OFF;
- 156   2            LED_SPEED_W_INDICATOR_FLAG = LED_OFF;
- 157   2            LED_SLEEP_INDICATOR_FLAG   = LED_ON;
- 158   2            LED_NIGHT_LIGHT_INDICATOR_FLAG = LED_OFF;  
- 159   2          break;
- 160   2          case 1:  //低速
- 161   2            LED_POWER_R_INDICATOR_FLAG = LED_OFF;
- 162   2            LED_POWER_W_INDICATOR_FLAG = LED_ON;
- 163   2            LED_SPEED_W_INDICATOR_FLAG = LED_OFF;
- 164   2            LED_SLEEP_INDICATOR_FLAG   = LED_OFF;
- 165   2          break;
- 166   2          case 2:  //高速
- 167   2            LED_POWER_W_INDICATOR_FLAG = LED_ON;
- 168   2            LED_SPEED_W_INDICATOR_FLAG = LED_ON;
- 169   2            LED_SLEEP_INDICATOR_FLAG   = LED_OFF;
- 170   2          break;
- 171   2        }
- 172   1      }
- 173          
- 174          
- 175          void set_night_light_level(unsigned char level)
- 176          {
- 177   1        night_light_level = level;
- 178   1      }
-C51 COMPILER V9.52.0.0   LED                                                               09/30/2019 22:52:25 PAGE 4   
-
- 179          
- 180          void night_light_level_handle(void)
- 181          {
- 182   1        if(++night_light_level>3) night_light_level = 0;
- 183   1      }
- 184          
- 185          unsigned char read_night_light_level(void)
- 186          {
- 187   1        return night_light_level;
- 188   1      }
- 189          
- 190          void night_light_task(void)
- 191          //1ms调用一次
- 192          {
- 193   1        static unsigned char night_light_count;
- 194   1        if(++night_light_count>=8) night_light_count = 0;
- 195   1        switch(night_light_level)
- 196   1        {
- 197   2          case 1:
- 198   2            if(night_light_count<1) NIGHT_LIGHT_PIN = 1;
- 199   2            else NIGHT_LIGHT_PIN = 0;
- 200   2          break;
- 201   2          case 2:
- 202   2            if(night_light_count<4) NIGHT_LIGHT_PIN = 1;
- 203   2            else NIGHT_LIGHT_PIN = 0;
- 204   2          break;
- 205   2          case 3:
- 206   2            NIGHT_LIGHT_PIN = 1;
- 207   2          break;
- 208   2          default:
- 209   2            NIGHT_LIGHT_PIN = 0;
- 210   2          break;  
- 211   2        }
- 212   1        
- 213   1      }
- 214          
- 215          void led_power_off(void)
- 216          //关机显示
- 217          {
- 218   1        LED_POWER_W_INDICATOR_FLAG = LED_OFF;
- 219   1        LED_POWER_R_INDICATOR_FLAG = LED_ON;
- 220   1        LED_SPEED_R_INDICATOR_FLAG = LED_OFF;
- 221   1        LED_SPEED_W_INDICATOR_FLAG = LED_OFF;
- 222   1        LED_SLEEP_INDICATOR_FLAG   = LED_OFF;
- 223   1        LED_NIGHT_LIGHT_INDICATOR_FLAG   = LED_OFF;
- 224   1      }
- 225          
- 226          void led_power_on(void)
- 227          //开机显示
- 228          {
- 229   1        LED_POWER_W_INDICATOR_FLAG = LED_ON;
- 230   1        LED_POWER_R_INDICATOR_FLAG = LED_OFF;
- 231   1        LED_SPEED_R_INDICATOR_FLAG = LED_OFF;
- 232   1        LED_SPEED_W_INDICATOR_FLAG = LED_OFF;
- 233   1        LED_SLEEP_INDICATOR_FLAG   = LED_OFF;
- 234   1        LED_NIGHT_LIGHT_INDICATOR_FLAG   = LED_OFF;
- 235   1      }
- 236          
- 237          void led_key_sleep(void)
- 238          {
- 239   1        LED_POWER_W_INDICATOR_FLAG = LED_OFF;
- 240   1        LED_POWER_R_INDICATOR_FLAG = LED_OFF;
-C51 COMPILER V9.52.0.0   LED                                                               09/30/2019 22:52:25 PAGE 5   
-
- 241   1        LED_SPEED_R_INDICATOR_FLAG = LED_OFF;
- 242   1        LED_SPEED_W_INDICATOR_FLAG = LED_OFF;
- 243   1        LED_SLEEP_INDICATOR_FLAG   = LED_ON;
- 244   1        LED_NIGHT_LIGHT_INDICATOR_FLAG   = LED_OFF;
- 245   1      }
- 246          
- 247          void led_key_night_light(void)
- 248          {
- 249   1        if(read_night_light_level() == 0) LED_NIGHT_LIGHT_INDICATOR_FLAG   = LED_OFF;
- 250   1        else LED_NIGHT_LIGHT_INDICATOR_FLAG  = LED_ON;
- 251   1      }
- 252          
- 253          
+  55   1      }
+  56          
+  57          void led_task(void)
+  58          //1ms调用一次
+  59          {
+  60   1          
+  61   1      }
+  62          
+  63          
+  64          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    475    ----
+   CODE SIZE        =     64    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      5    ----
+   DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

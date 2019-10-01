@@ -4,7 +4,7 @@
  * eeprom.c
  */
 
-#include "SC92F837X_C.h"
+#include "SC92F844X_C.h"
 #include "intrins.h"
 #include "eeprom.h"
 

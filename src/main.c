@@ -68,7 +68,6 @@ void timer0()interrupt 1
 	TL0 = (8192-1000)%32;	
 	TimerFlag_1ms = 1;	
 	led_task();
-	night_light_task();
 }
  /**************************************************
 *函数名称：void  Sys_Init(void) 
@@ -80,18 +79,9 @@ void  Sys_Init(void)
 {	
 	WDTCON  = 0x10;				    //1--1 -- 00    开WDT,WDT清0,WDT 524.288ms溢出;烧录时，可Code Option选择ENWDT
 	//TK对应的IO设置为强推挽输出1
-	P0CON = 0xFF;
-	P0PH  = 0x40;	
-	P1CON = 0xFF;
-	P1PH  = 0x1f;
 	
-	P2CON = 0xFE;  //P2.4(night light), P2.5(sleep), P2.6(speed), P2.7(power)是触摸脚 
-	P2PH  = 0xF1;  //P2.0是输入脚, 电压超过15V时是高电平, 正常工作时是低电平,
-
-	P0 = 0xFF;
-	P1 = 0xFF;
-	P2 = 0xFF;
-		   
+	P1CON |= (1<<0) | (1<<4) | (1<<5);                //P10, P14, P15是触摸脚
+	P3CON |= (1<<0) | (1<<1) | (1<<20);
 	led_init();
 	EA = 1;						//开总中断	
     TimerInit(); 				//定时器初始化

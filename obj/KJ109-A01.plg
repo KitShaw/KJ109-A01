@@ -266,3 +266,113 @@ creating hex file from ".\obj\KJ109-A01"...
 ".\obj\KJ109-A01" - 0 Error(s), 4 Warning(s).
 Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
 仿真器已连接.
+擦除成功!
+Flash Write Done: 5585 bytes programmed.
+CheckSum = 0x62e7
+Flash Verify Done: 5588 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+src\main.c(85): error C141: syntax error near ';'
+Target not created
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+Program Size: data=77.6 xdata=108 code=5317
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 4 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5564 bytes programmed.
+CheckSum = 0x00ec
+Flash Verify Done: 5564 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(110): warning C206: 'led_power_on': missing function-prototype
+src\fan.c(118): warning C206: 'set_night_light_level': missing function-prototype
+src\fan.c(118): error C267: 'set_night_light_level': requires ANSI-style prototype
+src\fan.c(119): error C202: 'NIGHT_LIGHT_PIN': undefined identifier
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+src\filter.c(128): warning C206: 'reset_led_flter_out_time': missing function-prototype
+compiling key.c...
+src\key.c(141): warning C206: 'night_light_level_handle': missing function-prototype
+src\key.c(142): warning C206: 'led_key_night_light': missing function-prototype
+src\key.c(151): warning C206: 'led_key_speed': missing function-prototype
+src\key.c(166): warning C206: 'set_night_light_level': missing function-prototype
+src\key.c(166): error C267: 'set_night_light_level': requires ANSI-style prototype
+compiling led.c...
+compiling main.c...
+src\main.c(71): warning C206: 'night_light_task': missing function-prototype
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(110): warning C206: 'led_power_on': missing function-prototype
+src\fan.c(118): warning C206: 'set_night_light_level': missing function-prototype
+src\fan.c(118): error C267: 'set_night_light_level': requires ANSI-style prototype
+src\fan.c(119): error C202: 'NIGHT_LIGHT_PIN': undefined identifier
+compiling key.c...
+src\key.c(140): warning C206: 'night_light_level_handle': missing function-prototype
+src\key.c(165): warning C206: 'set_night_light_level': missing function-prototype
+src\key.c(165): error C267: 'set_night_light_level': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(118): warning C206: 'set_night_light_level': missing function-prototype
+src\fan.c(118): error C267: 'set_night_light_level': requires ANSI-style prototype
+src\fan.c(119): error C202: 'NIGHT_LIGHT_PIN': undefined identifier
+compiling key.c...
+src\key.c(140): warning C206: 'night_light_level_handle': missing function-prototype
+src\key.c(165): warning C206: 'set_night_light_level': missing function-prototype
+src\key.c(165): error C267: 'set_night_light_level': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(119): error C202: 'NIGHT_LIGHT_PIN': undefined identifier
+compiling key.c...
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 0D78H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 109DH
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  NIGHT_LIGHT_TASK
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  NIGHT_LIGHT_TASK
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 1011H
+Program Size: data=72.6 xdata=108 code=4823
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).

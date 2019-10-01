@@ -9,7 +9,7 @@
 #include "led.h"
 #include "data_type.h"
 #include "fan.h"
-#include "sc92f837x_c.h"
+#include "sc92f844x_c.h"
 //#include "IAP.h"
 
 

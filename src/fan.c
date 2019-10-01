@@ -4,7 +4,7 @@
  *motor.c
  */
  
-#include "SC92F837X_C.h"
+#include "SC92F844X_C.h"
 #include "led.h"
 #include "fan.h"
 #include "filter.h"
@@ -49,19 +49,7 @@ unsigned char read_power_status(void)
 
 void fan_init(void)
 {
-	P0PH &= 0xfe;  //关闭P00的上拉
-	P00 = 0;
-	P0CON |= 0x01;  //P00输出模式
-	PWMCFG &= 0x1e; // 时钟FSys/2 PWM输出不反向
-	PWMCFG |= 0x60;   //Fsys/8
-	PWMCON |= 0x01; //PWM信号输出到P00;
-	PWMPRD  = 59;	    //PWM??=(59+1)*(1/Fosc)
-	P2PH &= 0xfd;
-	P21 = 0;
-	P2CON |= 0x02; //p21输出模式
 	
-	fan_pwm_start();
-	fan_speed = 1;	
 }
 
 
@@ -81,19 +69,7 @@ void fan_pwm_stop(void)
 
 void set_fan_speed(unsigned char speed)
 {
-	fan_speed = speed;
-	switch(fan_speed)
-	{
-		case 0:
-			PWMDTY0 = 18;		//
-		break;
-		case 1:
-			PWMDTY0 = 30;		//PWM0?Duty = 50/100 =1/2
-		break;
-		case 2:
-			PWMDTY0 = 56;		//PWM0?Duty = 50/100 =1/2
-		break;
-	}
+	
 }
 
 unsigned char read_fan_speed(void)
@@ -107,7 +83,6 @@ void power_on(void)
 	FAN_POWER_PIN = 1;
 	fan_pwm_start();
 	set_fan_speed(1);
-	led_power_on();
 	ion_on();
 }
 
@@ -115,11 +90,8 @@ void power_off(void)
 {
 	
 	power_status = POWER_OFF_STATUS;	
-	set_night_light_level(0);
-	NIGHT_LIGHT_PIN = 0;
 	FAN_POWER_PIN = 0;
 	fan_pwm_stop();
-	led_power_off();
 	ion_off();
 }
 

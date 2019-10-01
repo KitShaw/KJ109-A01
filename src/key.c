@@ -66,8 +66,7 @@ void key_task(void)
 			if(++key_power_count >= 50)
 			{
 				KEY_POWER_FLAG = 1;
-				key_power_com();
-				P51 = ~P51;
+				key_power_com();				
 			}
 		}
 	}
@@ -138,8 +137,8 @@ void key_task(void)
 
 void key_night_light_com(void)
 {
-	night_light_level_handle();
-	led_key_night_light();
+	//night_light_level_handle();
+	
 }
 
 
@@ -148,7 +147,7 @@ void key_speed_com(void)
 	if(2 == read_fan_speed())set_fan_speed(1);
 	else set_fan_speed(2);
 	//if(flash_write_byte(10, 10) == 1)
-	led_key_speed();
+	//led_key_speed();
 }
 
 void key_speed_long_com(void)
@@ -163,13 +162,13 @@ void key_sleep_com(void)
 	if(read_fan_speed() != 0) 
 	{
 		set_fan_speed(0);
-		set_night_light_level(0);
-		led_key_sleep();
+		//set_night_light_level(0);
+		//led_key_sleep();
 	}
 	else 
 	{
 		set_fan_speed(1);
-		led_key_speed();
+		//led_key_speed();
 	}
 	
 }
