@@ -17,6 +17,8 @@
 #include "filter.h"
 //#include "IAP.h"
 #include "ion.h"
+#include "dust.h"
+//#include "display.h"
 
 // KJ60F-A3是SC92F8372单片机加自己的板子, 和原样的板子相比改了,LED改成6个口各单独控制一个LED, 
 
@@ -66,8 +68,7 @@ void timer0()interrupt 1
 {
 	TH0 = (8192-1000)/32;       			//2000*1/4us=500us
 	TL0 = (8192-1000)%32;	
-	TimerFlag_1ms = 1;	
-	led_task();
+	TimerFlag_1ms = 1;		
 }
  /**************************************************
 *函数名称：void  Sys_Init(void) 
@@ -83,9 +84,12 @@ void  Sys_Init(void)
 	P1CON |= (1<<0) | (1<<4) | (1<<5);                //P10, P14, P15是触摸脚
 	P3CON |= (1<<0) | (1<<1) | (1<<20);
 	led_init();
+	//display_init();
+	dust_init();
 	EA = 1;						//开总中断	
     TimerInit(); 				//定时器初始化
-	
+	fan_init();
+	ion_init();
 	power_off();
 }
 
@@ -93,7 +97,7 @@ void task_100ms(void)
 {
 	if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
 	filter_task();
-	
+	dust_task();
 }
 
 void task_1s(void)
@@ -115,9 +119,9 @@ void main(void)
 	//触控按键初始化
 	TouchKeyInit();	
 	//fan_init();
-	//eeprom_init();
+	eeprom_init();
 
-	//filter_init();
+	filter_init();
 	//ion_init();
 	
 	while(1)
@@ -131,11 +135,12 @@ void main(void)
 			if(Timercount>10)
 			{
 				Timercount=0;
-				Sys_Scan();				
+				Sys_Scan();		
+				led_task();
 			}
 				key_task();						
 	   }
-	   over_voltage_handle();  	
+	   //over_voltage_handle();  	
 			if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
 			if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
 	} 

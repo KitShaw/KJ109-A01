@@ -12,19 +12,25 @@
 #include "led.h"
 #include "eeprom.h"
 #include "filter.h"
+#include "ion.h"
 //#include "IAP.h"
 
 
 bitval key_flag;
 
 #define KEY_POWER_FLAG	key_flag.bit0
-#define KEY_SPEED_FLAG	key_flag.bit1
-#define KEY_SLEEP_FLAG	key_flag.bit2
-#define KEY_NIGHT_LIGHT_FLAG	key_flag.bit3
+#define KEY_AROM_FLAG	key_flag.bit1   
+#define KEY_SPEED_FLAG	key_flag.bit2
+#define KEY_LOCK_FLAG	key_flag.bit3
+#define KEY_ION_FLAG key_flag.bit4
+#define KEY_TIMER_FLAG key_flag.bit5
 unsigned char key_power_count;
 unsigned short key_speed_count;
-unsigned char key_sleep_count;
-unsigned char key_night_light_count;
+unsigned char key_lock_count;
+unsigned char key_ion_count;
+unsigned char key_timer_count;
+unsigned char key_arom_count;
+
 
 INT32U exKeyValueFlag = 0;		//当前轮按键标志
 
@@ -57,8 +63,6 @@ void Sys_Scan(void)
 void key_task(void)       
 //按键任务, 1ms调用一次
 {	
-	
-	//if(read_over_voltage_flag() == 1) return;  //电压超过按键不处理直接返回
 	if((exKeyValueFlag & 0x0000031e0) == 0x000000100)//电源键  //灵敏度不够
 	{
 		if(0 == KEY_POWER_FLAG)
@@ -76,26 +80,11 @@ void key_task(void)
 		key_power_count = 0;
 	}
 	
-	if((exKeyValueFlag & 0x000000f00) == 0x000000100)//夜灯键 
-	{
-		if(0 == KEY_NIGHT_LIGHT_FLAG)
-		{
-			if(++key_night_light_count >= 50)
-			{
-				KEY_NIGHT_LIGHT_FLAG = 1;
-				key_night_light_com();
-			}
-		}
-	}
-	else 
-	{
-		KEY_NIGHT_LIGHT_FLAG = 0;
-		key_night_light_count = 0;
-	}
 	
-	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
 	
-	if((exKeyValueFlag & 0x000000f00) == 0x000000400)//风速键 
+//	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
+	
+	if((exKeyValueFlag & 0x0000031e0) == 0x000000080)//风速键 
 	{
 		if(0 == KEY_SPEED_FLAG)
 		{
@@ -108,7 +97,7 @@ void key_task(void)
 	}
 	else 
 	{
-		if((key_speed_count>50) && (key_speed_count< 5000))
+		if((key_speed_count>5) && (key_speed_count< 5000))
 		{
 			key_speed_com();
 		}
@@ -116,68 +105,129 @@ void key_task(void)
 		key_speed_count = 0;
 	}
 	
-	if((exKeyValueFlag & 0x000000f00) == 0x000000200)//睡眠键 
+	if((exKeyValueFlag & 0x0000031e0) == 0x000001000)//ion
 	{
-		if(0 == KEY_SLEEP_FLAG)
+		if(0 == KEY_ION_FLAG)
 		{
-			if(++key_sleep_count >= 50)
+			if(++key_ion_count >= 10)
 			{
-				KEY_SLEEP_FLAG = 1;
-				key_sleep_com();
+				KEY_ION_FLAG = 1;
+				key_ion_com();				
 			}
 		}
 	}
 	else 
 	{
-		KEY_SLEEP_FLAG = 0;
-		key_sleep_count = 0;
+		KEY_ION_FLAG = 0;
+		key_ion_count = 0;
+	}
+	
+	if((exKeyValueFlag & 0x0000031e0) == 0x000002000)//arom
+	{
+		if(0 == KEY_AROM_FLAG)
+		{
+			if(++key_arom_count >= 10)
+			{
+				KEY_AROM_FLAG = 1;
+				key_arom_com();				
+			}
+		}
+	}
+	else 
+	{
+		KEY_AROM_FLAG = 0;
+		key_arom_count = 0;
 	}
 		
+	if((exKeyValueFlag & 0x0000031e0) == 0x000000040)//
+	{
+		if(0 == KEY_LOCK_FLAG)
+		{
+			if(++key_lock_count >= 10)
+			{
+				KEY_LOCK_FLAG = 1;
+				key_lock_com();				
+			}
+		}
+	}
+	else 
+	{
+		KEY_LOCK_FLAG = 0;
+		key_lock_count = 0;
+	}
+	if((exKeyValueFlag & 0x0000031e0) == 0x000000020)//
+	{
+		if(0 == KEY_TIMER_FLAG)
+		{
+			if(++key_timer_count >= 10)
+			{
+				KEY_TIMER_FLAG = 1;
+				key_timer_com();				
+			}
+		}
+	}
+	else 
+	{
+		KEY_TIMER_FLAG = 0;
+		key_timer_count = 0;
+	}
 }
 
-void key_night_light_com(void)
+void key_ion_com(void)
 {
-	//night_light_level_handle();
-	
+	ION_PIN = !ION_PIN;
 }
 
+void key_timer_com(void)
+{
+	P50 = ~P50;
+}
+
+void key_arom_com(void)
+{
+	P51 = ~P51;
+}
+
+void key_lock_com(void)
+{
+	P52 = ~P52;
+}
 
 void key_speed_com(void)
 {
-	if(2 == read_fan_speed())set_fan_speed(1);
-	else set_fan_speed(2);
-	//if(flash_write_byte(10, 10) == 1)
-	//led_key_speed();
+	regulate_fan_speed();
 }
 
 void key_speed_long_com(void)
 //长按风速键清楚滤网寿命
 {
 	reset_filter_time();
+	P51 = ~P51;
 }
 
-void key_sleep_com(void)
-{	
-	P50 = ~P50;
-	if(read_fan_speed() != 0) 
-	{
-		set_fan_speed(0);
-		//set_night_light_level(0);
-		//led_key_sleep();
-	}
-	else 
-	{
-		set_fan_speed(1);
-		//led_key_speed();
-	}
-	
-}
+//void key_sleep_com(void)
+//{	
+//	P50 = ~P50;
+//	if(read_fan_speed() != 0) 
+//	{
+/////		set_fan_speed(0);
+//		//set_night_light_level(0);
+//		//led_key_sleep();
+//	}
+//	else 
+//	{
+////		set_fan_speed(1);
+//		//led_key_speed();
+//	}
+//	
+//}
 
 
 
 void key_power_com(void)
 {
 	//unsigned long filter_time_temp;
+	P50 = ~P50;
 	if(POWER_ON_STATUS == read_power_status())
 	{
 		power_off();

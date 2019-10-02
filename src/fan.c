@@ -1,7 +1,9 @@
 
 
 /*
- *motor.c
+ *fan.c
+ *Kit Shaw
+ * 2019.10.2
  */
  
 #include "SC92F844X_C.h"
@@ -12,29 +14,7 @@
 #include "ion.H"
 
 unsigned char power_status;
-unsigned char fan_speed;  // 1低档, 2高档, 0静音
-bit over_voltage_flag;   //1电压超高, 0正常
-
-void set_over_voltage_flag(bit flag)
-{
-	over_voltage_flag = flag;
-}
-
-bit read_over_voltage_flag(void)
-{
-	return over_voltage_flag;
-}
-
-void over_voltage_handle(void)
-//电压超过15V.3就关机, 并且电源的红灯闪烁
-{
-	if(1 == OVER_VOLTAGE_PIN) 
-	{
-		set_over_voltage_flag(1);
-		power_off();
-	}
-	else set_over_voltage_flag(0);
-}
+unsigned char fan_speed;  // 0智能, 1静音, 2中, 3高
 
 /*
 void set_power_status(unsigned char sta)
@@ -49,7 +29,7 @@ unsigned char read_power_status(void)
 
 void fan_init(void)
 {
-	
+	fan_speed = FAN_SPEED_AUTO;
 }
 
 
@@ -66,10 +46,17 @@ void fan_pwm_stop(void)
 }
 
 
-
+/*
 void set_fan_speed(unsigned char speed)
 {
 	
+}
+*/
+void regulate_fan_speed(void)
+//调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
+{
+	if(++fan_speed> FAN_SPEED_HIGH) fan_speed = FAN_SPEED_AUTO;
+	//led_display_mode();
 }
 
 unsigned char read_fan_speed(void)
@@ -82,7 +69,7 @@ void power_on(void)
 	power_status = POWER_ON_STATUS;
 	FAN_POWER_PIN = 1;
 	fan_pwm_start();
-	set_fan_speed(1);
+//	set_fan_speed(1);
 	ion_on();
 }
 

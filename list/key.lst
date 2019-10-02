@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   KEY                                                               10/01/2019 16:08:22 PAGE 1   
+C51 COMPILER V9.52.0.0   KEY                                                               10/02/2019 18:03:29 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE KEY
@@ -22,206 +22,258 @@ line level    source
   12          #include "led.h"
   13          #include "eeprom.h"
   14          #include "filter.h"
-  15          //#include "IAP.h"
-  16          
+  15          #include "ion.h"
+  16          //#include "IAP.h"
   17          
-  18          bitval key_flag;
-  19          
-  20          #define KEY_POWER_FLAG  key_flag.bit0
-  21          #define KEY_SPEED_FLAG  key_flag.bit1
-  22          #define KEY_SLEEP_FLAG  key_flag.bit2
-  23          #define KEY_NIGHT_LIGHT_FLAG  key_flag.bit3
-  24          unsigned char key_power_count;
-  25          unsigned short key_speed_count;
-  26          unsigned char key_sleep_count;
-  27          unsigned char key_night_light_count;
-  28          
-  29          INT32U exKeyValueFlag = 0;    //当前轮按键标志
-  30          
-  31          
-  32          /**************************************************
-  33          *函数名称：void  Sys_Scan(void) 
-  34          *函数功能：扫描TK和显示
-  35          *入口参数：void
-  36          *出口参数：void  
-  37          **************************************************/
-  38          void Sys_Scan(void)
-  39          {             
-  40   1        if(SOCAPI_TouchKeyStatus&0x80)      //重要步骤2:  触摸键扫描一轮标志，是否调用TouchKeyScan()一定要根据此标
+  18          
+  19          bitval key_flag;
+  20          
+  21          #define KEY_POWER_FLAG  key_flag.bit0
+  22          #define KEY_AROM_FLAG key_flag.bit1   
+  23          #define KEY_SPEED_FLAG  key_flag.bit2
+  24          #define KEY_LOCK_FLAG key_flag.bit3
+  25          #define KEY_ION_FLAG key_flag.bit4
+  26          #define KEY_TIMER_FLAG key_flag.bit5
+  27          unsigned char key_power_count;
+  28          unsigned short key_speed_count;
+  29          unsigned char key_lock_count;
+  30          unsigned char key_ion_count;
+  31          unsigned char key_timer_count;
+  32          unsigned char key_arom_count;
+  33          
+  34          
+  35          INT32U exKeyValueFlag = 0;    //当前轮按键标志
+  36          
+  37          
+  38          /**************************************************
+  39          *函数名称：void  Sys_Scan(void) 
+  40          *函数功能：扫描TK和显示
+  41          *入口参数：void
+  42          *出口参数：void  
+  43          **************************************************/
+  44          void Sys_Scan(void)
+  45          {             
+  46   1        if(SOCAPI_TouchKeyStatus&0x80)      //重要步骤2:  触摸键扫描一轮标志，是否调用TouchKeyScan()一定要根据此标
              -志位置起后
-  41   1         {                                      
-  42   2          SOCAPI_TouchKeyStatus &= 0x7f;  //重要步骤3: 清除标志位， 需要外部清除。                              
-  43   2          exKeyValueFlag = TouchKeyScan();//按键数据处理函数    电源键是0x0800, 风速键是0x0400, 睡眠键是0x0200
-  44   2          TouchKeyRestart();        //启动下一轮转换                                                                  
-  45   2        }          
-  46   1      }
-  47          
-  48          
-  49          //0x0100--power
-  50          //0x2000--香薰
-  51          //0x1000--ion
-  52          //0x0080--模式
-  53          //0x0040--童锁
-C51 COMPILER V9.52.0.0   KEY                                                               10/01/2019 16:08:22 PAGE 2   
+  47   1         {                                      
+  48   2          SOCAPI_TouchKeyStatus &= 0x7f;  //重要步骤3: 清除标志位， 需要外部清除。                              
+  49   2          exKeyValueFlag = TouchKeyScan();//按键数据处理函数    电源键是0x0800, 风速键是0x0400, 睡眠键是0x0200
+  50   2          TouchKeyRestart();        //启动下一轮转换                                                                  
+  51   2        }          
+  52   1      }
+  53          
+C51 COMPILER V9.52.0.0   KEY                                                               10/02/2019 18:03:29 PAGE 2   
 
-  54          //0x0020--timer
-  55          //0x31e0
-  56          
-  57          void key_task(void)       
-  58          //按键任务, 1ms调用一次
-  59          { 
-  60   1        
-  61   1        //if(read_over_voltage_flag() == 1) return;  //电压超过按键不处理直接返回
-  62   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000100)//电源键  //灵敏度不够
-  63   1        {
-  64   2          if(0 == KEY_POWER_FLAG)
-  65   2          {
-  66   3            if(++key_power_count >= 50)
-  67   3            {
-  68   4              KEY_POWER_FLAG = 1;
-  69   4              key_power_com();        
-  70   4            }
-  71   3          }
-  72   2        }
-  73   1        else 
-  74   1        {
-  75   2          KEY_POWER_FLAG = 0;
-  76   2          key_power_count = 0;
-  77   2        }
-  78   1        
-  79   1        if((exKeyValueFlag & 0x000000f00) == 0x000000100)//夜灯键 
-  80   1        {
-  81   2          if(0 == KEY_NIGHT_LIGHT_FLAG)
-  82   2          {
-  83   3            if(++key_night_light_count >= 50)
-  84   3            {
-  85   4              KEY_NIGHT_LIGHT_FLAG = 1;
-  86   4              key_night_light_com();
-  87   4            }
-  88   3          }
-  89   2        }
-  90   1        else 
-  91   1        {
-  92   2          KEY_NIGHT_LIGHT_FLAG = 0;
-  93   2          key_night_light_count = 0;
-  94   2        }
-  95   1        
-  96   1        if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
-  97   1        
-  98   1        if((exKeyValueFlag & 0x000000f00) == 0x000000400)//风速键 
+  54          
+  55          //0x0100--power
+  56          //0x2000--香薰
+  57          //0x1000--ion
+  58          //0x0080--模式
+  59          //0x0040--童锁
+  60          //0x0020--timer
+  61          //0x31e0
+  62          
+  63          void key_task(void)       
+  64          //按键任务, 1ms调用一次
+  65          { 
+  66   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000100)//电源键  //灵敏度不够
+  67   1        {
+  68   2          if(0 == KEY_POWER_FLAG)
+  69   2          {
+  70   3            if(++key_power_count >= 50)
+  71   3            {
+  72   4              KEY_POWER_FLAG = 1;
+  73   4              key_power_com();        
+  74   4            }
+  75   3          }
+  76   2        }
+  77   1        else 
+  78   1        {
+  79   2          KEY_POWER_FLAG = 0;
+  80   2          key_power_count = 0;
+  81   2        }
+  82   1        
+  83   1        
+  84   1        
+  85   1      //  if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
+  86   1        
+  87   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000080)//风速键 
+  88   1        {
+  89   2          if(0 == KEY_SPEED_FLAG)
+  90   2          {
+  91   3            if(++key_speed_count >= 5000)
+  92   3            {
+  93   4              KEY_SPEED_FLAG = 1;
+  94   4              key_speed_long_com();
+  95   4            }
+  96   3          }
+  97   2        }
+  98   1        else 
   99   1        {
- 100   2          if(0 == KEY_SPEED_FLAG)
+ 100   2          if((key_speed_count>5) && (key_speed_count< 5000))
  101   2          {
- 102   3            if(++key_speed_count >= 5000)
- 103   3            {
- 104   4              KEY_SPEED_FLAG = 1;
- 105   4              key_speed_long_com();
- 106   4            }
- 107   3          }
- 108   2        }
- 109   1        else 
- 110   1        {
- 111   2          if((key_speed_count>50) && (key_speed_count< 5000))
- 112   2          {
- 113   3            key_speed_com();
- 114   3          }
- 115   2          KEY_SPEED_FLAG = 0;
-C51 COMPILER V9.52.0.0   KEY                                                               10/01/2019 16:08:22 PAGE 3   
+ 102   3            key_speed_com();
+ 103   3          }
+ 104   2          KEY_SPEED_FLAG = 0;
+ 105   2          key_speed_count = 0;
+ 106   2        }
+ 107   1        
+ 108   1        if((exKeyValueFlag & 0x0000031e0) == 0x000001000)//ion
+ 109   1        {
+ 110   2          if(0 == KEY_ION_FLAG)
+ 111   2          {
+ 112   3            if(++key_ion_count >= 10)
+ 113   3            {
+ 114   4              KEY_ION_FLAG = 1;
+ 115   4              key_ion_com();        
+C51 COMPILER V9.52.0.0   KEY                                                               10/02/2019 18:03:29 PAGE 3   
 
- 116   2          key_speed_count = 0;
- 117   2        }
- 118   1        
- 119   1        if((exKeyValueFlag & 0x000000f00) == 0x000000200)//睡眠键 
+ 116   4            }
+ 117   3          }
+ 118   2        }
+ 119   1        else 
  120   1        {
- 121   2          if(0 == KEY_SLEEP_FLAG)
- 122   2          {
- 123   3            if(++key_sleep_count >= 50)
- 124   3            {
- 125   4              KEY_SLEEP_FLAG = 1;
- 126   4              key_sleep_com();
- 127   4            }
- 128   3          }
- 129   2        }
- 130   1        else 
- 131   1        {
- 132   2          KEY_SLEEP_FLAG = 0;
- 133   2          key_sleep_count = 0;
- 134   2        }
- 135   1          
- 136   1      }
- 137          
- 138          void key_night_light_com(void)
- 139          {
- 140   1        //night_light_level_handle();
- 141   1        
- 142   1      }
- 143          
- 144          
- 145          void key_speed_com(void)
- 146          {
- 147   1        if(2 == read_fan_speed())set_fan_speed(1);
- 148   1        else set_fan_speed(2);
- 149   1        //if(flash_write_byte(10, 10) == 1)
- 150   1        //led_key_speed();
- 151   1      }
- 152          
- 153          void key_speed_long_com(void)
- 154          //长按风速键清楚滤网寿命
- 155          {
- 156   1        reset_filter_time();
- 157   1      }
- 158          
- 159          void key_sleep_com(void)
- 160          { 
- 161   1        P50 = ~P50;
- 162   1        if(read_fan_speed() != 0) 
- 163   1        {
- 164   2          set_fan_speed(0);
- 165   2          //set_night_light_level(0);
- 166   2          //led_key_sleep();
- 167   2        }
- 168   1        else 
- 169   1        {
- 170   2          set_fan_speed(1);
- 171   2          //led_key_speed();
- 172   2        }
- 173   1        
+ 121   2          KEY_ION_FLAG = 0;
+ 122   2          key_ion_count = 0;
+ 123   2        }
+ 124   1        
+ 125   1        if((exKeyValueFlag & 0x0000031e0) == 0x000002000)//arom
+ 126   1        {
+ 127   2          if(0 == KEY_AROM_FLAG)
+ 128   2          {
+ 129   3            if(++key_arom_count >= 10)
+ 130   3            {
+ 131   4              KEY_AROM_FLAG = 1;
+ 132   4              key_arom_com();       
+ 133   4            }
+ 134   3          }
+ 135   2        }
+ 136   1        else 
+ 137   1        {
+ 138   2          KEY_AROM_FLAG = 0;
+ 139   2          key_arom_count = 0;
+ 140   2        }
+ 141   1          
+ 142   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000040)//
+ 143   1        {
+ 144   2          if(0 == KEY_LOCK_FLAG)
+ 145   2          {
+ 146   3            if(++key_lock_count >= 10)
+ 147   3            {
+ 148   4              KEY_LOCK_FLAG = 1;
+ 149   4              key_lock_com();       
+ 150   4            }
+ 151   3          }
+ 152   2        }
+ 153   1        else 
+ 154   1        {
+ 155   2          KEY_LOCK_FLAG = 0;
+ 156   2          key_lock_count = 0;
+ 157   2        }
+ 158   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000020)//
+ 159   1        {
+ 160   2          if(0 == KEY_TIMER_FLAG)
+ 161   2          {
+ 162   3            if(++key_timer_count >= 10)
+ 163   3            {
+ 164   4              KEY_TIMER_FLAG = 1;
+ 165   4              key_timer_com();        
+ 166   4            }
+ 167   3          }
+ 168   2        }
+ 169   1        else 
+ 170   1        {
+ 171   2          KEY_TIMER_FLAG = 0;
+ 172   2          key_timer_count = 0;
+ 173   2        }
  174   1      }
  175          
- 176          
- 177          
-C51 COMPILER V9.52.0.0   KEY                                                               10/01/2019 16:08:22 PAGE 4   
+ 176          void key_ion_com(void)
+ 177          {
+C51 COMPILER V9.52.0.0   KEY                                                               10/02/2019 18:03:29 PAGE 4   
 
- 178          void key_power_com(void)
- 179          {
- 180   1        //unsigned long filter_time_temp;
- 181   1        if(POWER_ON_STATUS == read_power_status())
- 182   1        {
- 183   2          power_off();
- 184   2          //if((read_filter_time()) & 0x000000ff == 0) led_power_on();
- 185   2          
- 186   2          //filter_time_temp = read_filter_time();
- 187   2          //WDTCON  = 0x10;
- 188   2          //IAPWrite(0x0f,(unsigned char)(filter_time_temp & 0x000000ff),IapEPPROM); 
- 189   2          //IAPWrite(0x0f,0x20,IapEPPROM); 
- 190   2          //IAPWrite(0x0f,31,IapEPPROM); 
- 191   2          write_filter_time();
- 192   2        }
- 193   1        else
- 194   1        {
- 195   2          power_on();
- 196   2        }
- 197   1      }
- 198          
- 199          
+ 178   1        ION_PIN = !ION_PIN;
+ 179   1      }
+ 180          
+ 181          void key_timer_com(void)
+ 182          {
+ 183   1        P50 = ~P50;
+ 184   1      }
+ 185          
+ 186          void key_arom_com(void)
+ 187          {
+ 188   1        P51 = ~P51;
+ 189   1      }
+ 190          
+ 191          void key_lock_com(void)
+ 192          {
+ 193   1        P52 = ~P52;
+ 194   1      }
+ 195          
+ 196          void key_speed_com(void)
+ 197          {
+ 198   1        regulate_fan_speed();
+ 199   1      }
+ 200          
+ 201          void key_speed_long_com(void)
+ 202          //长按风速键清楚滤网寿命
+ 203          {
+ 204   1        reset_filter_time();
+ 205   1        P51 = ~P51;
+ 206   1      }
+ 207          
+ 208          //void key_sleep_com(void)
+ 209          //{ 
+ 210          //  P50 = ~P50;
+ 211          //  if(read_fan_speed() != 0) 
+ 212          //  {
+ 213          /////   set_fan_speed(0);
+ 214          //    //set_night_light_level(0);
+ 215          //    //led_key_sleep();
+ 216          //  }
+ 217          //  else 
+ 218          //  {
+ 219          ////    set_fan_speed(1);
+ 220          //    //led_key_speed();
+ 221          //  }
+ 222          //  
+ 223          //}
+ 224          
+ 225          
+ 226          
+ 227          void key_power_com(void)
+ 228          {
+ 229   1        //unsigned long filter_time_temp;
+ 230   1        P50 = ~P50;
+ 231   1        if(POWER_ON_STATUS == read_power_status())
+ 232   1        {
+ 233   2          power_off();
+ 234   2          //if((read_filter_time()) & 0x000000ff == 0) led_power_on();
+ 235   2          
+ 236   2          //filter_time_temp = read_filter_time();
+ 237   2          //WDTCON  = 0x10;
+ 238   2          //IAPWrite(0x0f,(unsigned char)(filter_time_temp & 0x000000ff),IapEPPROM); 
+ 239   2          //IAPWrite(0x0f,0x20,IapEPPROM); 
+C51 COMPILER V9.52.0.0   KEY                                                               10/02/2019 18:03:29 PAGE 5   
+
+ 240   2          //IAPWrite(0x0f,31,IapEPPROM); 
+ 241   2          write_filter_time();
+ 242   2        }
+ 243   1        else
+ 244   1        {
+ 245   2          power_on();
+ 246   2        }
+ 247   1      }
+ 248          
+ 249          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    321    ----
+   CODE SIZE        =    410    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     10    ----
+   DATA SIZE        =     12    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

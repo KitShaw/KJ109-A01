@@ -34,7 +34,7 @@ void filter_task(void)
 		if(++count2 >= 3)
 		{
 			count2 = 0;
-			led_filter_out_time();
+//			led_filter_out_time();
 		}
 	}
 	if(++count_1s >= 10) 
@@ -125,7 +125,7 @@ void reset_filter_time(void)
 	filter_time = 0;
 	filter_out_time_flag = 0;
 	
-	reset_led_flter_out_time();
+//	reset_led_flter_out_time();
 }
 
 

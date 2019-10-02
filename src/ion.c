@@ -9,18 +9,18 @@
 
 void ion_init(void)
 {
-	P0PH &= ~(1<<1);  //关闭P01的上拉
-	P01 = 0;
-	P0CON |= 1<<1;  //P01输出模式
+	P1PH &= ~(1<<7);  //关闭P17的上拉
+	P17 = 0;
+	P1CON |= 1<<7;  //P17输出模式
 	ion_off();
 }
 
 void ion_on(void)
 {
-	P01 = 1;
+	ION_PIN = 1;
 }
 
 void ion_off(void)
 {
-	P01 = 0;
+	ION_PIN = 0;
 }

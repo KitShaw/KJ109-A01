@@ -7,7 +7,8 @@
 ".\obj\key.obj",
 ".\obj\led.obj",
 ".\obj\main.obj",
-".\lib\SC92F8X4X_HighSensitive_Lib_T1_V1.1.0.LIB" 
+".\lib\SC92F8X4X_HighSensitive_Lib_T1_V1.1.0.LIB",
+".\obj\dust.obj" 
 TO ".\obj\KJ109-A01" 
 PRINT(".\list\KJ109-A01.m51") RAMSIZE(256) 
 CODE( 0X100 )

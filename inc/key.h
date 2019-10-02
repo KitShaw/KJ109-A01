@@ -9,10 +9,13 @@
 void key_init(void);
 void key_task(void);
 void Sys_Scan(void);
-void key_night_light_com(void);
 void key_speed_com(void);
 void key_speed_long_com(void);
 void key_power_com(void);
-void key_sleep_com(void);
+void key_ion_com(void);
+void key_arom_com(void);
+void key_timer_com(void);
+void key_lock_com(void);
+
 
 #endif
