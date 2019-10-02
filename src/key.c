@@ -13,7 +13,6 @@
 #include "eeprom.h"
 #include "filter.h"
 #include "ion.h"
-//#include "IAP.h"
 
 
 bitval key_flag;
@@ -24,12 +23,14 @@ bitval key_flag;
 #define KEY_LOCK_FLAG	key_flag.bit3
 #define KEY_ION_FLAG key_flag.bit4
 #define KEY_TIMER_FLAG key_flag.bit5
-unsigned char key_power_count;
+#define UNLOCk_FLAG		key_flag.bit6            //童锁解锁标志, 1解锁, 0锁住
+
+unsigned short key_power_count;
 unsigned short key_speed_count;
-unsigned char key_lock_count;
-unsigned char key_ion_count;
-unsigned char key_timer_count;
-unsigned char key_arom_count;
+unsigned short key_lock_count;
+unsigned short key_ion_count;
+unsigned short key_timer_count;
+unsigned short key_arom_count;
 
 
 INT32U exKeyValueFlag = 0;		//当前轮按键标志
@@ -51,6 +52,10 @@ void Sys_Scan(void)
 	}		  	   
 }
 
+void key_init(void)
+{
+	UNLOCk_FLAG = 1;         
+}
 
 //0x0100--power
 //0x2000--香薰
@@ -143,7 +148,7 @@ void key_task(void)
 	{
 		if(0 == KEY_LOCK_FLAG)
 		{
-			if(++key_lock_count >= 10)
+			if(++key_lock_count >= 5000)
 			{
 				KEY_LOCK_FLAG = 1;
 				key_lock_com();				
@@ -190,7 +195,13 @@ void key_arom_com(void)
 
 void key_lock_com(void)
 {
-	P52 = ~P52;
+	//P52 = ~P52;
+	UNLOCk_FLAG = ~UNLOCk_FLAG;
+}
+
+bit read_unlock_flag(void)
+{
+	return UNLOCk_FLAG;
 }
 
 void key_speed_com(void)

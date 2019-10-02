@@ -35,6 +35,15 @@ unsigned char task_1s_flag;
 
 unsigned char task_100ms_count;
 unsigned char task_100ms_flag;
+unsigned char task_10ms_count;
+unsigned char task_10ms_flag;
+unsigned char task_1ms_count;
+unsigned char task_1ms_flag;
+
+void task_1ms(void);
+void task_10ms(void);
+void task_100ms(void);
+void task_1s(void);
 
 
 
@@ -46,12 +55,14 @@ unsigned char task_100ms_flag;
 **************************************************/
 void TimerInit(void)
 {
-	TMCON = (TMCON&0xfe)|(0<<0);		//bit0: 0为FOSC/12,1为FOSO
+	TMCON |= 1;		//bit0: 0为FOSC/12,1为FOSO
 
 	TMOD = TMOD&0xf0;		  			//设置定时0，工作方式0
 	TMOD = TMOD|0x00;
-	TH0=(8192-1000)/32;       			//1000*1=1000us	,1MS
-	TL0=(8192-1000)%32;
+	TH0=31;  ///(8192-80)/256 = 31.6875;       			//1000*1=1000us	,1MS
+	TL0=176;         //(8192-80)%256 = 176;
+	//TH0 = 800;
+	//TL0 = 800;
 	TF0 = 0;						    //清中断标志
 	TR0=0;								//关定时器0
    	ET0=1;								//使能定时器0中断
@@ -66,9 +77,14 @@ void TimerInit(void)
 **************************************************/
 void timer0()interrupt 1
 {
-	TH0 = (8192-1000)/32;       			//2000*1/4us=500us
-	TL0 = (8192-1000)%32;	
-	TimerFlag_1ms = 1;		
+	//TH0 = (8192-1000)/32;       			//2000*1/4us=500us
+	//TL0 = (8192-1000)%32;	
+	TH0=31;//31;             //(8192-80)/256;       			//1000*1=1000us	,1MS
+	TL0=176;                //(8192-80)%256;
+//	TimerFlag_1ms = 1;	
+//		P52=~P52;
+	
+	task_1ms_flag = 1;
 }
  /**************************************************
 *函数名称：void  Sys_Init(void) 
@@ -92,18 +108,35 @@ void  Sys_Init(void)
 	ion_init();
 	power_off();
 }
+void task_1ms(void)
+{
+	//filter_task();
+	key_task();	
+	if(++task_10ms_count>=9) {task_10ms_count = 0; task_10ms_flag = 1;}
+}
+
+void task_10ms(void)
+{
+	//filter_task();
+	
+	Sys_Scan();		
+	led_task();
+	if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
+	P52=~P52;
+}
 
 void task_100ms(void)
 {
 	if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
 	filter_task();
 	dust_task();
+	
 }
 
 void task_1s(void)
 {
 	//filter_task();
-	P52=~P52;
+	//P52=~P52;
 }
 
 /**************************************************
@@ -118,6 +151,7 @@ void main(void)
 	
 	//触控按键初始化
 	TouchKeyInit();	
+	key_init();
 	//fan_init();
 	eeprom_init();
 
@@ -126,26 +160,28 @@ void main(void)
 	
 	while(1)
 	{
-	   WDTCON  = 0x10;	   	   	   
-	   if(TimerFlag_1ms==1)
-	   {
-			TimerFlag_1ms=0;	
-			Timercount++;
-			if(++task_100ms_count>=100){task_100ms_count = 0; task_100ms_flag = 1;}
-			if(Timercount>10)
-			{
-				Timercount=0;
-				Sys_Scan();		
-				led_task();
-			}
-				key_task();						
-	   }
-	   //over_voltage_handle();  	
+	   WDTCON  = 0x10;	   
+		  if(1 == task_1ms_flag) { task_1ms_flag = 0; task_1ms();}
+			if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
 			if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
 			if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
 	} 
 }
 
+
+/**************************************************
+*函数名称：void timer1()interrupt 1 
+*函数功能：定时器中断服务函数
+*入口参数：void
+*出口参数：void 
+**************************************************/
+//void timer1()interrupt 3
+//{
+//	TH0 = (8192-1000)/32;       			//2000*1/4us=500us
+//	TL0 = (8192-1000)%32;	
+//	TimerFlag_1ms = 1;	
+//		P52=~P52;
+//}
 
 
 

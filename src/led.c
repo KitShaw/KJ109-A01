@@ -11,6 +11,7 @@
 #include "data_type.h"
 #include "fan.h"
 #include "ion.h"
+#include "key.h"
 
 unsigned char xdata LEDRAM[30] _at_ 0x700;
 
@@ -64,6 +65,19 @@ void led_task(void)
 {
 		led_display_ion();
 		led_display_mode();
+		led_display_unlock();
+}
+
+void led_display_unlock(void)
+{
+	if( 1 == read_unlock_flag())
+	{
+		LEDRAM[11] &= ~0x08;  // Í¯ËøÍ¼±ê
+	}
+	else
+	{
+		LEDRAM[11] |= 0x08;  // Í¯ËøÍ¼±ê
+	}
 }
 
 void led_display_ion(void)

@@ -14,13 +14,11 @@
 #define LED_RED	P52
 #define LED_GREEN	P51
 #define LED_BLUE P50
+
 #define HUNDRED_DIGIT  7
 #define TEN_DIGIT	6
 #define SINGLE_DIGIT 5
 
-
-
-//#define LED_POWER_R_INDICATOR_FLAG led_flag.bit0
 
 
 void led_init(void);
@@ -28,6 +26,7 @@ void led_task(void);
 void led_display_bcd(unsigned char bcd_value, unsigned char digit);
 void led_display_mode(void);
 void led_display_ion(void);
+void led_display_unlock(void);
 
 
 #endif

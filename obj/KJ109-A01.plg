@@ -2248,3 +2248,1249 @@ linking...
 Program Size: data=72.6 xdata=138 code=4813
 creating hex file from ".\obj\KJ109-A01"...
 ".\obj\KJ109-A01" - 0 Error(s), 9 Warning(s).
+Build target 'Target 1'
+compiling display.c...
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_INIT?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_INIT?DUST
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 0D78H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 10D9H
+Program Size: data=72.6 xdata=138 code=4817
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 13 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_INIT?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_INIT?DUST
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 0D78H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 10D9H
+Program Size: data=72.6 xdata=138 code=4817
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 13 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 0D78H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 10D9H
+Program Size: data=72.6 xdata=138 code=4823
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(70): warning C280: 'speed': unreferenced local variable
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+src\filter.c(128): warning C206: 'reset_led_flter_out_time': missing function-prototype
+compiling key.c...
+compiling led.c...
+src\led.c(75): error C141: syntax error near 'LEDRAM'
+src\led.c(77): error C141: syntax error near 'LEDRAM'
+src\led.c(91): error C141: syntax error near 'LEDRAM'
+src\led.c(93): error C141: syntax error near 'LEDRAM'
+src\led.c(95): error C141: syntax error near 'LEDRAM'
+src\led.c(97): error C141: syntax error near 'LEDRAM'
+src\led.c(103): error C141: syntax error near 'break'
+src\led.c(107): error C141: syntax error near 'LEDRAM'
+src\led.c(109): error C141: syntax error near 'LEDRAM'
+src\led.c(123): error C141: syntax error near 'LEDRAM'
+src\led.c(125): error C141: syntax error near 'LEDRAM'
+src\led.c(136): error C141: syntax error near 'case', expected ';'
+src\led.c(139): error C141: syntax error near 'LEDRAM'
+src\led.c(141): error C141: syntax error near 'LEDRAM'
+src\led.c(155): error C141: syntax error near 'LEDRAM'
+src\led.c(157): error C141: syntax error near 'LEDRAM'
+src\led.c(168): error C141: syntax error near 'case', expected ';'
+src\led.c(171): error C141: syntax error near 'LEDRAM'
+src\led.c(173): error C141: syntax error near 'LEDRAM'
+src\led.c(187): error C141: syntax error near 'LEDRAM'
+src\led.c(189): error C141: syntax error near 'LEDRAM'
+src\led.c(200): error C141: syntax error near 'case', expected ';'
+src\led.c(203): error C141: syntax error near 'LEDRAM'
+src\led.c(205): error C141: syntax error near 'LEDRAM'
+src\led.c(219): error C141: syntax error near 'LEDRAM'
+src\led.c(221): error C141: syntax error near 'LEDRAM'
+src\led.c(232): error C141: syntax error near 'default', expected ';'
+src\led.c(234): error C141: syntax error near '}', expected ';'
+compiling main.c...
+Target not created
+Build target 'Target 1'
+compiling led.c...
+src\led.c(104): error C141: syntax error near 'case', expected ';'
+src\led.c(136): error C141: syntax error near 'case', expected ';'
+src\led.c(168): error C141: syntax error near 'case', expected ';'
+src\led.c(200): error C141: syntax error near 'case', expected ';'
+src\led.c(232): error C141: syntax error near 'default', expected ';'
+src\led.c(234): error C141: syntax error near '}', expected ';'
+Target not created
+Build target 'Target 1'
+compiling led.c...
+src\led.c(234): error C141: syntax error near '}', expected ';'
+Target not created
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 137BH
+Program Size: data=72.6 xdata=138 code=5497
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5744 bytes programmed.
+CheckSum = 0x8101
+Flash Verify Done: 5744 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 137BH
+Program Size: data=72.6 xdata=138 code=5497
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 137BH
+Program Size: data=72.6 xdata=138 code=5497
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5744 bytes programmed.
+CheckSum = 0x4a93
+Flash Verify Done: 5744 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(70): warning C280: 'speed': unreferenced local variable
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+src\filter.c(128): warning C206: 'reset_led_flter_out_time': missing function-prototype
+compiling key.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 137BH
+Program Size: data=72.6 xdata=138 code=5497
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 14 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5744 bytes programmed.
+CheckSum = 0x5331
+Flash Verify Done: 5744 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 137BH
+Program Size: data=72.6 xdata=138 code=5497
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5744 bytes programmed.
+CheckSum = 0x5634
+Flash Verify Done: 5744 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_OVER_VOLTAGE_FLAG?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 137BH
+Program Size: data=72.6 xdata=138 code=5497
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5744 bytes programmed.
+CheckSum = 0xd7d6
+Flash Verify Done: 5744 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(48): warning C280: 'speed': unreferenced local variable
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_INIT?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_MODE?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1379H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 121FH
+Program Size: data=72.4 xdata=138 code=5471
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 14 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(50): warning C280: 'speed': unreferenced local variable
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+src\filter.c(128): warning C206: 'reset_led_flter_out_time': missing function-prototype
+compiling key.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?REGULATE_FAN_SPEED?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_MODE?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1379H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 121FH
+Program Size: data=72.4 xdata=138 code=5490
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 16 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?REGULATE_FAN_SPEED?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_MODE?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SET_FAN_SPEED
+    MODULE:  .\obj\fan.obj (FAN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SET_FAN_SPEED
+    MODULE:  .\obj\fan.obj (FAN)
+    ADDRESS: 1599H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1379H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _SET_FAN_SPEED
+    MODULE:  .\obj\key.obj (KEY)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SET_FAN_SPEED
+    MODULE:  .\obj\key.obj (KEY)
+    ADDRESS: 15ABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _SET_FAN_SPEED
+    MODULE:  .\obj\key.obj (KEY)
+    ADDRESS: 1579H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 121FH
+Program Size: data=72.4 xdata=138 code=5487
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 18 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(71): warning C206: 'set_fan_speed': missing function-prototype
+src\fan.c(71): error C267: 'set_fan_speed': requires ANSI-style prototype
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+src\filter.c(128): warning C206: 'reset_led_flter_out_time': missing function-prototype
+compiling key.c...
+src\key.c(147): warning C206: 'set_fan_speed': missing function-prototype
+src\key.c(147): error C267: 'set_fan_speed': requires ANSI-style prototype
+compiling led.c...
+compiling main.c...
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(71): warning C206: 'set_fan_speed': missing function-prototype
+src\fan.c(71): error C267: 'set_fan_speed': requires ANSI-style prototype
+compiling key.c...
+src\key.c(164): warning C206: 'set_fan_speed': missing function-prototype
+src\key.c(164): error C267: 'set_fan_speed': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+compiling key.c...
+src\key.c(170): warning C206: 'set_fan_speed': missing function-prototype
+src\key.c(170): error C267: 'set_fan_speed': requires ANSI-style prototype
+Target not created
+Build target 'Target 1'
+compiling key.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?REGULATE_FAN_SPEED?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_MODE?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1006H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1379H
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 121FH
+Program Size: data=72.4 xdata=138 code=5455
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 13 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(59): warning C206: 'led_display_mode': missing function-prototype
+compiling key.c...
+compiling led.c...
+src\led.c(108): error C141: syntax error near 'defautl', expected ';'
+compiling main.c...
+src\main.c(107): warning C206: 'regulate_fan_speed': missing function-prototype
+Target not created
+Build target 'Target 1'
+compiling led.c...
+src\led.c(108): warning C280: 'defautl': unreferenced label
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 106BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 13DEH
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 1284H
+Program Size: data=72.4 xdata=138 code=5559
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 12 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1069H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 13DCH
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 1282H
+Program Size: data=72.4 xdata=138 code=5557
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5804 bytes programmed.
+CheckSum = 0xb81c
+Flash Verify Done: 5804 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1069H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 13DCH
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  OVER_VOLTAGE_HANDLE
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 1282H
+Program Size: data=72.4 xdata=138 code=5557
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 11 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5804 bytes programmed.
+CheckSum = 0x1777
+Flash Verify Done: 5804 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(59): warning C206: 'led_display_mode': missing function-prototype
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+src\filter.c(128): warning C206: 'reset_led_flter_out_time': missing function-prototype
+compiling key.c...
+compiling led.c...
+compiling main.c...
+src\main.c(107): warning C206: 'regulate_fan_speed': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1069H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 13D9H
+Program Size: data=72.4 xdata=138 code=5554
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 13 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+src\filter.c(128): warning C206: 'reset_led_flter_out_time': missing function-prototype
+compiling key.c...
+compiling led.c...
+compiling main.c...
+src\main.c(107): warning C206: 'regulate_fan_speed': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1069H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  RESET_LED_FLTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 13D9H
+Program Size: data=72.4 xdata=138 code=5554
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 12 Warning(s).
+Build target 'Target 1'
+compiling filter.c...
+src\filter.c(37): warning C206: 'led_filter_out_time': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  LED_FILTER_OUT_TIME
+    MODULE:  .\obj\filter.obj (FILTER)
+    ADDRESS: 1069H
+Program Size: data=72.4 xdata=138 code=5552
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling filter.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=72.4 xdata=138 code=5549
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=72.4 xdata=138 code=5549
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 5 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5796 bytes programmed.
+CheckSum = 0x1f66
+Flash Verify Done: 5796 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+compiling ion.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_ION?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=72.4 xdata=138 code=5495
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 6 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+compiling led.c...
+src\led.c(64): warning C206: 'led_display_ion': missing function-prototype
+src\led.c(69): error C231: 'led_display_ion': redefinition
+src\led.c(70): error C202: 'ION_PIN': undefined identifier
+src\led.c(78): error C231: 'led_display_ion': redefinition
+Target not created
+Build target 'Target 1'
+compiling led.c...
+src\led.c(65): warning C206: 'led_display_ion': missing function-prototype
+src\led.c(70): error C231: 'led_display_ion': redefinition
+src\led.c(79): error C231: 'led_display_ion': redefinition
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=72.4 xdata=138 code=5512
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling key.c...
+src\key.c(24): warning C315: unknown #directive 'defien'
+src\key.c(25): warning C315: unknown #directive 'defien'
+src\key.c(86): error C202: 'KEY_NIGHT_LIGHT_FLAG': undefined identifier
+src\key.c(88): error C202: 'key_night_light_count': undefined identifier
+src\key.c(90): error C202: 'KEY_NIGHT_LIGHT_FLAG': undefined identifier
+src\key.c(97): error C202: 'KEY_NIGHT_LIGHT_FLAG': undefined identifier
+src\key.c(98): error C202: 'key_night_light_count': undefined identifier
+src\key.c(126): error C202: 'KEY_SLEEP_FLAG': undefined identifier
+src\key.c(128): error C202: 'key_sleep_count': undefined identifier
+src\key.c(130): error C202: 'KEY_SLEEP_FLAG': undefined identifier
+src\key.c(137): error C202: 'KEY_SLEEP_FLAG': undefined identifier
+src\key.c(138): error C202: 'key_sleep_count': undefined identifier
+compiling led.c...
+Target not created
+Build target 'Target 1'
+compiling key.c...
+src\key.c(24): warning C315: unknown #directive 'defien'
+src\key.c(25): warning C315: unknown #directive 'defien'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_SLEEP_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=74.4 xdata=138 code=5414
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 9 Warning(s).
+Build target 'Target 1'
+compiling key.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_SLEEP_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=74.4 xdata=138 code=5414
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_SLEEP_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=74.4 xdata=138 code=5414
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 7 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5661 bytes programmed.
+CheckSum = 0x937e
+Flash Verify Done: 5664 bytes verified.
+Build target 'Target 1'
+compiling key.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_SLEEP_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=74.4 xdata=138 code=5408
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 7 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5655 bytes programmed.
+CheckSum = 0xb7db
+Flash Verify Done: 5656 bytes verified.
+Build target 'Target 1'
+compiling key.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_SLEEP_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=74.4 xdata=138 code=5408
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+compiling key.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DISPLAY_TASK?DISPLAY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=74.4 xdata=138 code=5402
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 6 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5649 bytes programmed.
+CheckSum = 0x3dd9
+Flash Verify Done: 5652 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=74.4 xdata=138 code=5397
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+src\main.c(99): warning C206: 'dust': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  DUST
+    MODULE:  .\obj\main.obj (MAIN)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  DUST
+    MODULE:  .\obj\main.obj (MAIN)
+    ADDRESS: 151BH
+Program Size: data=74.4 xdata=138 code=5400
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 8 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+Program Size: data=74.4 xdata=138 code=5400
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling key.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?KEY_NIGHT_LIGHT_COM?KEY
+Program Size: data=74.4 xdata=138 code=5400
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling key.c...
+src\key.c(130): error C202: 'ION_PIN': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling key.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?ION_INIT?ION
+Program Size: data=74.4 xdata=138 code=5454
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5701 bytes programmed.
+CheckSum = 0x8dd1
+Flash Verify Done: 5704 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?EEPROM_INIT?EEPROM
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FILTER_INIT?FILTER
+Program Size: data=74.4 xdata=138 code=5457
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=70.4 xdata=138 code=5463
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling key.c...
+linking...
+Program Size: data=70.4 xdata=138 code=5465
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5712 bytes programmed.
+CheckSum = 0x4c9d
+Flash Verify Done: 5712 bytes verified.
+Build target 'Target 1'
+compiling key.c...
+src\key.c(148): error C202: 'KEY_lock_FLAG': undefined identifier
+src\key.c(171): error C202: 'KEY_timer_FLAG': undefined identifier
+compiling main.c...
+Target not created
+Build target 'Target 1'
+compiling key.c...
+src\key.c(171): error C202: 'KEY_TIEMR_FLAG': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling key.c...
+linking...
+Program Size: data=70.4 xdata=138 code=5633
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 5880 bytes programmed.
+CheckSum = 0x2c82
+Flash Verify Done: 5880 bytes verified.
