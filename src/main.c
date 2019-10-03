@@ -150,7 +150,6 @@ void task_1ms(void)
 	key_task();	
 	if(++task_10ms_count>=10) {task_10ms_count = 0; task_10ms_flag = 1;}
 	//P52=~P52;
-	
 }
 
 void task_10ms(void)
@@ -161,6 +160,7 @@ void task_10ms(void)
 	led_task();
 	if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
 	//P52=~P52;
+	dust_task();
 }
 
 void task_100ms(void)
@@ -201,7 +201,6 @@ void main(void)
 			if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
 			if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
 			if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
-			dust_task();
 	} 
 }
 

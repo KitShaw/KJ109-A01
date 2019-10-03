@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   DUST                                                              10/03/2019 11:44:44 PAGE 1   
+C51 COMPILER V9.52.0.0   DUST                                                              10/03/2019 18:57:25 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DUST
@@ -18,102 +18,130 @@ line level    source
    8          #include "data_type.h"
    9          #include "dust.h"
   10          
-  11          unsigned short dust_adc_value[10];
-  12          unsigned short dust_adc_mean;       //平均值
-  13          unsigned char dust_ok_flag;            //adc转换完成标志
-  14          unsigned char dust_index = 0;
-  15          //unsigned char dust_size ;
-  16          //AD15 P43, 第19脚
-  17          void dust_init(void)
-  18          { 
-  19   1        P5CON |= ((1<<4)| (1<<3)); //P54, P53输出
-  20   1        //ADCCFG1 |= 1<<7; //AIN15位acd输入口
-  21   1        adc_init(15);
-  22   1        dust_adc_mean = 0;
-  23   1      }
-  24          
-  25          unsigned short read_dust_adc_value(void)
-  26          {
-  27   1        return dust_adc_mean;
-  28   1      }
-  29          
-  30          void dust_adc_mean_value(void)
-  31          {
-  32   1        unsigned char i;
-  33   1        unsigned short sum;
-  34   1        sum = 0;
-  35   1        for(i = 0; i<DUST_SIZE; i++)
+  11          xdata unsigned short dust_adc_value[DUST_SIZE];
+  12          unsigned long dust_adc_mean;       //平均值
+  13          unsigned short dust_display_value;  //
+  14          unsigned short dust_last_display_value;
+  15          unsigned char dust_ok_flag;            //adc转换完成标志
+  16          unsigned char dust_index = 0;
+  17          unsigned char dust_delay_count;   //PM25延时显示计数
+  18          //unsigned char dust_size ;
+  19          //AD15 P43, 第19脚
+  20          void dust_init(void)
+  21          { 
+  22   1        P5CON |= ((1<<4)| (1<<3)); //P54, P53输出
+  23   1        //ADCCFG1 |= 1<<7; //AIN15位acd输入口
+  24   1        adc_init(15);
+  25   1        dust_adc_mean = 0;
+  26   1      }
+  27          
+  28          unsigned short read_dust_adc_value(void)
+  29          {
+  30   1        return dust_adc_mean;
+  31   1      }
+  32          
+  33          unsigned short read_dust_display_value(void)
+  34          {
+  35   1        if(++dust_delay_count>200)
   36   1        {
-  37   2          sum += dust_adc_value[i];
-  38   2        }
-  39   1        
-  40   1        dust_adc_mean /= i;
-  41   1      }
-  42          
-  43          
-  44          void dust_task(void)
-  45          //1ms调用一次
-  46          {
-  47   1          if(1 == dust_ok_flag)
-  48   1          {
-  49   2            dust_ok_flag = 0;
-  50   2            dust_adc_value[dust_index] = (ADCVH<<4)+(ADCVL>>4);
-  51   2            if(++dust_index > DUST_SIZE)
-  52   2            {
-  53   3              dust_adc_mean_value();
-  54   3              dust_index = 0;
-C51 COMPILER V9.52.0.0   DUST                                                              10/03/2019 11:44:44 PAGE 2   
+  37   2          dust_delay_count = 0;
+  38   2          if((dust_display_value + 10) < dust_last_display_value)
+  39   2          {
+  40   3            dust_last_display_value -= 5;  //更新显示值
+  41   3          }
+  42   2          else 
+  43   2          {
+  44   3            dust_last_display_value = dust_display_value;  //更新显示值
+  45   3          }
+  46   2          
+  47   2          //return dust_display_value;
+  48   2        }
+  49   1        return dust_last_display_value;
+  50   1      }
+  51          //最高3.7V,  最低0.625
+  52          void dust_adc_mean_value(void)
+  53          {
+  54   1        unsigned char i;
+C51 COMPILER V9.52.0.0   DUST                                                              10/03/2019 18:57:25 PAGE 2   
 
-  55   3            }
-  56   2          }
-  57   1      }
-  58          
-  59          /*****************************************************
-  60          *????:void ADC_Init(uint Channel)
-  61          *????:ADC???
-  62          *????:void
-  63          *????:Channel
-  64          *****************************************************/
-  65          void adc_init(unsigned int channel)
-  66          {
-  67   1        ADCCON = 0X80|channel;    //??ADC,ADC?????2M ,??Channel?ADC???
-  68   1        if(channel<8)
-  69   1        {
-  70   2          ADCCFG0 = 1<<channel;   //??Channel?????
-  71   2        }
-  72   1        else
-  73   1        {
-  74   2          ADCCFG1 = 1<<(channel-8);   //??Channel?????
-  75   2        }
-  76   1        //OP_CTM1 &= ~(1<<7); //参考电压为VDD = 5V
-  77   1        
-  78   1        IE = 0X40;        //??ADC??
-  79   1      }
-  80          
-  81          void adc_start(void)
-  82          //启动ADC转换
-  83          {
-  84   1        ADCCON |= 0X40;   //启动AD转换
-  85   1      }
-  86          
-  87          
-  88          void ADC_Interrupt(void) interrupt 6
-  89          {
-  90   1        ADCCON &= ~(0X20);  //清中断标准位
-  91   1        ADCCON &= ~0X40;   //停止AD转换
-  92   1        dust_ok_flag = 1;
-  93   1      }
-  94          
-  95          
-  96          
+  55   1        unsigned long sum;
+  56   1        sum = 0;
+  57   1        for(i = 0; i<DUST_SIZE; i++)
+  58   1        {
+  59   2          sum += (unsigned long)dust_adc_value[i];
+  60   2        }
+  61   1        
+  62   1        dust_adc_mean = (unsigned long)(sum / i) * 100;
+  63   1        //dust_display_value = dust_adc_mean / 10;// * 5 * 133 / 4096;  //dust_adc_mean/4096 *5
+  64   1        dust_display_value = ((unsigned long)dust_adc_mean  * 5* 178 / 4096 - 60 * 178)  /100 ;  //dust_adc_mean/
+             -4096 *5
+  65   1      }
+  66          
+  67          
+  68          void dust_task(void)
+  69          //1ms调用一次
+  70          {
+  71   1          if(1 == dust_ok_flag)
+  72   1          {
+  73   2            dust_ok_flag = 0;
+  74   2            dust_adc_value[dust_index] = (ADCVH<<4)+(ADCVL>>4);
+  75   2            if(++dust_index > DUST_SIZE)
+  76   2            {
+  77   3              dust_adc_mean_value();
+  78   3              
+  79   3              dust_index = 0;
+  80   3            }
+  81   2          }
+  82   1      }
+  83          
+  84          /*****************************************************
+  85          *????:void ADC_Init(uint Channel)
+  86          *????:ADC???
+  87          *????:void
+  88          *????:Channel
+  89          *****************************************************/
+  90          void adc_init(unsigned int channel)
+  91          {
+  92   1        ADCCON = 0X80|channel;    //??ADC,ADC?????2M ,??Channel?ADC???
+  93   1        if(channel<8)
+  94   1        {
+  95   2          ADCCFG0 = 1<<channel;   //??Channel?????
+  96   2        }
+  97   1        else
+  98   1        {
+  99   2          ADCCFG1 = 1<<(channel-8);   //??Channel?????
+ 100   2        }
+ 101   1        //OP_CTM1 &= ~(1<<7); //参考电压为VDD = 5V
+ 102   1        
+ 103   1        IE = 0X40;        //??ADC??
+ 104   1      }
+ 105          
+ 106          void adc_start(void)
+ 107          //启动ADC转换
+ 108          {
+ 109   1        ADCCON |= 0X40;   //启动AD转换
+ 110   1      }
+ 111          
+ 112          
+ 113          void ADC_Interrupt(void) interrupt 6
+ 114          {
+ 115   1        ADCCON &= ~(0X20);  //清中断标准位
+C51 COMPILER V9.52.0.0   DUST                                                              10/03/2019 18:57:25 PAGE 3   
+
+ 116   1        ADCCON &= ~0X40;   //停止AD转换
+ 117   1        dust_ok_flag = 1;
+ 118   1      }
+ 119          
+ 120          
+ 121          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    179    ----
+   CODE SIZE        =    350    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =   ----    ----
+   XDATA SIZE       =     40    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     24    ----
+   DATA SIZE        =     11       4
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

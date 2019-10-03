@@ -313,3 +313,222 @@ Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01"
 Flash Write Done: 6055 bytes programmed.
 CheckSum = 0xb1cf
 Flash Verify Done: 6056 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TIMER1_INIT?MAIN
+Program Size: data=80.4 xdata=138 code=5827
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+src\main.c(193): warning C206: 'timer1_start': missing function-prototype
+src\main.c(214): error C141: syntax error near 'TH1'
+src\main.c(215): error C141: syntax error near 'P52'
+Target not created
+Build target 'Target 1'
+compiling main.c...
+src\main.c(214): error C141: syntax error near 'TH1'
+src\main.c(215): error C141: syntax error near 'P52'
+Target not created
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5844
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6088 bytes programmed.
+CheckSum = 0xb13a
+Flash Verify Done: 6088 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5842
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6086 bytes programmed.
+CheckSum = 0x785d
+Flash Verify Done: 6088 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5844
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6088 bytes programmed.
+CheckSum = 0xc165
+Flash Verify Done: 6088 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+src\led.c(76): error C202: 'SIGNEL_DIGIT': undefined identifier
+compiling main.c...
+Target not created
+Build target 'Target 1'
+compiling led.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5868
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6112 bytes programmed.
+CheckSum = 0x0456
+Flash Verify Done: 6112 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+src\dust.c(15): warning C209: '_adc_init': too few actual parameters
+src\dust.c(35): error C202: 'Channel': undefined identifier
+src\dust.c(36): error C202: 'Channel': undefined identifier
+src\dust.c(38): error C202: 'Channel': undefined identifier
+src\dust.c(42): error C202: 'Channel': undefined identifier
+src\dust.c(44): error C202: 'OP_CtM1': undefined identifier
+src\dust.c(53): error C202: 'AdcFlag': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(15): warning C209: '_adc_init': too few actual parameters
+src\dust.c(35): error C202: 'Channel': undefined identifier
+src\dust.c(36): error C202: 'Channel': undefined identifier
+src\dust.c(38): error C202: 'Channel': undefined identifier
+src\dust.c(42): error C202: 'Channel': undefined identifier
+src\dust.c(44): error C202: 'OP_CtM1': undefined identifier
+src\dust.c(53): error C202: 'AdcFlag': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+compiling dust.c...
+src\dust.c(15): warning C209: '_adc_init': too few actual parameters
+src\dust.c(35): error C202: 'Channel': undefined identifier
+src\dust.c(36): error C202: 'Channel': undefined identifier
+src\dust.c(38): error C202: 'Channel': undefined identifier
+src\dust.c(42): error C202: 'Channel': undefined identifier
+src\dust.c(44): error C202: 'OP_CtM1': undefined identifier
+src\dust.c(53): error C202: 'AdcFlag': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+compiling dust.c...
+src\dust.c(15): warning C209: '_adc_init': too few actual parameters
+src\dust.c(36): error C202: 'Channel': undefined identifier
+src\dust.c(44): error C202: 'OP_CtM1': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(36): error C202: 'Channel': undefined identifier
+src\dust.c(44): error C202: 'OP_CtM1': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(44): error C202: 'OP_CtM1': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(44): error C202: 'OP_CTM1': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?C_INITSEG
+Program Size: data=80.4 xdata=138 code=5994
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?C_INITSEG
+Program Size: data=80.4 xdata=138 code=5994
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+src\led.c(74): warning C206: 'read_dust_adc_value': missing function-prototype
+compiling main.c...
+compiling dust.c...
+linking...
+Program Size: data=82.4 xdata=138 code=6098
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+linking...
+Program Size: data=82.4 xdata=138 code=6044
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6285 bytes programmed.
+CheckSum = 0xa8ac
+Flash Verify Done: 6288 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=82.4 xdata=138 code=6095
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6336 bytes programmed.
+CheckSum = 0x06d2
+Flash Verify Done: 6336 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+src\dust.c(22): error C213: left side of asn-op not an lvalue
+src\dust.c(50): error C202: 'index': undefined identifier
+src\dust.c(51): error C202: 'index': undefined identifier
+src\dust.c(54): error C202: 'index': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(22): error C213: left side of asn-op not an lvalue
+src\dust.c(51): error C202: 'index': undefined identifier
+src\dust.c(54): error C202: 'index': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(22): error C213: left side of asn-op not an lvalue
+src\dust.c(51): error C202: 'dus_index': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(22): error C213: left side of asn-op not an lvalue
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6143
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6143
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6384 bytes programmed.
+CheckSum = 0x9a92
+Flash Verify Done: 6384 bytes verified.

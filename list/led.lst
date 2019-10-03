@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 11:43:22 PAGE 1   
+C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 18:57:24 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
@@ -62,7 +62,7 @@ line level    source
   52   1        LEDRAM[19] = 0xf8;  //低速 ,  童锁按键
   53   1        //数码管C段
   54   1        LEDRAM[20] = 0xf8;  //智能, 定时按键
-C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 11:43:22 PAGE 2   
+C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 18:57:24 PAGE 2   
 
   55   1        //数码管B段
   56   1        LEDRAM[21] = 0xf8;  //滤网, 电源按键
@@ -84,9 +84,9 @@ line level    source
   72          
   73          void led_display_pm25(void)
   74          {
-  75   1        led_display_bcd(read_dust_adc_value() / 100, HUNDRED_DIGIT);
-  76   1        led_display_bcd(read_dust_adc_value() % 100 / 10, TEN_DIGIT);
-  77   1        led_display_bcd(read_dust_adc_value() % 10, SINGLE_DIGIT);
+  75   1        led_display_bcd(read_dust_display_value() / 100, HUNDRED_DIGIT);
+  76   1        led_display_bcd(read_dust_display_value() % 100 / 10, TEN_DIGIT);
+  77   1        led_display_bcd(read_dust_display_value() % 10, SINGLE_DIGIT);
   78   1      }
   79          
   80          void led_display_unlock(void)
@@ -126,7 +126,7 @@ line level    source
  114   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
  115   2            //数码管C段
  116   2            LEDRAM[20] |= 0x10;  //智能, 定时按键
-C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 11:43:22 PAGE 3   
+C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 18:57:24 PAGE 3   
 
  117   2          break;
  118   2          case FAN_SPEED_SLEEP:
@@ -190,7 +190,7 @@ line level    source
  176   2            //数码管A段
  177   2          break;
  178   2          case 1:
-C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 11:43:22 PAGE 4   
+C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 18:57:24 PAGE 4   
 
  179   2            LEDRAM[15] &= (~(1<<digit));
  180   2            //数码管g段
@@ -254,7 +254,7 @@ line level    source
  238   2            //数码管B段
  239   2            LEDRAM[21] &= ~(1<<digit);  //
  240   2            //数码管A段
-C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 11:43:22 PAGE 5   
+C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 18:57:24 PAGE 5   
 
  241   2          break;
  242   2          case 5:
@@ -318,7 +318,7 @@ line level    source
  300   2            //数码管C段
  301   2            LEDRAM[20] |= (1<<digit);  //
  302   2            //数码管B段
-C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 11:43:22 PAGE 6   
+C51 COMPILER V9.52.0.0   LED                                                               10/03/2019 18:57:24 PAGE 6   
 
  303   2            LEDRAM[21] |= (1<<digit);  //
  304   2            //数码管A段

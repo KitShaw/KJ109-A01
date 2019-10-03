@@ -72,9 +72,9 @@ void led_task(void)
 
 void led_display_pm25(void)
 {
-	led_display_bcd(read_dust_adc_value() / 100, HUNDRED_DIGIT);
-	led_display_bcd(read_dust_adc_value() % 100 / 10, TEN_DIGIT);
-	led_display_bcd(read_dust_adc_value() % 10, SINGLE_DIGIT);
+	led_display_bcd(read_dust_display_value() / 100, HUNDRED_DIGIT);
+	led_display_bcd(read_dust_display_value() % 100 / 10, TEN_DIGIT);
+	led_display_bcd(read_dust_display_value() % 10, SINGLE_DIGIT);
 }
 
 void led_display_unlock(void)
