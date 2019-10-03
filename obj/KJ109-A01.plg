@@ -1,0 +1,315 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+E:\project\ldc\code\KJ109-A01\KJ109-A01.uvproj
+Project File Date:  10/02/2019
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5762
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6009 bytes programmed.
+CheckSum = 0xb6e5
+Flash Verify Done: 6012 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0xa5f2
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+src\main.c(95): error C141: syntax error near '='
+Target not created
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0xdeb9
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0xa5f2
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0xc1f2
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0xdff2
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0xdff3
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0x49f3
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0x7bf3
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0xadf3
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5760
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6007 bytes programmed.
+CheckSum = 0x17f3
+Flash Verify Done: 6008 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5773
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5775
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6022 bytes programmed.
+CheckSum = 0x730e
+Flash Verify Done: 6024 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5780
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6027 bytes programmed.
+CheckSum = 0xb4a5
+Flash Verify Done: 6028 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5780
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6027 bytes programmed.
+CheckSum = 0x5a05
+Flash Verify Done: 6028 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5780
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6027 bytes programmed.
+CheckSum = 0x59ec
+Flash Verify Done: 6028 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5780
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6027 bytes programmed.
+CheckSum = 0x5aec
+Flash Verify Done: 6028 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=79.4 xdata=138 code=5780
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6027 bytes programmed.
+CheckSum = 0x5b05
+Flash Verify Done: 6028 bytes verified.
+Build target 'Target 1'
+linking...
+Program Size: data=79.4 xdata=138 code=5780
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6027 bytes programmed.
+CheckSum = 0x5b05
+Flash Verify Done: 6028 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5798
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6045 bytes programmed.
+CheckSum = 0x36ae
+Flash Verify Done: 6048 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+src\main.c(102): error C141: syntax error near '}'
+Target not created
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5801
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6048 bytes programmed.
+CheckSum = 0x358c
+Flash Verify Done: 6048 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5801
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+compiling dust.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5804
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+src\main.c(178): error C202: 'DUST_PWN_PIN': undefined identifier
+Target not created
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5806
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6053 bytes programmed.
+CheckSum = 0x4452
+Flash Verify Done: 6056 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5808
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6055 bytes programmed.
+CheckSum = 0xb1df
+Flash Verify Done: 6056 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+Program Size: data=80.4 xdata=138 code=5808
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6055 bytes programmed.
+CheckSum = 0xb1cf
+Flash Verify Done: 6056 bytes verified.

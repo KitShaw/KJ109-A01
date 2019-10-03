@@ -12,6 +12,7 @@
 #include "fan.h"
 #include "ion.h"
 #include "key.h"
+#include "dust.h"
 
 unsigned char xdata LEDRAM[30] _at_ 0x700;
 
@@ -66,6 +67,14 @@ void led_task(void)
 		led_display_ion();
 		led_display_mode();
 		led_display_unlock();
+	led_display_pm25();
+}
+
+void led_display_pm25(void)
+{
+	led_display_bcd(read_dust_adc_value() / 100, HUNDRED_DIGIT);
+	led_display_bcd(read_dust_adc_value() % 100 / 10, TEN_DIGIT);
+	led_display_bcd(read_dust_adc_value() % 10, SINGLE_DIGIT);
 }
 
 void led_display_unlock(void)

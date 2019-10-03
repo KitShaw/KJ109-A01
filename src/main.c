@@ -39,11 +39,14 @@ unsigned char task_10ms_count;
 unsigned char task_10ms_flag;
 unsigned char task_1ms_count;
 unsigned char task_1ms_flag;
+unsigned char dust_count;
 
 void task_1ms(void);
 void task_10ms(void);
 void task_100ms(void);
 void task_1s(void);
+void timer1_start(void);
+
 
 
 
@@ -68,7 +71,15 @@ void TimerInit(void)
 //   	ET0=1;								//使能定时器0中断
 //	TR0=1;
 	
-	TMCON = 0X07;    //------111 ;Timer0、Tiemr1和Tiemr2选择时钟Fsys
+	TMCON |= 0X02;
+	TMOD |= 0x10;            
+	TL1 = (65536 - 1600)%256;  
+	TH1 = (65536 - 1600)/256; 
+	TR1 = 0;
+	ET1 = 1;//
+	
+	TMCON |= 0X01;    //------111 ;Timer0、Tiemr1和Tiemr2选择时钟Fsys
+	
 	
 	//T0设置
 	TMOD |= 0x01;                 //0000 0001;Timer0设置工作方式1
@@ -79,6 +90,12 @@ void TimerInit(void)
 	TR0 = 1;//打开定时器0
 }
 
+void timer1_start(void)
+{
+	TL1 = (65536 - 4480)%256;    //240s
+	TH1 = (65536 - 4480)/256;    //236.9375
+	TR1 = 1;
+}
 /**************************************************
 *函数名称：void timer0()interrupt 1 
 *函数功能：定时器中断服务函数
@@ -91,12 +108,19 @@ void timer0()interrupt 1
 	//TL0 = (8192-1000)%32;	
 	//TH0=31;//31;             //(8192-80)/256;       			//1000*1=1000us	,1MS
 	//TL0=176;                //(8192-80)%256;
-	TL0 = 192; //(65536 - 1600)%256 = 192;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
-	TH0 = 249; //(65536 - 1600)/256 = 249;
+	TL0 = 50; //(65536 - 1600)%256 = 192;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
+	TH0 = 250; //(65536 - 1600)/256 = 249;
 //	TimerFlag_1ms = 1;	
-		P52=~P52;
-	
-	task_1ms_flag = 1;
+		//P52=~P52;
+	if( dust_count == 4) DUST_PIN = 1;
+	else if(dust_count >= 100){
+		DUST_PIN = 0; 
+		dust_count = 0;
+		timer1_start();
+		P52 =~P52;
+	}
+	dust_count++;
+	if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
 }
  /**************************************************
 *函数名称：void  Sys_Init(void) 
@@ -124,7 +148,9 @@ void task_1ms(void)
 {
 	//filter_task();
 	key_task();	
-	if(++task_10ms_count>=9) {task_10ms_count = 0; task_10ms_flag = 1;}
+	if(++task_10ms_count>=10) {task_10ms_count = 0; task_10ms_flag = 1;}
+	//P52=~P52;
+	
 }
 
 void task_10ms(void)
@@ -141,8 +167,6 @@ void task_100ms(void)
 {
 	if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
 	filter_task();
-	dust_task();
-	
 }
 
 void task_1s(void)
@@ -169,7 +193,7 @@ void main(void)
 
 	filter_init();
 	//ion_init();
-	
+	DUST_PWR_PIN = 0;
 	while(1)
 	{
 	   WDTCON  = 0x10;	   
@@ -177,6 +201,7 @@ void main(void)
 			if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
 			if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
 			if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
+			dust_task();
 	} 
 }
 
@@ -187,13 +212,12 @@ void main(void)
 *入口参数：void
 *出口参数：void 
 **************************************************/
-//void timer1()interrupt 3
-//{
-//	TH0 = (8192-1000)/32;       			//2000*1/4us=500us
-//	TL0 = (8192-1000)%32;	
-//	TimerFlag_1ms = 1;	
-//		P52=~P52;
-//}
+void timer1()interrupt 3
+{
+	TR1 = 0;
+	adc_start();
+	//P52 =~P52;
+}
 
 
 
