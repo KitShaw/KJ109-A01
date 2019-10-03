@@ -68,13 +68,43 @@ void led_task(void)
 		led_display_mode();
 		led_display_unlock();
 	led_display_pm25();
+	led_display_dust_level();
 }
 
 void led_display_pm25(void)
 {
-	led_display_bcd(read_dust_display_value() / 100, HUNDRED_DIGIT);
-	led_display_bcd(read_dust_display_value() % 100 / 10, TEN_DIGIT);
-	led_display_bcd(read_dust_display_value() % 10, SINGLE_DIGIT);
+	unsigned short tmp_dust_display_value;
+	tmp_dust_display_value = read_dust_display_value();
+	led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
+	led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
+	led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
+}
+
+void led_display_dust_level(void)
+{
+	switch(read_dust_level())
+	{
+		case DUST_LEVEL_EXCELLENT:
+			LED_GREEN = 0;
+			LED_BLUE = 1;
+			LED_RED = 1;
+		break;
+		case DUST_LEVEL_MEDIUM:
+			LED_GREEN = 1;
+			LED_BLUE = 0;
+			LED_RED = 1;
+		break;
+		case DUST_LEVEL_BAD:
+			LED_GREEN = 1;
+			LED_BLUE = 1;
+			LED_RED = 0;
+		break;
+		default:
+			LED_GREEN = 0;
+			LED_BLUE = 1;
+			LED_RED = 1;
+		break;
+	}
 }
 
 void led_display_unlock(void)

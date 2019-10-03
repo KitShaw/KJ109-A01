@@ -185,12 +185,12 @@ void key_ion_com(void)
 
 void key_timer_com(void)
 {
-	P50 = ~P50;
+	//P50 = ~P50;
 }
 
 void key_arom_com(void)
 {
-	P51 = ~P51;
+	//P51 = ~P51;
 }
 
 void key_lock_com(void)
@@ -213,7 +213,7 @@ void key_speed_long_com(void)
 //长按风速键清楚滤网寿命
 {
 	reset_filter_time();
-	P51 = ~P51;
+	//P51 = ~P51;
 }
 
 //void key_sleep_com(void)
@@ -238,7 +238,7 @@ void key_speed_long_com(void)
 void key_power_com(void)
 {
 	//unsigned long filter_time_temp;
-	P50 = ~P50;
+	//P50 = ~P50;
 	if(POWER_ON_STATUS == read_power_status())
 	{
 		power_off();

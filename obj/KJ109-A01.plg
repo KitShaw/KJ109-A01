@@ -532,3 +532,427 @@ Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01"
 Flash Write Done: 6384 bytes programmed.
 CheckSum = 0x9a92
 Flash Verify Done: 6384 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6143
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6384 bytes programmed.
+CheckSum = 0x4e92
+Flash Verify Done: 6384 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6143
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6384 bytes programmed.
+CheckSum = 0xae92
+Flash Verify Done: 6384 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6143
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6384 bytes programmed.
+CheckSum = 0x9a92
+Flash Verify Done: 6384 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6380
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6621 bytes programmed.
+CheckSum = 0xfa1a
+Flash Verify Done: 6624 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6380
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6621 bytes programmed.
+CheckSum = 0x0424
+Flash Verify Done: 6624 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+Program Size: data=104.4 xdata=138 code=6380
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6621 bytes programmed.
+CheckSum = 0xfa1a
+Flash Verify Done: 6624 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6385
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6404
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6645 bytes programmed.
+CheckSum = 0xad96
+Flash Verify Done: 6648 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6404
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6645 bytes programmed.
+CheckSum = 0xae2c
+Flash Verify Done: 6648 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6404
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6645 bytes programmed.
+CheckSum = 0xe5cc
+Flash Verify Done: 6648 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6401
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6642 bytes programmed.
+CheckSum = 0xa068
+Flash Verify Done: 6644 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6396
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6637 bytes programmed.
+CheckSum = 0x8ab5
+Flash Verify Done: 6640 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6450
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6691 bytes programmed.
+CheckSum = 0x8a2c
+Flash Verify Done: 6692 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6450
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6691 bytes programmed.
+CheckSum = 0x9436
+Flash Verify Done: 6692 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6449
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6690 bytes programmed.
+CheckSum = 0x8c32
+Flash Verify Done: 6692 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=106.4 xdata=138 code=6449
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6690 bytes programmed.
+CheckSum = 0x2c32
+Flash Verify Done: 6692 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(104): error C249: 'DATA': SEGMENT TOO LARGE
+Target not created
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=86.4 xdata=338 code=6461
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6702 bytes programmed.
+CheckSum = 0x42d1
+Flash Verify Done: 6704 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=86.4 xdata=238 code=6461
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6702 bytes programmed.
+CheckSum = 0x14d9
+Flash Verify Done: 6704 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?DUST_TASK?DUST
+Program Size: data=90.4 xdata=238 code=6459
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6700 bytes programmed.
+CheckSum = 0x60f4
+Flash Verify Done: 6700 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=86.4 xdata=238 code=6461
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6702 bytes programmed.
+CheckSum = 0x39b8
+Flash Verify Done: 6704 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=86.4 xdata=158 code=6461
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6702 bytes programmed.
+CheckSum = 0xbb68
+Flash Verify Done: 6704 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=86.4 xdata=158 code=6461
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6702 bytes programmed.
+CheckSum = 0xbb5e
+Flash Verify Done: 6704 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=86.4 xdata=158 code=6579
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6820 bytes programmed.
+CheckSum = 0xa1f7
+Flash Verify Done: 6820 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=86.4 xdata=158 code=6493
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6734 bytes programmed.
+CheckSum = 0x243f
+Flash Verify Done: 6736 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=88.4 xdata=158 code=6545
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6786 bytes programmed.
+CheckSum = 0x0ca9
+Flash Verify Done: 6788 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=88.4 xdata=158 code=6548
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6789 bytes programmed.
+CheckSum = 0x9993
+Flash Verify Done: 6792 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=91.4 xdata=158 code=6566
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=91.4 xdata=158 code=6566
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6807 bytes programmed.
+CheckSum = 0xe0d4
+Flash Verify Done: 6808 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=91.4 xdata=158 code=6598
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6839 bytes programmed.
+CheckSum = 0x0a94
+Flash Verify Done: 6840 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+compiling main.c...
+compiling dust.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DUST_ADC_VALUE?DUST
+Program Size: data=91.4 xdata=178 code=6598
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 6839 bytes programmed.
+CheckSum = 0x55b6
+Flash Verify Done: 6840 bytes verified.

@@ -117,7 +117,7 @@ void timer0()interrupt 1
 		DUST_PIN = 0; 
 		dust_count = 0;
 		timer1_start();
-		P52 =~P52;
+		//P52 =~P52;
 	}
 	dust_count++;
 	if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
