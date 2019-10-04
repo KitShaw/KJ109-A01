@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 11:11:52 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 14:46:14 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52          
   53           /**************************************************
   54          *函数名称：void TimerInit(void) 
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 11:11:52 PAGE 2   
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 14:46:14 PAGE 2   
 
   55          *函数功能：定时器初始化
   56          *入口参数：void
@@ -126,7 +126,7 @@ line level    source
  114   1          //P52=~P52;
  115   1        if( dust_count == 4) DUST_PIN = 1;
  116   1        else if(dust_count >= 100){
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 11:11:52 PAGE 3   
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 14:46:14 PAGE 3   
 
  117   2          DUST_PIN = 0; 
  118   2          dust_count = 0;
@@ -175,83 +175,88 @@ line level    source
  161   1        if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
  162   1        //P52=~P52;
  163   1        dust_task();
- 164   1      }
- 165          
- 166          void task_100ms(void)
- 167          {
- 168   1        if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
- 169   1        filter_task();
- 170   1      }
- 171          
- 172          void task_1s(void)
- 173          {
- 174   1        //filter_task();
- 175   1        //P52=~P52;
- 176   1      }
- 177          
- 178          /**************************************************
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 11:11:52 PAGE 4   
+ 164   1        
+ 165   1      }
+ 166          
+ 167          void task_100ms(void)
+ 168          {
+ 169   1        if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
+ 170   1        filter_task();
+ 171   1        fan_task();
+*** WARNING C206 IN LINE 171 OF src\main.c: 'fan_task': missing function-prototype
+ 172   1      }
+ 173          
+ 174          void task_1s(void)
+ 175          {
+ 176   1        //filter_task();
+ 177   1        //P52=~P52;
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 14:46:14 PAGE 4   
 
- 179          *函数名称：void main(void)                  
- 180          *函数功能：主函数
- 181          *入口参数：void
- 182          *出口参数：void  
- 183          **************************************************/
- 184          void main(void)
- 185          {     
- 186   1        Sys_Init();
- 187   1        
- 188   1        //触控按键初始化
- 189   1        TouchKeyInit(); 
- 190   1        key_init();
- 191   1        //fan_init();
- 192   1        eeprom_init();
- 193   1      
- 194   1        filter_init();
- 195   1        //ion_init();
- 196   1        DUST_PWR_PIN = 0;
- 197   1        while(1)
- 198   1        {
- 199   2           WDTCON  = 0x10;     
- 200   2            if(1 == task_1ms_flag) { task_1ms_flag = 0; task_1ms();}
- 201   2            if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
- 202   2            if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
- 203   2            if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
- 204   2        } 
- 205   1      }
- 206          
- 207          
- 208          /**************************************************
- 209          *函数名称：void timer1()interrupt 1 
- 210          *函数功能：定时器中断服务函数
- 211          *入口参数：void
- 212          *出口参数：void 
- 213          **************************************************/
- 214          void timer1()interrupt 3
- 215          {
- 216   1        TR1 = 0;
- 217   1        adc_start();
- 218   1        //P52 =~P52;
- 219   1      }
- 220          
- 221          
+ 178   1      }
+ 179          
+ 180          /**************************************************
+ 181          *函数名称：void main(void)                  
+ 182          *函数功能：主函数
+ 183          *入口参数：void
+ 184          *出口参数：void  
+ 185          **************************************************/
+ 186          void main(void)
+ 187          {     
+ 188   1        Sys_Init();
+ 189   1        
+ 190   1        //触控按键初始化
+ 191   1        TouchKeyInit(); 
+ 192   1        key_init();
+ 193   1        //fan_init();
+ 194   1        eeprom_init();
+ 195   1      
+ 196   1        filter_init();
+ 197   1        //ion_init();
+ 198   1        DUST_PWR_PIN = 0;
+ 199   1        while(1)
+ 200   1        {
+ 201   2           WDTCON  = 0x10;     
+ 202   2            if(1 == task_1ms_flag) { task_1ms_flag = 0; task_1ms();}
+ 203   2            if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
+ 204   2            if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
+ 205   2            if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
+ 206   2        } 
+ 207   1      }
+ 208          
+ 209          
+ 210          /**************************************************
+ 211          *函数名称：void timer1()interrupt 1 
+ 212          *函数功能：定时器中断服务函数
+ 213          *入口参数：void
+ 214          *出口参数：void 
+ 215          **************************************************/
+ 216          void timer1()interrupt 3
+ 217          {
+ 218   1        TR1 = 0;
+ 219   1        adc_start();
+ 220   1        //P52 =~P52;
+ 221   1      }
  222          
  223          
  224          
  225          
  226          
  227          
+ 228          
+ 229          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    318    ----
+   CODE SIZE        =    321    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =     12    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      1    ----
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 14:46:14 PAGE 5   
+
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

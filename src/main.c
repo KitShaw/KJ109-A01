@@ -161,12 +161,14 @@ void task_10ms(void)
 	if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
 	//P52=~P52;
 	dust_task();
+	
 }
 
 void task_100ms(void)
 {
 	if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
 	filter_task();
+	fan_task();
 }
 
 void task_1s(void)

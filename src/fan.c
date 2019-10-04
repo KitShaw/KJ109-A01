@@ -13,14 +13,18 @@
 #include "IAP.h"
 #include "ion.H"
 
-unsigned int xdata PWMRD_40  _at_  0x740;
-unsigned int xdata PWMRD_41  _at_  0x742;
+//unsigned int xdata PWMRD_40  _at_  0x740;
+//unsigned int xdata PWMRD_41  _at_  0x742;
 unsigned int xdata PWMRD_42  _at_  0x744;
-unsigned int xdata PWMRD_43  _at_  0x746;
-unsigned int xdata PWMRD_50  _at_  0x748;
-unsigned int xdata PWMRD_51  _at_  0x74A;
-unsigned int xdata PWMRD_52  _at_  0x74C;
-unsigned int xdata PWMRD_53  _at_  0x74E;
+//unsigned int xdata PWMRD_43  _at_  0x746;
+//unsigned int xdata PWMRD_50  _at_  0x748;
+//unsigned int xdata PWMRD_51  _at_  0x74A;
+//unsigned int xdata PWMRD_52  _at_  0x74C;
+//unsigned int xdata PWMRD_53  _at_  0x74E;
+unsigned int xdata fan_pwm_value;
+unsigned int xdata fan_pulse_count;
+unsigned int xdata PWMRD_Temp;
+
 
 
 unsigned char power_status;
@@ -62,14 +66,17 @@ void fan_init(void)
 
 void fan_pwm_start(void)
 {
-	PWMCON |= 0x80; //
+	FAN_PC_PIN = 1;
+	fan_pwm_value = 40;
+	PWMRD_42 |= 0x8000;
+	PWMRD_Temp = 0;
 }
 
-void fan_pwm_stop(void)
-{
-	PWMCON &= 0x7f;
+//void fan_pwm_stop(void)
+//{
+//	PWMCON &= 0x7f;
 //	FAN_PWM_PIN = 0;
-}
+//}
 
 
 /*
@@ -90,14 +97,55 @@ unsigned char read_fan_speed(void)
 	return fan_speed;
 }
 
+void fan_task(void)
+	//10ms调用一次
+{
+	//unsigned int tmp;
+	//tmp = PWMRD_42 & (~0x8000);
+	if(read_power_status() == POWER_ON_STATUS)
+	{
+
+		if( (PWMRD_Temp & (~0x8000)) != fan_pwm_value)
+		{
+			if( (PWMRD_Temp & (~0x8000)) < fan_pwm_value)
+			{
+				PWMRD_Temp++;
+			}
+			else PWMRD_Temp--;
+
+			PWMRD_42 = PWMRD_Temp | 0x8000;
+		}
+
+		//PWMRD_42 = 20 | 0x8000;
+		
+	}
+	else
+	{
+		if(fan_pwm_value>0)
+                {
+                    fan_pwm_value--;
+					PWMRD_42 = 0x8000 | fan_pwm_value;                    
+                }
+                else
+                {
+                    fan_pwm_value = 0;
+                    PWMRD_42 &= ~0x8000;
+                    FAN_PWM_PIN = 0;
+					FAN_PC_PIN = 0;
+                }
+	}
+}
+
 void power_on(void)
 {
 	power_status = POWER_ON_STATUS;
 //	FAN_POWER_PIN = 1;
 	//fan_pwm_start();
 //	set_fan_speed(1);
+	//fan_pwm_value = 20;
 	led_on();  //开显示
 	ion_on();
+	fan_pwm_start();
 }
 
 void power_off(void)

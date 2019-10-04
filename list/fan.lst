@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   FAN                                                               10/04/2019 11:56:08 PAGE 1   
+C51 COMPILER V9.52.0.0   FAN                                                               10/04/2019 14:47:22 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE FAN
@@ -23,115 +23,163 @@ line level    source
   13          #include "IAP.h"
   14          #include "ion.H"
   15          
-  16          unsigned int xdata PWMRD_40  _at_  0x740;
-  17          unsigned int xdata PWMRD_41  _at_  0x742;
+  16          //unsigned int xdata PWMRD_40  _at_  0x740;
+  17          //unsigned int xdata PWMRD_41  _at_  0x742;
   18          unsigned int xdata PWMRD_42  _at_  0x744;
-  19          unsigned int xdata PWMRD_43  _at_  0x746;
-  20          unsigned int xdata PWMRD_50  _at_  0x748;
-  21          unsigned int xdata PWMRD_51  _at_  0x74A;
-  22          unsigned int xdata PWMRD_52  _at_  0x74C;
-  23          unsigned int xdata PWMRD_53  _at_  0x74E;
-  24          
-  25          
-  26          unsigned char power_status;
-  27          unsigned char fan_speed;  // 0智能, 1静音, 2中, 3高
+  19          //unsigned int xdata PWMRD_43  _at_  0x746;
+  20          //unsigned int xdata PWMRD_50  _at_  0x748;
+  21          //unsigned int xdata PWMRD_51  _at_  0x74A;
+  22          //unsigned int xdata PWMRD_52  _at_  0x74C;
+  23          //unsigned int xdata PWMRD_53  _at_  0x74E;
+  24          unsigned int xdata fan_pwm_value;
+  25          unsigned int xdata fan_pulse_count;
+  26          unsigned int xdata PWMRD_Temp;
+  27          
   28          
-  29          /*
-  30          void set_power_status(unsigned char sta)
-  31          {
-  32            power_status = sta;
-  33          }
-  34          */
-  35          unsigned char read_power_status(void)
-  36          {
-  37   1        return power_status;
-  38   1      }
-  39          
-  40          void fan_init(void)
-  41          {
-  42   1        fan_speed = FAN_SPEED_AUTO;
-  43   1        P0CON &= ~(1<<2);   //P02输入上拉
-  44   1        P0PH |= 1<<2;
-  45   1        P1CON &= ~(1<<6);       //P16输入上拉
-  46   1        P1PH |= 1<<6;
-  47   1      
-  48   1        P4CON |= (1<<2) | (1<<4);     // p44, P42输出
-  49   1        P42 = 0;
-  50   1        P44 = 0;
+  29          
+  30          unsigned char power_status;
+  31          unsigned char fan_speed;  // 0智能, 1静音, 2中, 3高
+  32          
+  33          /*
+  34          void set_power_status(unsigned char sta)
+  35          {
+  36            power_status = sta;
+  37          }
+  38          */
+  39          unsigned char read_power_status(void)
+  40          {
+  41   1        return power_status;
+  42   1      }
+  43          
+  44          void fan_init(void)
+  45          {
+  46   1        fan_speed = FAN_SPEED_AUTO;
+  47   1        P0CON &= ~(1<<2);   //P02输入上拉
+  48   1        P0PH |= 1<<2;
+  49   1        P1CON &= ~(1<<6);       //P16输入上拉
+  50   1        P1PH |= 1<<6;
   51   1      
-  52   1        //设置了周期为200us，占空比为50%的PWM波形
-  53   1        PWMCON = 99;           //周期设置低8位,200us
-  54   1          PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位 
-C51 COMPILER V9.52.0.0   FAN                                                               10/04/2019 11:56:08 PAGE 2   
+  52   1        P4CON |= (1<<2) | (1<<4);     // p44, P42输出
+  53   1        P42 = 0;
+  54   1        P44 = 0;
+C51 COMPILER V9.52.0.0   FAN                                                               10/04/2019 14:47:22 PAGE 2   
 
-  55   1        //PWMRD_Temp = 0x8000 | 50;     //PWM的占空比调节寄存只可写,所以可借用变量PWMRD_temp来读写占空比的值
-  56   1        //PWMRD_41 = PWMRD_Temp;
-  57   1        PWMRD_42 = 0x8000 | 20;
-  58   1        //ENP42 = 1;
-  59   1      }
-  60          
-  61          
-  62          
-  63          void fan_pwm_start(void)
-  64          {
-  65   1        PWMCON |= 0x80; //
-  66   1      }
-  67          
-  68          void fan_pwm_stop(void)
-  69          {
-  70   1        PWMCON &= 0x7f;
-  71   1      //  FAN_PWM_PIN = 0;
-  72   1      }
-  73          
+  55   1      
+  56   1        //设置了周期为200us，占空比为50%的PWM波形
+  57   1        PWMCON = 99;           //周期设置低8位,200us
+  58   1          PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位 
+  59   1        //PWMRD_Temp = 0x8000 | 50;     //PWM的占空比调节寄存只可写,所以可借用变量PWMRD_temp来读写占空比的值
+  60   1        //PWMRD_41 = PWMRD_Temp;
+  61   1        PWMRD_42 = 0x8000 | 20;
+  62   1        //ENP42 = 1;
+  63   1      }
+  64          
+  65          
+  66          
+  67          void fan_pwm_start(void)
+  68          {
+  69   1        FAN_PC_PIN = 1;
+  70   1        fan_pwm_value = 40;
+  71   1        PWMRD_42 |= 0x8000;
+  72   1        PWMRD_Temp = 0;
+  73   1      }
   74          
-  75          /*
-  76          void set_fan_speed(unsigned char speed)
-  77          {
-  78            
-  79          }
-  80          */
-  81          void regulate_fan_speed(void)
-  82          //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
-  83          {
-  84   1        if(++fan_speed> FAN_SPEED_HIGH) fan_speed = FAN_SPEED_AUTO;
-  85   1        //led_display_mode();
-  86   1      }
-  87          
-  88          unsigned char read_fan_speed(void)
-  89          {
-  90   1        return fan_speed;
-  91   1      }
-  92          
-  93          void power_on(void)
-  94          {
-  95   1        power_status = POWER_ON_STATUS;
-  96   1      //  FAN_POWER_PIN = 1;
-  97   1        //fan_pwm_start();
-  98   1      //  set_fan_speed(1);
-  99   1        led_on();  //开显示
- 100   1        ion_on();
- 101   1      }
- 102          
- 103          void power_off(void)
- 104          {
- 105   1        
- 106   1        power_status = POWER_OFF_STATUS;  
- 107   1        //FAN_POWER_PIN = 0;
- 108   1        //fan_pwm_stop();
- 109   1        ion_off();
- 110   1        led_off();
- 111   1      }
- 112          
- 113          
- 114          
+  75          //void fan_pwm_stop(void)
+  76          //{
+  77          //  PWMCON &= 0x7f;
+  78          //  FAN_PWM_PIN = 0;
+  79          //}
+  80          
+  81          
+  82          /*
+  83          void set_fan_speed(unsigned char speed)
+  84          {
+  85            
+  86          }
+  87          */
+  88          void regulate_fan_speed(void)
+  89          //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
+  90          {
+  91   1        if(++fan_speed> FAN_SPEED_HIGH) fan_speed = FAN_SPEED_AUTO;
+  92   1        //led_display_mode();
+  93   1      }
+  94          
+  95          unsigned char read_fan_speed(void)
+  96          {
+  97   1        return fan_speed;
+  98   1      }
+  99          
+ 100          void fan_task(void)
+ 101            //10ms调用一次
+ 102          {
+ 103   1        //unsigned int tmp;
+ 104   1        //tmp = PWMRD_42 & (~0x8000);
+ 105   1        if(read_power_status() == POWER_ON_STATUS)
+ 106   1        {
+ 107   2      
+ 108   2          if( (PWMRD_Temp & (~0x8000)) != fan_pwm_value)
+ 109   2          {
+ 110   3            if( (PWMRD_Temp & (~0x8000)) < fan_pwm_value)
+ 111   3            {
+ 112   4              PWMRD_Temp++;
+ 113   4            }
+ 114   3            else PWMRD_Temp--;
+ 115   3      
+ 116   3            PWMRD_42 = PWMRD_Temp | 0x8000;
+C51 COMPILER V9.52.0.0   FAN                                                               10/04/2019 14:47:22 PAGE 3   
 
+ 117   3          }
+ 118   2      
+ 119   2          //PWMRD_42 = 20 | 0x8000;
+ 120   2          
+ 121   2        }
+ 122   1        else
+ 123   1        {
+ 124   2          if(fan_pwm_value>0)
+ 125   2                      {
+ 126   3                          fan_pwm_value--;
+ 127   3                PWMRD_42 = 0x8000 | fan_pwm_value;                    
+ 128   3                      }
+ 129   2                      else
+ 130   2                      {
+ 131   3                          fan_pwm_value = 0;
+ 132   3                          PWMRD_42 &= ~0x8000;
+ 133   3                          FAN_PWM_PIN = 0;
+ 134   3                FAN_PC_PIN = 0;
+ 135   3                      }
+ 136   2        }
+ 137   1      }
+ 138          
+ 139          void power_on(void)
+ 140          {
+ 141   1        power_status = POWER_ON_STATUS;
+ 142   1      //  FAN_POWER_PIN = 1;
+ 143   1        //fan_pwm_start();
+ 144   1      //  set_fan_speed(1);
+ 145   1        //fan_pwm_value = 20;
+ 146   1        led_on();  //开显示
+ 147   1        ion_on();
+ 148   1        fan_pwm_start();
+ 149   1      }
+ 150          
+ 151          void power_off(void)
+ 152          {
+ 153   1        
+ 154   1        power_status = POWER_OFF_STATUS;  
+ 155   1        //FAN_POWER_PIN = 0;
+ 156   1        //fan_pwm_stop();
+ 157   1        ion_off();
+ 158   1        led_off();
+ 159   1      }
+ 160          
+ 161          
+ 162          
 
-C51 COMPILER V9.52.0.0   FAN                                                               10/04/2019 11:56:08 PAGE 3   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     84    ----
+   CODE SIZE        =    244    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =   ----    ----
+   XDATA SIZE       =      6    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      2    ----
    IDATA SIZE       =   ----    ----
