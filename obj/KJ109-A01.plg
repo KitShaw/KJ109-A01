@@ -2309,3 +2309,335 @@ Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01"
 Flash Write Done: 7819 bytes programmed.
 CheckSum = 0x7106
 Flash Verify Done: 7820 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(150): error C236: '_read_disp_fan_return_pulse': different length of parameter lists
+src\fan.c(156): error C236: 'store_fan_return_pulse': different length of parameter lists
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+src\main.c(139): error C207: 'store_fan_return_pulse': declared with 'void' parameter list
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(150): error C236: '_read_disp_fan_return_pulse': different length of parameter lists
+src\fan.c(156): error C236: 'store_fan_return_pulse': different length of parameter lists
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+src\main.c(139): error C207: 'store_fan_return_pulse': declared with 'void' parameter list
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(150): error C236: '_read_disp_fan_return_pulse': different length of parameter lists
+src\fan.c(156): error C236: 'store_fan_return_pulse': different length of parameter lists
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+src\main.c(139): error C207: 'store_fan_return_pulse': declared with 'void' parameter list
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(150): error C236: '_read_disp_fan_return_pulse': different length of parameter lists
+src\fan.c(156): error C236: 'store_fan_return_pulse': different length of parameter lists
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+src\main.c(139): error C207: 'store_fan_return_pulse': declared with 'void' parameter list
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+src\fan.c(157): error C202: 'pulse_count': undefined identifier
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DISP_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7662
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DISP_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7671
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DISP_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7671
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling dust.c...
+src\dust.c(38): warning C206: 'read_disp_fan_return_pulse': missing function-prototype
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7666
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7904 bytes programmed.
+CheckSum = 0x8169
+Flash Verify Done: 7904 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7666
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7904 bytes programmed.
+CheckSum = 0x8d69
+Flash Verify Done: 7904 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7663
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7663
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7901 bytes programmed.
+CheckSum = 0x92f2
+Flash Verify Done: 7904 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7651
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7889 bytes programmed.
+CheckSum = 0x05b8
+Flash Verify Done: 7892 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7652
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7652
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7890 bytes programmed.
+CheckSum = 0x8269
+Flash Verify Done: 7892 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7650
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7888 bytes programmed.
+CheckSum = 0xb2b4
+Flash Verify Done: 7888 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_TASK?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7647
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7885 bytes programmed.
+CheckSum = 0x99cc
+Flash Verify Done: 7888 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_TASK?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7656
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7894 bytes programmed.
+CheckSum = 0x1793
+Flash Verify Done: 7896 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_TASK?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7660
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7898 bytes programmed.
+CheckSum = 0xb81e
+Flash Verify Done: 7900 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7665
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7903 bytes programmed.
+CheckSum = 0xea70
+Flash Verify Done: 7904 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=91.4 xdata=197 code=7679
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=91.4 xdata=197 code=7679
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=91.4 xdata=197 code=7679
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7917 bytes programmed.
+CheckSum = 0x3fe1
+Flash Verify Done: 7920 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=91.4 xdata=197 code=7679
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=91.4 xdata=197 code=7679
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=91.4 xdata=197 code=7679
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7917 bytes programmed.
+CheckSum = 0xa3e1
+Flash Verify Done: 7920 bytes verified.

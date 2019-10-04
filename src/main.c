@@ -70,20 +70,20 @@ void TimerInit(void)
 	//T2设置
 	T2MOD = 0x00;
 	T2CON = 0x00;	 //设置为16位重载寄存器
-	RCAP2H = 250; (65536-1600)/256;     //溢出时间：时钟为Fsys，则32000*（1/Fsys）=2ms;
-	RCAP2L = 50; (65536-1600)%256;
+	RCAP2H = 250; //(65536-1600)/256;     //溢出时间：时钟为Fsys，则32000*（1/Fsys）=2ms;
+	RCAP2L = 50; //(65536-1600)%256;
 	TR2 = 0;
 	ET2 = 1;//定时器2允许
 	TR2 = 1;//打开定时器2	
 	
 	
 	//T0设置
-	//TMOD |= 0x01;                 //0000 0001;Timer0设置工作方式1
+	TMOD |= 0x05;                 //0000 0001;Timer0设置工作方式1, 计数器工作方式
 	//TL0 = (65536 - 1600)%256;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
 	//TH0 = (65536 - 1600)/256;
 	//TR0 = 0;
-	//ET0 = 1;//定时器0允许
-	//TR0 = 1;//打开定时器0
+	ET0 = 0;//关定时器0中断
+	TR0 = 1;//打开定时器0
 
     //IP |= (1<<1) | (1<<5);      //定时1, 和0高优先级
     //IP &= ~((1<<1) | (1<<5));      //定时1, 和0高优先级
@@ -133,6 +133,12 @@ void timer0()interrupt 1
 	}
 	dust_count++;
 	if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
+	if(++fan_count_1s >= 10000)
+	{ 
+		fan_count_1s = 0; 
+		//store_fan_return_pulse((TH0<<8) + TL0); 
+		store_fan_return_pulse();		
+	}  //电机计数1秒的脉冲用
  }
 
  /**************************************************
@@ -193,6 +199,7 @@ void task_1s(void)
 {
 	//filter_task();
 	//P52=~P52;
+	
 }
 
 /**************************************************
@@ -213,6 +220,7 @@ void main(void)
 			if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
 			if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
 			if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
+			fan_handle();
 	} 
 }
 

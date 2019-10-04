@@ -35,6 +35,8 @@ unsigned char fan_judge; //判断是否要调整转速
 unsigned char power_status;
 unsigned char fan_speed;  // 0智能, 1静音, 2中, 3高
 
+unsigned char fan_regulate_flag;  // 1要调整了, 0不调整
+
 /*
 void set_power_status(unsigned char sta)
 {
@@ -64,13 +66,12 @@ void fan_init(void)
 	P42 = 0;
 	P44 = 0;
 
-	//设置了周期为200us，占空比为50%的PWM波形
-	PWMCON = 99;           //周期设置低8位,200us
+	//PWMCON = 99;           //周期设置低8位,50us  20k
+    //PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
+	PWMCON = 199;           //周期设置低8位,200us
     PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
-	//PWMRD_Temp = 0x8000 | 50;     //PWM的占空比调节寄存只可写,所以可借用变量PWMRD_temp来读写占空比的值
-	//PWMRD_41 = PWMRD_Temp;
+	
 	PWMRD_42 = 0x8000 | 20;
-	//ENP42 = 1;
 }
 
 
@@ -78,7 +79,8 @@ void fan_init(void)
 void fan_pwm_start(void)
 {
 	FAN_PC_PIN = 1;
-	fan_pwm_value = 11;
+	//fan_pwm_value = 23;
+	fan_pulse_count = 12;
 	PWMRD_42 |= 0x8000;
 	PWMRD_Temp = 0;
 }
@@ -115,9 +117,9 @@ void fan_task(void)
 	if(read_power_status() == POWER_ON_STATUS)
 	{
 
-		if( (PWMRD_Temp & (~0x8000)) != fan_pwm_value)
+		if( (PWMRD_Temp & (~0x8000)) != fan_pulse_count)
 		{
-			if( (PWMRD_Temp & (~0x8000)) < fan_pwm_value)
+			if( (PWMRD_Temp & (~0x8000)) < fan_pulse_count)
 			{
 				PWMRD_Temp++;
 			}
@@ -131,14 +133,14 @@ void fan_task(void)
 	}
 	else
 	{
-		if(fan_pwm_value>0)
+		if(fan_pulse_count>0)
                 {
-                    fan_pwm_value--;
-					PWMRD_42 = 0x8000 | fan_pwm_value;                    
+                    fan_pulse_count--;
+					PWMRD_42 = 0x8000 | fan_pulse_count;                    
                 }
                 else
                 {
-                    fan_pwm_value = 0;
+                    fan_pulse_count = 0;
                     PWMRD_42 &= ~0x8000;
                     FAN_PWM_PIN = 0;
 					FAN_PC_PIN = 0;
@@ -148,14 +150,20 @@ void fan_task(void)
 
 unsigned int read_disp_fan_return_pulse(void)
 {
-	return disp_fan_return_pulse;
+	//return  disp_fan_return_pulse;
+	return fan_pulse_count;
 }
 
 void store_fan_return_pulse(void)
 	//把当前的转速值存储起来
 {
-	disp_fan_return_pulse = fan_return_pulse_count;
-	fan_return_pulse_count = 0;
+	//disp_fan_return_pulse = fan_return_pulse_count;
+	//disp_fan_return_pulse
+	fan_return_pulse_count = (TH0 << 8) + TL0;
+	TH0 = 0;
+	TL0 = 0;
+	fan_regulate_flag = 1; 
+	//fan_return_pulse_count = 0;
 }
 
 
@@ -163,6 +171,8 @@ void fan_handle(void)
 	//设置风机的速度，1s调用一次
 {
 	//static unsigned char tmp=0; 
+	if(0 == fan_regulate_flag) return;
+	fan_regulate_flag = 0;
 	disp_fan_return_pulse = fan_return_pulse_count;
 	switch(fan_speed)
 	{
@@ -238,17 +248,13 @@ void fan_handle(void)
 	{		
 		fan_pulse_count = 90;		
 	}	
-	fan_return_pulse_count = 0;
+	//fan_return_pulse_count = 0;
 }
 
 
 void power_on(void)
 {
 	power_status = POWER_ON_STATUS;
-//	FAN_POWER_PIN = 1;
-	//fan_pwm_start();
-//	set_fan_speed(1);
-	//fan_pwm_value = 20;
 	led_on();  //开显示
 	ion_on();
 	fan_pwm_start();
@@ -260,25 +266,10 @@ void power_off(void)
 {
 	
 	power_status = POWER_OFF_STATUS;	
-	//FAN_POWER_PIN = 0;
-	//fan_pwm_stop();
 	ion_off();
 	led_off();
 	DUST_PWR_PIN = 1;
 }
-
-
-//void EX1() interrupt	2
-//{
-	//P52 = ~P52;
-	
-	//if(P16 == 0)
-	//{
-		//P51 = ~P51;
-	 	//fan_return_pulse_count++;
-	//}
-	
-//}
 
 
 
