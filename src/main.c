@@ -17,7 +17,9 @@
 #include "filter.h"
 //#include "IAP.h"
 #include "ion.h"
+#include "arom.h"
 #include "dust.h"
+#include "timing_off.h"
 //#include "display.h"
 
 // KJ60F-A3是SC92F8372单片机加自己的板子, 和原样的板子相比改了,LED改成6个口各单独控制一个LED, 
@@ -161,11 +163,13 @@ void  Sys_Init(void)
     TimerInit(); 				//定时器初始化
 	fan_init();
 	ion_init();
+	arom_init();
 	//触控按键初始化
 	TouchKeyInit();	
 	key_init();	
 	eeprom_init();
 	filter_init();
+	timing_off_init();
 	power_on();
 }
 void task_1ms(void)
@@ -185,21 +189,22 @@ void task_10ms(void)
 	if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
 	//P52=~P52;
 	dust_task();
-	
+	fan_task();
 }
 
 void task_100ms(void)
 {
 	if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
 	filter_task();
-	fan_task();
+	
 }
 
 void task_1s(void)
 {
 	//filter_task();
 	//P52=~P52;
-	
+	arom_task();
+	timing_off_task();
 }
 
 /**************************************************

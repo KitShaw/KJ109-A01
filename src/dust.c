@@ -34,8 +34,11 @@ void dust_init(void)
 
 unsigned short read_dust_display_value(void)
 {
-	//return dust_last_display_value;
+#ifndef DEBUG_FAN_RETURN_PULSE
+	return dust_last_display_value;
+#else
 	return read_disp_fan_return_pulse();
+#endif
 }
 //×î¸ß3.7V,  ×îµÍ0.625
 void dust_adc_mean_value(void)

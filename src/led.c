@@ -13,6 +13,8 @@
 #include "ion.h"
 #include "key.h"
 #include "dust.h"
+#include "arom.h"
+#include "timing_off.h"
 
 unsigned char xdata LEDRAM[30] _at_ 0x700;
 
@@ -58,10 +60,12 @@ void led_task(void)
 			return;
 		}
 		led_display_ion();
+		led_display_arom_level();
 		led_display_mode();
 		led_display_unlock();
 	led_display_pm25();
 	led_display_dust_level();
+	led_display_timing_off_level();
 }
 
 void led_off(void)
@@ -106,6 +110,91 @@ void led_display_pm25(void)
 	led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
 	led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
 	LEDRAM[12] |= 0x10;  //PM2.5图标
+}
+
+void led_display_timing_off_level(void)
+{
+	switch(read_timing_off_level())
+	{
+		//case 0:  //关闭
+		//	LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+		//	LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+		//	LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+		//break;
+		case 1:  // 1H
+			LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+			LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] |= 0x08;  //0x10 - 低, 0x08 - 1H
+		break;
+		case 2:  // 2H
+			LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+			LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] |= 0x08;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
+		break;
+		case 3:  // 4H
+			LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+			LEDRAM[13] |= 0x08;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
+		break;
+		case 4:  // 8H
+			LEDRAM[12] |= 0x08;  //0x10 -P2.5  0x08-8H
+			LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
+		break;
+		default:
+			LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+			LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
+		break;
+	}
+}
+
+void led_display_arom_level(void)
+{
+	switch(read_arom_level())
+	{
+		//case 0:  //关闭
+		//	LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+		//	LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+		//	LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+		//break;
+		case 1:  //低
+			LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] |= 0x10;  //0x10 - 低, 0x08 - 1H
+		break;
+		case 2:  //中
+			LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] |= 0x10;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+		break;
+		case 3:  //高
+			LEDRAM[13] |= 0x10;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+		break;
+		default:
+			LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+			LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+			//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+			LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+		break;
+	}
 }
 
 void led_display_dust_level(void)

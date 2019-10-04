@@ -13,6 +13,8 @@
 #include "eeprom.h"
 #include "filter.h"
 #include "ion.h"
+#include "arom.h"
+#include "timing_off.h"
 
 
 bitval key_flag;
@@ -185,12 +187,12 @@ void key_ion_com(void)
 
 void key_timer_com(void)
 {
-	//P50 = ~P50;
+	regulate_timing_off_level();
 }
 
 void key_arom_com(void)
 {
-	//P51 = ~P51;
+	regulate_arom_level();
 }
 
 void key_lock_com(void)

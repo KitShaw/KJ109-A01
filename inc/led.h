@@ -31,6 +31,10 @@ void led_display_pm25(void);
 void led_display_dust_level(void);
 void led_off(void);
 void led_on(void);
+void led_display_arom_level(void);
+void led_display_timing_off_level(void);
+
+
 
 
 #endif

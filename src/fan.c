@@ -12,7 +12,9 @@
 #include "filter.h"
 #include "IAP.h"
 #include "ion.H"
+#include "arom.h"
 #include "dust.h"
+#include "timing_off.h"
 
 //unsigned int xdata PWMRD_40  _at_  0x740;
 //unsigned int xdata PWMRD_41  _at_  0x742;
@@ -148,11 +150,14 @@ void fan_task(void)
 	}
 }
 
+#ifdef DEBUG_FAN_RETURN_PULSE
 unsigned int read_disp_fan_return_pulse(void)
 {
 	//return  disp_fan_return_pulse;
 	return fan_pulse_count;
 }
+
+#endif
 
 void store_fan_return_pulse(void)
 	//把当前的转速值存储起来
@@ -307,8 +312,8 @@ void power_on(void)
 	power_status = POWER_ON_STATUS;
 	led_on();  //开显示
 	ion_on();
+	//arom_on();
 	fan_pwm_start();
-
 	DUST_PWR_PIN = 0;
 }
 
@@ -317,9 +322,14 @@ void power_off(void)
 	
 	power_status = POWER_OFF_STATUS;	
 	ion_off();
+	set_arom_level(0);
+	reset_timing_off_level();
+	//arom_off();
 	led_off();
 	DUST_PWR_PIN = 1;
 }
+
+
 
 
 

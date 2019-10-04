@@ -45,8 +45,10 @@ void fan_task(void);
 void fan_handle(void);  //
 void regulate_fan_speed(void);
 void store_fan_return_pulse(void);
-unsigned int read_disp_fan_return_pulse(void);
 
+#ifdef DEBUG_FAN_RETURN_PULSE
+unsigned int read_disp_fan_return_pulse(void);
+#endif
 
 #endif
  
