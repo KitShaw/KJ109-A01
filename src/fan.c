@@ -26,6 +26,10 @@ unsigned int xdata fan_pulse_count;
 unsigned int xdata PWMRD_Temp;
 
 
+unsigned int    fan_return_pulse_count;  //风机返回的脉冲数。
+unsigned int    disp_fan_return_pulse;
+unsigned char fan_judge; //判断是否要调整转速
+
 
 unsigned char power_status;
 unsigned char fan_speed;  // 0智能, 1静音, 2中, 3高
@@ -46,8 +50,17 @@ void fan_init(void)
 	fan_speed = FAN_SPEED_AUTO;
 	P0CON &= ~(1<<2);   //P02输入上拉
 	P0PH |= 1<<2;
+	
 	P1CON &= ~(1<<6);       //P16输入上拉
 	P1PH |= 1<<6;
+
+	INT1F |= 0X40 ;    //xxxx xxxx P16下降沿中断
+	INT1R &= ~0X40 ;    //xxxx xxxx  0关闭 1使能
+	//IE1 = 1;
+	IE  |= 0x04;	//0000 0x0x INT1使能
+	//IP &= ~0x04;   //INT1低优先级
+	IP |= 0x04;   //INT1低优先级
+	//IE1 |= 0x08;	//0000 x000  INT2使能
 
 	P4CON |= (1<<2) | (1<<4);     // p44, P42输出
 	P42 = 0;
@@ -67,7 +80,7 @@ void fan_init(void)
 void fan_pwm_start(void)
 {
 	FAN_PC_PIN = 1;
-	fan_pwm_value = 40;
+	fan_pwm_value = 11;
 	PWMRD_42 |= 0x8000;
 	PWMRD_Temp = 0;
 }
@@ -88,8 +101,7 @@ void set_fan_speed(unsigned char speed)
 void regulate_fan_speed(void)
 //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
 {
-	if(++fan_speed> FAN_SPEED_HIGH) fan_speed = FAN_SPEED_AUTO;
-	//led_display_mode();
+	if(++fan_speed> FAN_SPEED_HIGH) fan_speed = FAN_SPEED_AUTO;	
 }
 
 unsigned char read_fan_speed(void)
@@ -136,6 +148,102 @@ void fan_task(void)
 	}
 }
 
+unsigned int read_disp_fan_return_pulse(void)
+{
+	return disp_fan_return_pulse;
+}
+
+void store_fan_return_pulse(void)
+	//把当前的转速值存储起来
+{
+	disp_fan_return_pulse = fan_return_pulse_count;
+	fan_return_pulse_count = 0;
+}
+
+
+void fan_handle(void)  
+	//设置风机的速度，1s调用一次
+{
+	//static unsigned char tmp=0; 
+	disp_fan_return_pulse = fan_return_pulse_count;
+	switch(fan_speed)
+	{
+		case 0: //auto
+
+		break;
+		case 1:
+			
+			if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+    		{
+    			if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDGE_VALUE;
+    			else fan_judge++;			
+	    	} else
+    		{
+    			if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR))
+    			{
+    				if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+					else fan_judge--;
+    			}
+				else fan_judge = FAN_AUDGE_INIT;			
+	    	}     	
+			
+		break;
+		case 2: //
+		
+			if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+    		{
+    			if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDGE_VALUE;
+    			else fan_judge++;			
+	    	} else
+    		{
+    			if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR))
+    			{
+    				if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+					else fan_judge--;
+    			}
+				else fan_judge = FAN_AUDGE_INIT;			
+	    	}  
+			
+		break;
+		case 3:
+			
+			if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+    		{
+    			if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDGE_VALUE;
+    			else fan_judge++;			
+	    	} else
+    		{
+    			if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
+    			{
+    				if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+					else fan_judge--;
+    			}
+				else fan_judge = FAN_AUDGE_INIT;			
+	    	}  
+		break;
+		default:
+		break;
+	}
+	
+	if(fan_judge>21) 
+	{
+			fan_judge = FAN_AUDGE_INIT;
+		fan_pulse_count++;
+		
+	}
+	if (fan_judge<19) 
+	{
+			fan_judge = FAN_AUDGE_INIT;
+			fan_pulse_count--;
+	}
+	if(fan_pulse_count>90)
+	{		
+		fan_pulse_count = 90;		
+	}	
+	fan_return_pulse_count = 0;
+}
+
+
 void power_on(void)
 {
 	power_status = POWER_ON_STATUS;
@@ -157,6 +265,20 @@ void power_off(void)
 	ion_off();
 	led_off();
 }
+
+
+void EX1() interrupt	2
+{
+	//P52 = ~P52;
+	
+	if(P16 == 0)
+	{
+		//P51 = ~P51;
+	 	fan_return_pulse_count++;
+	}
+	
+}
+
 
 
 

@@ -49,7 +49,8 @@ unsigned short read_dust_display_value(void)
 //		
 //		//return dust_display_value;
 //	}
-	return dust_last_display_value;
+	//return dust_last_display_value;
+	return read_disp_fan_return_pulse();
 }
 //×î¸ß3.7V,  ×îµÍ0.625
 void dust_adc_mean_value(void)

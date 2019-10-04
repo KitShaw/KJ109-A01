@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   ION                                                               10/02/2019 17:37:09 PAGE 1   
+C51 COMPILER V9.52.0.0   ION                                                               10/04/2019 16:52:56 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE ION
@@ -19,9 +19,9 @@ line level    source
    9          
   10          void ion_init(void)
   11          {
-  12   1        P1PH &= ~(1<<7);  //关闭P17的上拉
-  13   1        P17 = 0;
-  14   1        P1CON |= 1<<7;  //P17输出模式
+  12   1      //  P1PH &= ~(1<<7);  //关闭P17的上拉
+  13   1      //  P17 = 0;
+  14   1      //  P1CON |= 1<<7;  //P17输出模式
   15   1        ion_off();
   16   1      }
   17          
@@ -37,7 +37,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     17    ----
+   CODE SIZE        =      9    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

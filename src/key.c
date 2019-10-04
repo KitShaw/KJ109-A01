@@ -87,7 +87,7 @@ void key_task(void)
 	
 	
 	
-//	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
+	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
 	
 	if((exKeyValueFlag & 0x0000031e0) == 0x000000080)//风速键 
 	{

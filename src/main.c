@@ -28,8 +28,9 @@ INT8U  Timercount = 0;			//定时器计数
 BOOL   TimerFlag_1ms = 0;		//定时器1MS标志
 
 //unsigned char power_status = POWER_OFF_STATUS;
-unsigned char	led_level = 0;
-unsigned char speed_level = 0;
+//unsigned char	led_level = 0;
+//unsigned char speed_level = 0;
+unsigned int fan_count_1s;
 unsigned char task_1s_count;
 unsigned char task_1s_flag;
 
@@ -88,6 +89,9 @@ void TimerInit(void)
 	TR0 = 0;
 	ET0 = 1;//定时器0允许
 	TR0 = 1;//打开定时器0
+
+    //IP |= (1<<1) | (1<<5);      //定时1, 和0高优先级
+    IP &= ~((1<<1) | (1<<5));      //定时1, 和0高优先级
 }
 
 void timer1_start(void)
@@ -104,23 +108,17 @@ void timer1_start(void)
 **************************************************/
 void timer0()interrupt 1
 {
-	//TH0 = (8192-1000)/32;       			//2000*1/4us=500us
-	//TL0 = (8192-1000)%32;	
-	//TH0=31;//31;             //(8192-80)/256;       			//1000*1=1000us	,1MS
-	//TL0=176;                //(8192-80)%256;
 	TL0 = 50; //(65536 - 1600)%256 = 192;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
 	TH0 = 250; //(65536 - 1600)/256 = 249;
-//	TimerFlag_1ms = 1;	
-		//P52=~P52;
 	if( dust_count == 4) DUST_PIN = 1;
 	else if(dust_count >= 100){
 		DUST_PIN = 0; 
 		dust_count = 0;
-		timer1_start();
-		//P52 =~P52;
+		timer1_start();		
 	}
 	dust_count++;
 	if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
+	if(++fan_count_1s >= 10000) { fan_count_1s = 0; store_fan_return_pulse();}  //电机计数1秒的脉冲用
 }
  /**************************************************
 *函数名称：void  Sys_Init(void) 
@@ -142,7 +140,12 @@ void  Sys_Init(void)
     TimerInit(); 				//定时器初始化
 	fan_init();
 	ion_init();
-	power_off();
+	//触控按键初始化
+	TouchKeyInit();	
+	key_init();	
+	eeprom_init();
+	filter_init();
+	power_on();
 }
 void task_1ms(void)
 {
@@ -186,16 +189,8 @@ void task_1s(void)
 void main(void)
 {			
 	Sys_Init();
-	
-	//触控按键初始化
-	TouchKeyInit();	
-	key_init();
-	//fan_init();
-	eeprom_init();
-
-	filter_init();
 	//ion_init();
-	DUST_PWR_PIN = 0;
+	//DUST_PWR_PIN = 0;
 	while(1)
 	{
 	   WDTCON  = 0x10;	   

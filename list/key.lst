@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 11:11:52 PAGE 1   
+C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 16:05:17 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE KEY
@@ -62,7 +62,7 @@ line level    source
   51   2          TouchKeyRestart();        //启动下一轮转换                                                                  
   52   2        }          
   53   1      }
-C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 11:11:52 PAGE 2   
+C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 16:05:17 PAGE 2   
 
   54          
   55          void key_init(void)
@@ -100,7 +100,7 @@ line level    source
   87   1        
   88   1        
   89   1        
-  90   1      //  if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
+  90   1        if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
   91   1        
   92   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000080)//风速键 
   93   1        {
@@ -126,7 +126,7 @@ line level    source
  113   1        if((exKeyValueFlag & 0x0000031e0) == 0x000001000)//ion
  114   1        {
  115   2          if(0 == KEY_ION_FLAG)
-C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 11:11:52 PAGE 3   
+C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 16:05:17 PAGE 3   
 
  116   2          {
  117   3            if(++key_ion_count >= 10)
@@ -190,7 +190,7 @@ line level    source
  175   1        {
  176   2          KEY_TIMER_FLAG = 0;
  177   2          key_timer_count = 0;
-C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 11:11:52 PAGE 4   
+C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 16:05:17 PAGE 4   
 
  178   2        }
  179   1      }
@@ -254,7 +254,7 @@ line level    source
  237          
  238          void key_power_com(void)
  239          {
-C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 11:11:52 PAGE 5   
+C51 COMPILER V9.52.0.0   KEY                                                               10/04/2019 16:05:17 PAGE 5   
 
  240   1        //unsigned long filter_time_temp;
  241   1        //P50 = ~P50;
@@ -280,7 +280,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    487    ----
+   CODE SIZE        =    496    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
