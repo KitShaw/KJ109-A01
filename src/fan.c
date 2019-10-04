@@ -68,7 +68,7 @@ void fan_init(void)
 
 	//PWMCON = 99;           //周期设置低8位,50us  20k
     //PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
-	PWMCON = 199;           //周期设置低8位,200us
+	PWMCON = 199;           //周期设置低8位,100us, 10K
     PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
 	
 	PWMRD_42 = 0x8000 | 20;
@@ -177,7 +177,57 @@ void fan_handle(void)
 	switch(fan_speed)
 	{
 		case 0: //auto
-
+			switch(read_dust_level())
+			{
+				case DUST_LEVEL_EXCELLENT: //优1速档
+					if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+    				{
+		    			if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDGE_VALUE;
+    					else fan_judge++;			
+			    	} 
+					else
+    				{
+    					if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR))
+		    			{
+    						if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+							else fan_judge--;
+    					}
+						else fan_judge = FAN_AUDGE_INIT;			
+			    	}
+					    				
+				break;
+				case DUST_LEVEL_MEDIUM: //中2档
+					if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+    				{
+		    			if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDGE_VALUE;
+    					else fan_judge++;			
+			    	} else
+    				{
+    				if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR))
+	    			{
+    					if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+						else fan_judge--;
+    				}
+					else fan_judge = FAN_AUDGE_INIT;			
+			    	}					
+				break;
+				case DUST_LEVEL_BAD: //差3挡
+					if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+    				{
+		    			if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDGE_VALUE;
+    					else fan_judge++;			
+			    	} else
+    				{
+    				if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
+	    			{
+    					if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+						else fan_judge--;
+    				}
+					else fan_judge = FAN_AUDGE_INIT;			
+			    	}  
+					
+				break;
+			}
 		break;
 		case 1:
 			
@@ -244,9 +294,9 @@ void fan_handle(void)
 			fan_judge = FAN_AUDGE_INIT;
 			fan_pulse_count--;
 	}
-	if(fan_pulse_count>90)
+	if(fan_pulse_count>160)
 	{		
-		fan_pulse_count = 90;		
+		fan_pulse_count = 160;		
 	}	
 	//fan_return_pulse_count = 0;
 }

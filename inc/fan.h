@@ -21,8 +21,8 @@
 #define     CORRECTION_FACTOR              2    //修正因子
 #define     CORRECTION_FACTOR_BIG              30    //大修正因子, 要让速度快速下降和上升
 #define		FAN_LEVEL1_PULSE_COUNT  60         //  300/60*12 = 60;  //风机返回的脉冲数
-#define		FAN_LEVEL2_PULSE_COUNT  200//102		//  500/60*12 = 100;
-#define		FAN_LEVEL3_PULSE_COUNT	176			//  500/60*12 = 100;
+#define		FAN_LEVEL2_PULSE_COUNT  120//102		//  600/60*12 = 120;
+#define		FAN_LEVEL3_PULSE_COUNT	176			//  880/60*12 = 176;
 #define  	FAN_MUST_JUDGE_VALUE  10   //加上这个值下次风速一定要调整
 #define  	FAN_AUDGE_INIT			20
 

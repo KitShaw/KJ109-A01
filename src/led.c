@@ -61,7 +61,7 @@ void led_task(void)
 		led_display_mode();
 		led_display_unlock();
 	led_display_pm25();
-	//led_display_dust_level();
+	led_display_dust_level();
 }
 
 void led_off(void)
@@ -105,6 +105,7 @@ void led_display_pm25(void)
 	led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
 	led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
 	led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
+	LEDRAM[12] |= 0x10;  //PM2.5Í¼±ê
 }
 
 void led_display_dust_level(void)
