@@ -34,23 +34,8 @@ void dust_init(void)
 
 unsigned short read_dust_display_value(void)
 {
-//	if(++dust_delay_count>200)
-//	{
-//		dust_delay_count = 0;
-//		//dust_last_display_value = dust_display_value;  //更新显示值
-//		if((dust_display_value + 20) < dust_last_display_value)
-//		{
-//			dust_last_display_value -= 8;  //更新显示值
-//		}
-//		else 
-//		{
-//			dust_last_display_value = dust_display_value;  //更新显示值
-//		}
-//		
-//		//return dust_display_value;
-//	}
-	//return dust_last_display_value;
-	return read_disp_fan_return_pulse();
+	return dust_last_display_value;
+	//return read_disp_fan_return_pulse();
 }
 //最高3.7V,  最低0.625
 void dust_adc_mean_value(void)

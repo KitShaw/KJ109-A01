@@ -59,19 +59,6 @@ void timer1_start(void);
 **************************************************/
 void TimerInit(void)
 {
-//	TMCON |= 1;		//bit0: 0为FOSC/12,1为FOSO
-
-//	TMOD = TMOD&0xf0;		  			//设置定时0，工作方式0
-//	TMOD = TMOD|0x00;
-//	TH0=31;  ///(8192-80)/256 = 31.6875;       			//1000*1=1000us	,1MS
-//	TL0=176;         //(8192-80)%256 = 176;
-//	//TH0 = 800;
-//	//TL0 = 800;
-//	TF0 = 0;						    //清中断标志
-//	TR0=0;								//关定时器0
-//   	ET0=1;								//使能定时器0中断
-//	TR0=1;
-	
 	TMCON |= 0X02;
 	TMOD |= 0x10;            
 	TL1 = (65536 - 1600)%256;  
@@ -118,7 +105,7 @@ void timer0()interrupt 1
 	}
 	dust_count++;
 	if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
-	if(++fan_count_1s >= 10000) { fan_count_1s = 0; store_fan_return_pulse();}  //电机计数1秒的脉冲用
+	//if(++fan_count_1s >= 10000) { fan_count_1s = 0; store_fan_return_pulse();}  //电机计数1秒的脉冲用
 }
  /**************************************************
 *函数名称：void  Sys_Init(void) 

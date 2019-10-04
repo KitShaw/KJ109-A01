@@ -12,6 +12,7 @@
 #include "filter.h"
 #include "IAP.h"
 #include "ion.H"
+#include "dust.h"
 
 //unsigned int xdata PWMRD_40  _at_  0x740;
 //unsigned int xdata PWMRD_41  _at_  0x742;
@@ -54,13 +55,10 @@ void fan_init(void)
 	P1CON &= ~(1<<6);       //P16输入上拉
 	P1PH |= 1<<6;
 
-	INT1F |= 0X40 ;    //xxxx xxxx P16下降沿中断
-	INT1R &= ~0X40 ;    //xxxx xxxx  0关闭 1使能
-	//IE1 = 1;
-	IE  |= 0x04;	//0000 0x0x INT1使能
-	//IP &= ~0x04;   //INT1低优先级
-	IP |= 0x04;   //INT1低优先级
-	//IE1 |= 0x08;	//0000 x000  INT2使能
+	//INT1F |= 0X40 ;    //xxxx xxxx P16下降沿中断
+	//INT1R &= ~0X40 ;    //xxxx xxxx  0关闭 1使能
+	//IE  |= 0x04;	//0000 0x0x INT1使能
+	//IP |= 0x04;   //INT1低优先级
 
 	P4CON |= (1<<2) | (1<<4);     // p44, P42输出
 	P42 = 0;
@@ -254,6 +252,8 @@ void power_on(void)
 	led_on();  //开显示
 	ion_on();
 	fan_pwm_start();
+
+	DUST_PWR_PIN = 0;
 }
 
 void power_off(void)
@@ -264,20 +264,21 @@ void power_off(void)
 	//fan_pwm_stop();
 	ion_off();
 	led_off();
+	DUST_PWR_PIN = 1;
 }
 
 
-void EX1() interrupt	2
-{
+//void EX1() interrupt	2
+//{
 	//P52 = ~P52;
 	
-	if(P16 == 0)
-	{
+	//if(P16 == 0)
+	//{
 		//P51 = ~P51;
-	 	fan_return_pulse_count++;
-	}
+	 	//fan_return_pulse_count++;
+	//}
 	
-}
+//}
 
 
 
