@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 19:46:48 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 20:05:38 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52          
   53          
   54           /**************************************************
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 19:46:48 PAGE 2   
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 20:05:38 PAGE 2   
 
   55          *函数名称：void TimerInit(void) 
   56          *函数功能：定时器初始化
@@ -78,157 +78,189 @@ line level    source
   66   1        TR1 = 0;
   67   1        ET1 = 1;//
   68   1        
-  69   1        TMCON |= 0X01;    //------111 ;Timer0、Tiemr1和Tiemr2选择时钟Fsys
-  70   1        
-  71   1        
-  72   1        //T0设置
-  73   1        TMOD |= 0x01;                 //0000 0001;Timer0设置工作方式1
-  74   1        TL0 = (65536 - 1600)%256;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
-  75   1        TH0 = (65536 - 1600)/256;
-  76   1        TR0 = 0;
-  77   1        ET0 = 1;//定时器0允许
-  78   1        TR0 = 1;//打开定时器0
-  79   1      
-  80   1          //IP |= (1<<1) | (1<<5);      //定时1, 和0高优先级
-  81   1          IP &= ~((1<<1) | (1<<5));      //定时1, 和0高优先级
-  82   1      }
-  83          
-  84          void timer1_start(void)
-  85          {
-  86   1        TL1 = (65536 - 4480)%256;    //240s
-  87   1        TH1 = (65536 - 4480)/256;    //236.9375
-  88   1        TR1 = 1;
-  89   1      }
-  90          /**************************************************
-  91          *函数名称：void timer0()interrupt 1 
-  92          *函数功能：定时器中断服务函数
-  93          *入口参数：void
-  94          *出口参数：void 
-  95          **************************************************/
-  96          void timer0()interrupt 1
-  97          {
-  98   1        TL0 = 50; //(65536 - 1600)%256 = 192;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
-  99   1        TH0 = 250; //(65536 - 1600)/256 = 249;
- 100   1        if( dust_count == 4) DUST_PIN = 1;
- 101   1        else if(dust_count >= 100){
- 102   2          DUST_PIN = 0; 
- 103   2          dust_count = 0;
- 104   2          timer1_start();   
- 105   2        }
- 106   1        dust_count++;
- 107   1        if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
- 108   1        //if(++fan_count_1s >= 10000) { fan_count_1s = 0; store_fan_return_pulse();}  //电机计数1秒的脉冲用
- 109   1      }
- 110           /**************************************************
- 111          *函数名称：void  Sys_Init(void) 
- 112          *函数功能：系统初始化
- 113          *入口参数：void
- 114          *出口参数：void  
- 115          **************************************************/
- 116          void  Sys_Init(void)
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 19:46:48 PAGE 3   
+  69   1        TMCON |= 0X04;    //------111 ;Timer0、Tiemr1和Tiemr2选择时钟Fsys
+  70   1        //T2设置
+  71   1        T2MOD = 0x00;
+  72   1        T2CON = 0x00;  //设置为16位重载寄存器
+  73   1        RCAP2H = 250; (65536-1600)/256;     //溢出时间：时钟为Fsys，则32000*（1/Fsys）=2ms;
+*** WARNING C275 IN LINE 73 OF src\main.c: expression with possibly no effect
+  74   1        RCAP2L = 50; (65536-1600)%256;
+*** WARNING C275 IN LINE 74 OF src\main.c: expression with possibly no effect
+  75   1        TR2 = 0;
+  76   1        ET2 = 1;//定时器2允许
+  77   1        TR2 = 1;//打开定时器2 
+  78   1        
+  79   1        
+  80   1        //T0设置
+  81   1        //TMOD |= 0x01;                 //0000 0001;Timer0设置工作方式1
+  82   1        //TL0 = (65536 - 1600)%256;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
+  83   1        //TH0 = (65536 - 1600)/256;
+  84   1        //TR0 = 0;
+  85   1        //ET0 = 1;//定时器0允许
+  86   1        //TR0 = 1;//打开定时器0
+  87   1      
+  88   1          //IP |= (1<<1) | (1<<5);      //定时1, 和0高优先级
+  89   1          //IP &= ~((1<<1) | (1<<5));      //定时1, 和0高优先级
+  90   1      }
+  91          
+  92          void timer1_start(void)
+  93          {
+  94   1        TL1 = (65536 - 4480)%256;    //240s
+  95   1        TH1 = (65536 - 4480)/256;    //236.9375
+  96   1        TR1 = 1;
+  97   1      }
+  98          /**************************************************
+  99          *函数名称：void timer0()interrupt 1 
+ 100          *函数功能：定时器中断服务函数
+ 101          *入口参数：void
+ 102          *出口参数：void 
+ 103          **************************************************/
+ 104          void timer0()interrupt 1
+ 105          {
+ 106   1      /*
+ 107   1        TL0 = 50; //(65536 - 1600)%256 = 192;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
+ 108   1        TH0 = 250; //(65536 - 1600)/256 = 249;
+ 109   1        if( dust_count == 4) DUST_PIN = 1;
+ 110   1        else if(dust_count >= 100){
+ 111   1          DUST_PIN = 0; 
+ 112   1          dust_count = 0;
+ 113   1          timer1_start();   
+ 114   1        }
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 20:05:38 PAGE 3   
 
- 117          { 
- 118   1        WDTCON  = 0x10;           //1--1 -- 00    开WDT,WDT清0,WDT 524.288ms溢出;烧录时，可Code Option选择ENWDT
- 119   1        //TK对应的IO设置为强推挽输出1
- 120   1        
- 121   1        P1CON |= (1<<0) | (1<<4) | (1<<5);                //P10, P14, P15是触摸脚
- 122   1        P3CON |= (1<<0) | (1<<1) | (1<<20);
- 123   1        led_init();
- 124   1        //display_init();
- 125   1        dust_init();
- 126   1        EA = 1;           //开总中断  
- 127   1          TimerInit();        //定时器初始化
- 128   1        fan_init();
- 129   1        ion_init();
- 130   1        //触控按键初始化
- 131   1        TouchKeyInit(); 
- 132   1        key_init(); 
- 133   1        eeprom_init();
- 134   1        filter_init();
- 135   1        power_on();
- 136   1      }
- 137          void task_1ms(void)
- 138          {
- 139   1        //filter_task();
- 140   1        key_task(); 
- 141   1        if(++task_10ms_count>=10) {task_10ms_count = 0; task_10ms_flag = 1;}
- 142   1        //P52=~P52;
- 143   1      }
- 144          
- 145          void task_10ms(void)
- 146          {
- 147   1        //filter_task();
+ 115   1        dust_count++;
+ 116   1        if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
+ 117   1        */
+ 118   1        //if(++fan_count_1s >= 10000) { fan_count_1s = 0; store_fan_return_pulse();}  //电机计数1秒的脉冲用
+ 119   1      }
+ 120          
+ 121          
+ 122           void Timer2Int(void) interrupt 5
+ 123           {  
+ 124   1        //RCAP2L = 50;
+ 125   1        //RCAP2H = 250;
+ 126   1        TF2 = 0;   //溢出清零
+ 127   1        P52 = ~P52;
+ 128   1        if( dust_count == 4) DUST_PIN = 1;
+ 129   1        else if(dust_count >= 100){
+ 130   2          DUST_PIN = 0; 
+ 131   2          dust_count = 0;
+ 132   2          timer1_start();   
+ 133   2        }
+ 134   1        dust_count++;
+ 135   1        if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
+ 136   1       }
+ 137          
+ 138           /**************************************************
+ 139          *函数名称：void  Sys_Init(void) 
+ 140          *函数功能：系统初始化
+ 141          *入口参数：void
+ 142          *出口参数：void  
+ 143          **************************************************/
+ 144          void  Sys_Init(void)
+ 145          { 
+ 146   1        WDTCON  = 0x10;           //1--1 -- 00    开WDT,WDT清0,WDT 524.288ms溢出;烧录时，可Code Option选择ENWDT
+ 147   1        //TK对应的IO设置为强推挽输出1
  148   1        
- 149   1        Sys_Scan();   
- 150   1        led_task();
- 151   1        if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
- 152   1        //P52=~P52;
- 153   1        dust_task();
- 154   1        
- 155   1      }
- 156          
- 157          void task_100ms(void)
- 158          {
- 159   1        if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
- 160   1        filter_task();
- 161   1        fan_task();
- 162   1      }
- 163          
- 164          void task_1s(void)
- 165          {
- 166   1        //filter_task();
- 167   1        //P52=~P52;
- 168   1      }
- 169          
- 170          /**************************************************
- 171          *函数名称：void main(void)                  
- 172          *函数功能：主函数
- 173          *入口参数：void
- 174          *出口参数：void  
- 175          **************************************************/
- 176          void main(void)
- 177          {     
- 178   1        Sys_Init();
-C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 19:46:48 PAGE 4   
+ 149   1        P1CON |= (1<<0) | (1<<4) | (1<<5);                //P10, P14, P15是触摸脚
+ 150   1        P3CON |= (1<<0) | (1<<1) | (1<<20);
+ 151   1        led_init();
+ 152   1        //display_init();
+ 153   1        dust_init();
+ 154   1        EA = 1;           //开总中断  
+ 155   1          TimerInit();        //定时器初始化
+ 156   1        fan_init();
+ 157   1        ion_init();
+ 158   1        //触控按键初始化
+ 159   1        TouchKeyInit(); 
+ 160   1        key_init(); 
+ 161   1        eeprom_init();
+ 162   1        filter_init();
+ 163   1        power_on();
+ 164   1      }
+ 165          void task_1ms(void)
+ 166          {
+ 167   1        //filter_task();
+ 168   1        key_task(); 
+ 169   1        if(++task_10ms_count>=10) {task_10ms_count = 0; task_10ms_flag = 1;}
+ 170   1        //P52=~P52;
+ 171   1      }
+ 172          
+ 173          void task_10ms(void)
+ 174          {
+ 175   1        //filter_task();
+ 176   1        
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 20:05:38 PAGE 4   
 
- 179   1        //ion_init();
- 180   1        //DUST_PWR_PIN = 0;
- 181   1        while(1)
- 182   1        {
- 183   2           WDTCON  = 0x10;     
- 184   2            if(1 == task_1ms_flag) { task_1ms_flag = 0; task_1ms();}
- 185   2            if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
- 186   2            if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
- 187   2            if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
- 188   2        } 
- 189   1      }
- 190          
+ 177   1        Sys_Scan();   
+ 178   1        led_task();
+ 179   1        if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
+ 180   1        //P52=~P52;
+ 181   1        dust_task();
+ 182   1        
+ 183   1      }
+ 184          
+ 185          void task_100ms(void)
+ 186          {
+ 187   1        if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
+ 188   1        filter_task();
+ 189   1        fan_task();
+ 190   1      }
  191          
- 192          /**************************************************
- 193          *函数名称：void timer1()interrupt 1 
- 194          *函数功能：定时器中断服务函数
- 195          *入口参数：void
- 196          *出口参数：void 
- 197          **************************************************/
- 198          void timer1()interrupt 3
- 199          {
- 200   1        TR1 = 0;
- 201   1        adc_start();
- 202   1        //P52 =~P52;
- 203   1      }
- 204          
- 205          
- 206          
- 207          
- 208          
- 209          
- 210          
- 211          
+ 192          void task_1s(void)
+ 193          {
+ 194   1        //filter_task();
+ 195   1        //P52=~P52;
+ 196   1      }
+ 197          
+ 198          /**************************************************
+ 199          *函数名称：void main(void)                  
+ 200          *函数功能：主函数
+ 201          *入口参数：void
+ 202          *出口参数：void  
+ 203          **************************************************/
+ 204          void main(void)
+ 205          {     
+ 206   1        Sys_Init();
+ 207   1        //ion_init();
+ 208   1        //DUST_PWR_PIN = 0;
+ 209   1        while(1)
+ 210   1        {
+ 211   2           WDTCON  = 0x10;     
+ 212   2            if(1 == task_1ms_flag) { task_1ms_flag = 0; task_1ms();}
+ 213   2            if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
+ 214   2            if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
+ 215   2            if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
+ 216   2        } 
+ 217   1      }
+ 218          
+ 219          
+ 220          /**************************************************
+ 221          *函数名称：void timer1()interrupt 1 
+ 222          *函数功能：定时器中断服务函数
+ 223          *入口参数：void
+ 224          *出口参数：void 
+ 225          **************************************************/
+ 226          void timer1()interrupt 3
+ 227          {
+ 228   1        TR1 = 0;
+ 229   1        adc_start();
+ 230   1        //P52 =~P52;
+ 231   1      }
+ 232          
+ 233          
+ 234          
+ 235          
+ 236          
+ 237          
+ 238          
+C51 COMPILER V9.52.0.0   MAIN                                                              10/04/2019 20:05:38 PAGE 5   
+
+ 239          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    322    ----
+   CODE SIZE        =    320    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
@@ -238,4 +270,4 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -2249,3 +2249,63 @@ Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01"
 Flash Write Done: 7821 bytes programmed.
 CheckSum = 0x8222
 Flash Verify Done: 7824 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DISP_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?STORE_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7583
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 6 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7821 bytes programmed.
+CheckSum = 0xe7ee
+Flash Verify Done: 7824 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DISP_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?STORE_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7579
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 6 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+src\main.c(73): warning C275: expression with possibly no effect
+src\main.c(74): warning C275: expression with possibly no effect
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?READ_DISP_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?STORE_FAN_RETURN_PULSE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_HANDLE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LED_DISPLAY_DUST_LEVEL?LED
+Program Size: data=90.4 xdata=197 code=7581
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 6 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 7819 bytes programmed.
+CheckSum = 0x7106
+Flash Verify Done: 7820 bytes verified.

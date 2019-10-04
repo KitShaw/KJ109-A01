@@ -66,19 +66,27 @@ void TimerInit(void)
 	TR1 = 0;
 	ET1 = 1;//
 	
-	TMCON |= 0X01;    //------111 ;Timer0、Tiemr1和Tiemr2选择时钟Fsys
+	TMCON |= 0X04;    //------111 ;Timer0、Tiemr1和Tiemr2选择时钟Fsys
+	//T2设置
+	T2MOD = 0x00;
+	T2CON = 0x00;	 //设置为16位重载寄存器
+	RCAP2H = 250; (65536-1600)/256;     //溢出时间：时钟为Fsys，则32000*（1/Fsys）=2ms;
+	RCAP2L = 50; (65536-1600)%256;
+	TR2 = 0;
+	ET2 = 1;//定时器2允许
+	TR2 = 1;//打开定时器2	
 	
 	
 	//T0设置
-	TMOD |= 0x01;                 //0000 0001;Timer0设置工作方式1
-	TL0 = (65536 - 1600)%256;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
-	TH0 = (65536 - 1600)/256;
-	TR0 = 0;
-	ET0 = 1;//定时器0允许
-	TR0 = 1;//打开定时器0
+	//TMOD |= 0x01;                 //0000 0001;Timer0设置工作方式1
+	//TL0 = (65536 - 1600)%256;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
+	//TH0 = (65536 - 1600)/256;
+	//TR0 = 0;
+	//ET0 = 1;//定时器0允许
+	//TR0 = 1;//打开定时器0
 
     //IP |= (1<<1) | (1<<5);      //定时1, 和0高优先级
-    IP &= ~((1<<1) | (1<<5));      //定时1, 和0高优先级
+    //IP &= ~((1<<1) | (1<<5));      //定时1, 和0高优先级
 }
 
 void timer1_start(void)
@@ -95,6 +103,7 @@ void timer1_start(void)
 **************************************************/
 void timer0()interrupt 1
 {
+/*
 	TL0 = 50; //(65536 - 1600)%256 = 192;    //溢出时间：时钟为Fsys，则16000*（1/Fsys）=1ms;
 	TH0 = 250; //(65536 - 1600)/256 = 249;
 	if( dust_count == 4) DUST_PIN = 1;
@@ -105,8 +114,27 @@ void timer0()interrupt 1
 	}
 	dust_count++;
 	if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
+	*/
 	//if(++fan_count_1s >= 10000) { fan_count_1s = 0; store_fan_return_pulse();}  //电机计数1秒的脉冲用
 }
+
+
+ void Timer2Int(void) interrupt 5
+ {	
+ 	//RCAP2L = 50;
+	//RCAP2H = 250;
+	TF2 = 0;   //溢出清零
+	P52 = ~P52;
+	if( dust_count == 4) DUST_PIN = 1;
+	else if(dust_count >= 100){
+		DUST_PIN = 0; 
+		dust_count = 0;
+		timer1_start();		
+	}
+	dust_count++;
+	if(++task_1ms_count >= 10) {task_1ms_flag = 1; task_1ms_count = 0;}
+ }
+
  /**************************************************
 *函数名称：void  Sys_Init(void) 
 *函数功能：系统初始化
