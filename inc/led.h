@@ -29,6 +29,8 @@ void led_display_ion(void);
 void led_display_unlock(void);
 void led_display_pm25(void);
 void led_display_dust_level(void);
+void led_off(void);
+void led_on(void);
 
 
 #endif

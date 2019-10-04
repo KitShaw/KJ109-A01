@@ -64,12 +64,50 @@ void led_init(void)
 void led_task(void)
 //100ms调用一次
 {
+		if(read_power_status() == POWER_OFF_STATUS)
+		{			
+			return;
+		}
 		led_display_ion();
 		led_display_mode();
 		led_display_unlock();
 	led_display_pm25();
 	led_display_dust_level();
 }
+
+void led_off(void)
+{
+	DDRCON &= ~0x80;
+	LED_GREEN = 1;
+	LED_BLUE = 1;
+	LED_RED = 1;
+	
+	LEDRAM[11] &= ~0x08;  // 童锁图标
+	LEDRAM[12] &= ~0x18;  //0x10 -P2.5  0x08-8H
+	LEDRAM[13] &= ~0x18;  //0x10 - 高, 0x08 - 4H
+	LEDRAM[14] &= ~0x18;  //0x10 - 中, 0x08 - 2H  
+	//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+	LEDRAM[15] &= ~0xf8;  //0x10 - 低, 0x08 - 1H
+	//数码管g段
+	LEDRAM[16] &= ~0xf8;  //0x10 - ION图标, 0x08香薰按键,   
+	//数码管F段
+	LEDRAM[17] &= ~0xf8;   //0x10- 高速 和 0x08-负离子按键
+	//数码管E段
+	LEDRAM[18] &= ~0xf8;   //0x10- 中速 , 0x08 - 模式按键
+	//数码管D段
+	LEDRAM[19] &= ~0xf8;  //低速 ,  童锁按键
+	//数码管C段
+	LEDRAM[20] &= ~0xf8;  //智能, 定时按键
+	//数码管B段
+	LEDRAM[21] &= ~0xf8;  //滤网, 电源按键
+	//数码管A段
+}
+
+void led_on(void)
+{
+	DDRCON |= 0x80;
+}
+
 
 void led_display_pm25(void)
 {

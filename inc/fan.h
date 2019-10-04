@@ -13,8 +13,13 @@
 
 #define POWER_OFF_STATUS 0
 #define POWER_ON_STATUS 1
-#define FAN_POWER_PIN	P21
-#define FAN_PWM_PIN   P00
+//#define FAN_POWER_PIN	P21
+#define FAN_PWM_PIN   P42
+#define FAN_PC_PIN	P44
+
+
+
+
 //#define ION_POWER_CON P01   //由于ion开机就开, 关机就关比较简单, 就和fan放一起了
 //#define OVER_VOLTAGE_PIN P20  //判断电压是否超压
 
