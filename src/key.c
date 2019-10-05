@@ -23,9 +23,9 @@ bitval key_flag;
 #define KEY_AROM_FLAG	key_flag.bit1   
 #define KEY_SPEED_FLAG	key_flag.bit2
 #define KEY_LOCK_FLAG	key_flag.bit3
+#define LOCk_FLAG		key_flag.bit6            //童锁解锁标志, 0解锁, 1锁住
 #define KEY_ION_FLAG key_flag.bit4
 #define KEY_TIMER_FLAG key_flag.bit5
-#define UNLOCk_FLAG		key_flag.bit6            //童锁解锁标志, 1解锁, 0锁住
 
 unsigned short key_power_count;
 unsigned short key_speed_count;
@@ -56,7 +56,7 @@ void Sys_Scan(void)
 
 void key_init(void)
 {
-	UNLOCk_FLAG = 1;         
+	LOCk_FLAG = 0;         
 }
 
 //0x0100--power
@@ -198,12 +198,13 @@ void key_arom_com(void)
 void key_lock_com(void)
 {
 	//P52 = ~P52;
-	UNLOCk_FLAG = ~UNLOCk_FLAG;
+	//UNLOCk_FLAG = ~UNLOCk_FLAG;
+	LOCk_FLAG = 0;      //解
 }
 
 bit read_unlock_flag(void)
 {
-	return UNLOCk_FLAG;
+	return LOCk_FLAG;
 }
 
 void key_speed_com(void)

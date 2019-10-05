@@ -58,7 +58,8 @@ void dust_adc_mean_value(void)
 	//PM2.5 = (µçÑ¹- 0.6) * 1000/56;
 	dust_adc_mean = sum / i;
 	dust_voltage = dust_adc_mean * 10000 * 5 /4096 ;
-	if(dust_voltage > 6000) dust_voltage -= 6000;
+	//if(dust_voltage > 6000) dust_voltage -= 6000;
+	if(dust_voltage > 5500) dust_voltage -= 5500;
 	else dust_voltage = 0;
 	dust_display_value = dust_voltage / 56;
 	//dust_display_value = dust_adc_mean / 10;// * 5 * 133 / 4096;  //dust_adc_mean/4096 *5

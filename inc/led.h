@@ -26,7 +26,7 @@ void led_task(void);
 void led_display_bcd(unsigned char bcd_value, unsigned char digit);
 void led_display_mode(void);
 void led_display_ion(void);
-void led_display_unlock(void);
+void led_display_lock(void);
 void led_display_pm25(void);
 void led_display_dust_level(void);
 void led_off(void);

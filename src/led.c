@@ -62,7 +62,7 @@ void led_task(void)
 		led_display_ion();
 		led_display_arom_level();
 		led_display_mode();
-		led_display_unlock();
+		led_display_lock();
 	led_display_pm25();
 	led_display_dust_level();
 	led_display_timing_off_level();
@@ -224,9 +224,9 @@ void led_display_dust_level(void)
 	}
 }
 
-void led_display_unlock(void)
+void led_display_lock(void)
 {
-	if( 1 == read_unlock_flag())
+	if( 0 == read_unlock_flag())
 	{
 		LEDRAM[11] &= ~0x08;  // Í¯ËøÍ¼±ê
 	}
