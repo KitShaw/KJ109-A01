@@ -33,6 +33,7 @@ void led_off(void);
 void led_on(void);
 void led_display_arom_level(void);
 void led_display_timing_off_level(void);
+void led_display_filter_out(unsigned char filter_flag);
 
 
 

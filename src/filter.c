@@ -1,7 +1,8 @@
 
 /*
  * filter.c
- *
+ * Kit Shaw
+ * 2019.10.5
  */
  
 #include "filter.h"
@@ -48,6 +49,7 @@ void filter_task(void)
 		else {filter_time++; }
 		
 	}
+	led_display_filter_out(filter_out_time_flag);
 }
 
 void write_filter_time(void)

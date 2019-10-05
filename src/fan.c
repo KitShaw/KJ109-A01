@@ -330,6 +330,7 @@ void power_off(void)
 	led_off();
 	DUST_PWR_PIN = 1;
 	reset_key_no_move_count();
+	write_filter_time();
 }
 
 

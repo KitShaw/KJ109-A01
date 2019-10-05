@@ -126,7 +126,7 @@ void timer0()interrupt 1
  	//RCAP2L = 50;
 	//RCAP2H = 250;
 	TF2 = 0;   //Òç³öÇåÁã
-	P52 = ~P52;
+	//P52 = ~P52;
 	if( dust_count == 4) DUST_PIN = 1;
 	else if(dust_count >= 100){
 		DUST_PIN = 0; 
@@ -185,7 +185,6 @@ void task_10ms(void)
 	//filter_task();
 	
 	Sys_Scan();		
-	led_task();
 	if(++task_100ms_count>=10){task_100ms_count = 0; task_100ms_flag = 1;}
 	//P52=~P52;
 	dust_task();
@@ -196,7 +195,7 @@ void task_100ms(void)
 {
 	if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
 	filter_task();
-	
+	led_task();
 }
 
 void task_1s(void)

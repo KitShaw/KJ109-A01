@@ -66,6 +66,14 @@ void led_task(void)
 	led_display_pm25();
 	led_display_dust_level();
 	led_display_timing_off_level();
+	
+}
+
+
+void led_display_filter_out(unsigned char filter_flag)
+{
+	if( 1 == filter_flag) LEDRAM[21] |= 0x10;  //滤网, 电源按键
+	else LEDRAM[21] &= ~0x10;  //滤网, 电源按键
 }
 
 void led_off(void)

@@ -236,7 +236,6 @@ void key_speed_long_com(void)
 //长按风速键清楚滤网寿命
 {
 	reset_filter_time();
-	//P51 = ~P51;
 }
 
 //void key_sleep_com(void)
