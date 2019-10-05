@@ -22,7 +22,7 @@ void timing_off_task(void)
 	switch(timing_off_level)
 	{
 		case 1://1H
-			if(++timing_off_count>=3600) power_off();
+			if(++timing_off_count>= 3600) power_off();
 		break;
 		case 2://2H
 			if(++timing_off_count>=7200) power_off();

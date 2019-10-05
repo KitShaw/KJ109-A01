@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 11:09:45 PAGE 1   
+C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 12:38:24 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE FAN
@@ -62,7 +62,7 @@ line level    source
   52   1      }
   53          
   54          void fan_init(void)
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 11:09:45 PAGE 2   
+C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 12:38:24 PAGE 2   
 
   55          {
   56   1        fan_speed = FAN_SPEED_AUTO;
@@ -126,7 +126,7 @@ line level    source
  114          
  115          void fan_task(void)
  116            //10ms调用一次
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 11:09:45 PAGE 3   
+C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 12:38:24 PAGE 3   
 
  117          {
  118   1        //unsigned int tmp;
@@ -190,7 +190,7 @@ line level    source
  176          void fan_handle(void)  
  177            //设置风机的速度，1s调用一次
  178          {
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 11:09:45 PAGE 4   
+C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 12:38:24 PAGE 4   
 
  179   1        //static unsigned char tmp=0; 
  180   1        if(0 == fan_regulate_flag) return;
@@ -254,7 +254,7 @@ line level    source
              -_JUDGE_VALUE;
  230   5                  else fan_judge--;
  231   5                  }
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 11:09:45 PAGE 5   
+C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 12:38:24 PAGE 5   
 
  232   4                else fan_judge = FAN_AUDGE_INIT;      
  233   4                  }  
@@ -318,7 +318,7 @@ line level    source
              -JUDGE_VALUE;
  283   4                else fan_judge--;
  284   4                }
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 11:09:45 PAGE 6   
+C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 12:38:24 PAGE 6   
 
  285   3              else fan_judge = FAN_AUDGE_INIT;      
  286   3              }  
@@ -369,21 +369,22 @@ line level    source
  331   1        DUST_PWR_PIN = 1;
  332   1        reset_key_no_move_count();
  333   1        write_filter_time();
- 334   1      }
- 335          
+ 334   1        reset_lock_flag();
+ 335   1      }
  336          
  337          
  338          
  339          
  340          
+ 341          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    793    ----
+   CODE SIZE        =    796    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =      6    ----
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 11:09:45 PAGE 7   
+C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 12:38:24 PAGE 7   
 
+   XDATA SIZE       =      6    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      8    ----
    IDATA SIZE       =   ----    ----

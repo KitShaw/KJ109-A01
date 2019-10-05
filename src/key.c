@@ -204,6 +204,12 @@ void key_ion_com(void)
 	ION_PIN = !ION_PIN;
 }
 
+void reset_lock_flag(void)
+{
+	LOCk_FLAG = 0;
+	reset_key_no_move_count();
+}
+
 void key_timer_com(void)
 {
 	regulate_timing_off_level();
@@ -218,8 +224,8 @@ void key_lock_com(void)
 {
 	//P52 = ~P52;
 	//UNLOCk_FLAG = ~UNLOCk_FLAG;
-	LOCk_FLAG = 0;      //½â
-	reset_key_no_move_count();
+	//LOCk_FLAG = 0;      //½â
+	reset_lock_flag();	
 }
 
 bit read_unlock_flag(void)

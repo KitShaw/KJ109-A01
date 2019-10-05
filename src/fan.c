@@ -331,6 +331,7 @@ void power_off(void)
 	DUST_PWR_PIN = 1;
 	reset_key_no_move_count();
 	write_filter_time();
+	reset_lock_flag();
 }
 
 

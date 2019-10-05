@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 1   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
@@ -62,7 +62,7 @@ line level    source
   52   1        LEDRAM[21] |= 0x08;  //滤网, 电源按键
   53   1      }
   54          
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 2   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 2   
 
   55          void led_task(void)
   56          //100ms调用一次
@@ -126,7 +126,7 @@ line level    source
  114          {
  115   1        unsigned short tmp_dust_display_value;
  116   1        tmp_dust_display_value = read_dust_display_value();
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 3   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 3   
 
  117   1        led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
  118   1        led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
@@ -190,7 +190,7 @@ line level    source
  176   2          //  LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
  177   2          //  LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
  178   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 4   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 4   
 
  179   2          //  LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
  180   2          //break;
@@ -254,7 +254,7 @@ line level    source
  238   1        {
  239   2          LEDRAM[11] &= ~0x08;  // 童锁图标
  240   2        }
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 5   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 5   
 
  241   1        else
  242   1        {
@@ -318,7 +318,7 @@ line level    source
  300   2          default:
  301   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
  302   2            //数码管E段
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 6   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 6   
 
  303   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
  304   2            //数码管D段
@@ -382,7 +382,7 @@ line level    source
  362   2            LEDRAM[21] |= (1<<digit);  //
  363   2            //数码管A段
  364   2          break;
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 7   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 7   
 
  365   2          case 3:
  366   2            LEDRAM[15] |= (1<<digit);
@@ -446,7 +446,7 @@ line level    source
  424   2            LEDRAM[20] &= ~(1<<digit);  //
  425   2            //数码管B段
  426   2            LEDRAM[21] |= (1<<digit);  //
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 8   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 8   
 
  427   2            //数码管A段
  428   2          break;
@@ -510,7 +510,7 @@ line level    source
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =   1264    ----
    CONSTANT SIZE    =   ----    ----
-C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 11:07:36 PAGE 9   
+C51 COMPILER V9.52.0.0   LED                                                               10/05/2019 12:34:29 PAGE 9   
 
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
