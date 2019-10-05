@@ -34,6 +34,8 @@ unsigned short key_ion_count;
 unsigned short key_timer_count;
 unsigned short key_arom_count;
 
+unsigned short xdata key_no_move_count;      //按键没要按下计数, 如果一分钟没有动作,童锁就锁住
+
 
 INT32U exKeyValueFlag = 0;		//当前轮按键标志
 
@@ -49,14 +51,21 @@ void Sys_Scan(void)
 	if(SOCAPI_TouchKeyStatus&0x80)	    //重要步骤2:  触摸键扫描一轮标志，是否调用TouchKeyScan()一定要根据此标志位置起后
 	 {	   																	
 		SOCAPI_TouchKeyStatus &= 0x7f;	//重要步骤3: 清除标志位， 需要外部清除。													    
-		exKeyValueFlag = TouchKeyScan();//按键数据处理函数    电源键是0x0800, 风速键是0x0400, 睡眠键是0x0200
+		exKeyValueFlag = TouchKeyScan();//按键数据处理函数    
+		if((exKeyValueFlag & 0x0000031e0) != 0)reset_key_no_move_count(); //有键按下就复位按键计数值
 		TouchKeyRestart();				//启动下一轮转换																														 			
 	}		  	   
 }
 
 void key_init(void)
 {
-	LOCk_FLAG = 0;         
+	LOCk_FLAG = 0;  
+	reset_key_no_move_count();
+}
+
+void reset_key_no_move_count(void)
+{
+	key_no_move_count = 0;
 }
 
 //0x0100--power
@@ -70,10 +79,20 @@ void key_init(void)
 void key_task(void)       
 //按键任务, 1ms调用一次
 {	
-	if((exKeyValueFlag & 0x0000031e0) == 0x000000100)//电源键  //灵敏度不够
+	if(key_no_move_count >= 60000)
+	{
+		LOCk_FLAG = 1; 
+	}
+	else
+	{
+		//reset_key_no_move_count();
+		key_no_move_count++;
+	}
+
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000100) && (0 == LOCk_FLAG))//电源键  //灵敏度不够
 	{
 		if(0 == KEY_POWER_FLAG)
-		{
+		{			
 			if(++key_power_count >= 50)
 			{
 				KEY_POWER_FLAG = 1;
@@ -91,7 +110,7 @@ void key_task(void)
 	
 	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
 	
-	if((exKeyValueFlag & 0x0000031e0) == 0x000000080)//风速键 
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000080) && (0 == LOCk_FLAG))//风速键 
 	{
 		if(0 == KEY_SPEED_FLAG)
 		{
@@ -112,7 +131,7 @@ void key_task(void)
 		key_speed_count = 0;
 	}
 	
-	if((exKeyValueFlag & 0x0000031e0) == 0x000001000)//ion
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000001000) && (0 == LOCk_FLAG))//ion
 	{
 		if(0 == KEY_ION_FLAG)
 		{
@@ -129,7 +148,7 @@ void key_task(void)
 		key_ion_count = 0;
 	}
 	
-	if((exKeyValueFlag & 0x0000031e0) == 0x000002000)//arom
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000002000) && (0 == LOCk_FLAG))//arom
 	{
 		if(0 == KEY_AROM_FLAG)
 		{
@@ -162,7 +181,7 @@ void key_task(void)
 		KEY_LOCK_FLAG = 0;
 		key_lock_count = 0;
 	}
-	if((exKeyValueFlag & 0x0000031e0) == 0x000000020)//
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000020) && (0 == LOCk_FLAG))//
 	{
 		if(0 == KEY_TIMER_FLAG)
 		{
@@ -200,6 +219,7 @@ void key_lock_com(void)
 	//P52 = ~P52;
 	//UNLOCk_FLAG = ~UNLOCk_FLAG;
 	LOCk_FLAG = 0;      //解
+	reset_key_no_move_count();
 }
 
 bit read_unlock_flag(void)

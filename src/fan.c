@@ -15,6 +15,7 @@
 #include "arom.h"
 #include "dust.h"
 #include "timing_off.h"
+#include "key.h"
 
 //unsigned int xdata PWMRD_40  _at_  0x740;
 //unsigned int xdata PWMRD_41  _at_  0x742;
@@ -315,6 +316,7 @@ void power_on(void)
 	//arom_on();
 	fan_pwm_start();
 	DUST_PWR_PIN = 0;
+	reset_key_no_move_count();
 }
 
 void power_off(void)
@@ -327,6 +329,7 @@ void power_off(void)
 	//arom_off();
 	led_off();
 	DUST_PWR_PIN = 1;
+	reset_key_no_move_count();
 }
 
 
