@@ -15,6 +15,7 @@
 #include "key.h"
 #include "eeprom.h"
 #include "filter.h"
+#include "beep.h"
 //#include "IAP.h"
 #include "ion.h"
 #include "arom.h"
@@ -170,6 +171,7 @@ void  Sys_Init(void)
 	eeprom_init();
 	filter_init();
 	timing_off_init();
+	beep_init();
 	power_on();
 }
 void task_1ms(void)
@@ -189,6 +191,7 @@ void task_10ms(void)
 	//P52=~P52;
 	dust_task();
 	fan_task();
+	beep_task();
 }
 
 void task_100ms(void)

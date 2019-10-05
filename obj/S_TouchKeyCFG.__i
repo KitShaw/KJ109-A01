@@ -1,0 +1,1 @@
+"lib\S_TouchKeyCFG.C" BROWSE INCDIR(.\inc;.\lib) DEBUG OBJECTEXTEND PRINT(.\list\S_TouchKeyCFG.lst) TABS (2) OBJECT(.\obj\S_TouchKeyCFG.obj)

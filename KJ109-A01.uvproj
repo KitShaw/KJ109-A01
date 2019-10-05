@@ -406,6 +406,21 @@
               <FileType>1</FileType>
               <FilePath>.\src\dust.c</FilePath>
             </File>
+            <File>
+              <FileName>arom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\arom.c</FilePath>
+            </File>
+            <File>
+              <FileName>timing_off.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\timing_off.c</FilePath>
+            </File>
+            <File>
+              <FileName>beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\beep.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   EEPROM                                                            10/01/2019 16:04:07 PAGE 1   
+C51 COMPILER V9.52.0.0   EEPROM                                                            10/05/2019 22:47:59 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE EEPROM
@@ -62,7 +62,7 @@ line level    source
   52   1        IAPADE = 0x02;
   53   1        data_buf = *(point + addr) ;
   54   1        IAPADE = 0x00;  //·µ»ØcodeÇø
-C51 COMPILER V9.52.0.0   EEPROM                                                            10/01/2019 16:04:07 PAGE 2   
+C51 COMPILER V9.52.0.0   EEPROM                                                            10/05/2019 22:47:59 PAGE 2   
 
   55   1        EA = 1;
   56   1        return data_buf;

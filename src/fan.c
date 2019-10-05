@@ -83,7 +83,7 @@ void fan_pwm_start(void)
 {
 	FAN_PC_PIN = 1;
 	//fan_pwm_value = 23;
-	fan_pulse_count = 12;
+	fan_pulse_count = 25;
 	PWMRD_42 |= 0x8000;
 	PWMRD_Temp = 0;
 }

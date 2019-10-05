@@ -15,6 +15,7 @@
 #include "ion.h"
 #include "arom.h"
 #include "timing_off.h"
+#include "beep.h"
 
 
 bitval key_flag;
@@ -23,7 +24,7 @@ bitval key_flag;
 #define KEY_AROM_FLAG	key_flag.bit1   
 #define KEY_SPEED_FLAG	key_flag.bit2
 #define KEY_LOCK_FLAG	key_flag.bit3
-#define LOCk_FLAG		key_flag.bit6            //童锁解锁标志, 0解锁, 1锁住
+#define LOCK_FLAG		key_flag.bit6            //童锁解锁标志, 0解锁, 1锁住
 #define KEY_ION_FLAG key_flag.bit4
 #define KEY_TIMER_FLAG key_flag.bit5
 
@@ -59,7 +60,7 @@ void Sys_Scan(void)
 
 void key_init(void)
 {
-	LOCk_FLAG = 0;  
+	LOCK_FLAG = 0;  
 	reset_key_no_move_count();
 }
 
@@ -81,7 +82,7 @@ void key_task(void)
 {	
 	if(key_no_move_count >= 60000)
 	{
-		LOCk_FLAG = 1; 
+		LOCK_FLAG = 1; 
 	}
 	else
 	{
@@ -89,11 +90,11 @@ void key_task(void)
 		key_no_move_count++;
 	}
 
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000100) && (0 == LOCk_FLAG))//电源键  //灵敏度不够
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000100) && (0 == LOCK_FLAG))//电源键  //灵敏度不够
 	{
 		if(0 == KEY_POWER_FLAG)
 		{			
-			if(++key_power_count >= 50)
+			if(++key_power_count >= 10)
 			{
 				KEY_POWER_FLAG = 1;
 				key_power_com();				
@@ -110,7 +111,7 @@ void key_task(void)
 	
 	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
 	
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000080) && (0 == LOCk_FLAG))//风速键 
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000080) && (0 == LOCK_FLAG))//风速键 
 	{
 		if(0 == KEY_SPEED_FLAG)
 		{
@@ -131,7 +132,7 @@ void key_task(void)
 		key_speed_count = 0;
 	}
 	
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000001000) && (0 == LOCk_FLAG))//ion
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000001000) && (0 == LOCK_FLAG))//ion
 	{
 		if(0 == KEY_ION_FLAG)
 		{
@@ -148,7 +149,7 @@ void key_task(void)
 		key_ion_count = 0;
 	}
 	
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000002000) && (0 == LOCk_FLAG))//arom
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000002000) && (0 == LOCK_FLAG))//arom
 	{
 		if(0 == KEY_AROM_FLAG)
 		{
@@ -169,9 +170,10 @@ void key_task(void)
 	{
 		if(0 == KEY_LOCK_FLAG)
 		{
-			if(++key_lock_count >= 5000)
+			if(++key_lock_count >= 500)
 			{
 				KEY_LOCK_FLAG = 1;
+				//set_beep_count(10);
 				key_lock_com();				
 			}
 		}
@@ -181,7 +183,7 @@ void key_task(void)
 		KEY_LOCK_FLAG = 0;
 		key_lock_count = 0;
 	}
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000020) && (0 == LOCk_FLAG))//
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000020) && (0 == LOCK_FLAG))//
 	{
 		if(0 == KEY_TIMER_FLAG)
 		{
@@ -202,46 +204,53 @@ void key_task(void)
 void key_ion_com(void)
 {
 	ION_PIN = !ION_PIN;
+	set_beep_count(10);
 }
 
 void reset_lock_flag(void)
 {
-	LOCk_FLAG = 0;
+	LOCK_FLAG = 0;
 	reset_key_no_move_count();
 }
 
 void key_timer_com(void)
 {
 	regulate_timing_off_level();
+	set_beep_count(10);
 }
 
 void key_arom_com(void)
 {
 	regulate_arom_level();
+	set_beep_count(10);
 }
 
 void key_lock_com(void)
 {
 	//P52 = ~P52;
 	//UNLOCk_FLAG = ~UNLOCk_FLAG;
-	//LOCk_FLAG = 0;      //解
+	//LOCK_FLAG = ~LOCK_FLAG;      //解
 	reset_lock_flag();	
+	set_beep_count(10);
 }
 
 bit read_unlock_flag(void)
 {
-	return LOCk_FLAG;
+	return LOCK_FLAG;
 }
 
 void key_speed_com(void)
 {
 	regulate_fan_speed();
+	set_beep_count(10);
+	
 }
 
 void key_speed_long_com(void)
 //长按风速键清楚滤网寿命
 {
 	reset_filter_time();
+	set_beep_count(10);
 }
 
 //void key_sleep_com(void)
@@ -267,6 +276,7 @@ void key_power_com(void)
 {
 	//unsigned long filter_time_temp;
 	//P50 = ~P50;
+	set_beep_count(10);
 	if(POWER_ON_STATUS == read_power_status())
 	{
 		power_off();
