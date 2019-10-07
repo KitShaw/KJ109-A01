@@ -83,19 +83,19 @@ void dust_task(void)
 			}
 		}
 		
-		if(++dust_delay_count>1000)
+		if(++dust_delay_count>200)
 	{
 		dust_delay_count = 0;
 		//dust_last_display_value = dust_display_value;  //更新显示值
 		if((dust_display_value + 20) < dust_last_display_value)
 		{
-			dust_last_display_value -= (rand()%20);  //更新显示值
+			dust_last_display_value -= (rand()%10);  //更新显示值
 		}
 		else 
 		{
 			dust_last_display_value = dust_display_value;  //更新显示值
 		}
-		//if(dust_last_display_value>=210) dust_last_display_value = 210;
+		//if(dust_last_display_value>=153) dust_last_display_value = 153;
 		if(dust_last_display_value>=999) dust_last_display_value = 999;
 		if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
 		//dust_last_display_value = 90;
