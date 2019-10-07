@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   DUST                                                              10/07/2019 23:00:35 PAGE 1   
+C51 COMPILER V9.52.0.0   DUST                                                              10/07/2019 23:19:30 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DUST
@@ -62,7 +62,7 @@ line level    source
   52   1        {
   53   2          sum += (unsigned long)dust_adc_value[i];
   54   2        }
-C51 COMPILER V9.52.0.0   DUST                                                              10/07/2019 23:00:35 PAGE 2   
+C51 COMPILER V9.52.0.0   DUST                                                              10/07/2019 23:19:30 PAGE 2   
 
   55   1        // y = 0.0056x + 0.6
   56   1        // 电压 = 0.0056 * PM2.5 + 0.6
@@ -112,12 +112,12 @@ line level    source
   99   2          if(dust_last_display_value>=999) dust_last_display_value = 999;
  100   2          if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
  101   2          //dust_last_display_value = 90;
- 102   2          if(dust_last_display_value <= 70) dust_level = DUST_LEVEL_EXCELLENT;  //小于等于70为优
- 103   2          else if((dust_last_display_value > 70) && (dust_last_display_value <= 100))dust_level = DUST_LEVEL_12; 
- 104   2          else if((dust_last_display_value>100) && (dust_last_display_value <= 150)) dust_level = DUST_LEVEL_MEDIU
+ 102   2          if(dust_last_display_value <= 100) dust_level = DUST_LEVEL_EXCELLENT;  //小于等于70为优
+ 103   2          else if((dust_last_display_value > 100) && (dust_last_display_value <= 200))dust_level = DUST_LEVEL_12; 
+ 104   2          else if((dust_last_display_value>200) && (dust_last_display_value <= 300)) dust_level = DUST_LEVEL_MEDIU
              -M;  //小于等于70为优
- 105   2          else if((dust_last_display_value>150) && (dust_last_display_value <= 200)) dust_level = DUST_LEVEL_23;  
-             -//
+ 105   2          //else if((dust_last_display_value>150) && (dust_last_display_value <= 300)) dust_level = DUST_LEVEL_23;
+             -  //
  106   2          else dust_level = DUST_LEVEL_BAD;
  107   2      
  108   2          
@@ -126,7 +126,7 @@ line level    source
  111          
  112          unsigned char read_dust_level(void)
  113          {
-C51 COMPILER V9.52.0.0   DUST                                                              10/07/2019 23:00:35 PAGE 3   
+C51 COMPILER V9.52.0.0   DUST                                                              10/07/2019 23:19:30 PAGE 3   
 
  114   1        return dust_level;
  115   1      }
@@ -172,7 +172,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    620    ----
+   CODE SIZE        =    598    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =     52    ----
    PDATA SIZE       =   ----    ----

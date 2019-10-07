@@ -99,10 +99,10 @@ void dust_task(void)
 		if(dust_last_display_value>=999) dust_last_display_value = 999;
 		if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
 		//dust_last_display_value = 90;
-		if(dust_last_display_value <= 70) dust_level = DUST_LEVEL_EXCELLENT;  //小于等于70为优
-		else if((dust_last_display_value > 70) && (dust_last_display_value <= 100))dust_level = DUST_LEVEL_12; 
-		else if((dust_last_display_value>100) && (dust_last_display_value <= 150)) dust_level = DUST_LEVEL_MEDIUM;  //小于等于70为优
-		else if((dust_last_display_value>150) && (dust_last_display_value <= 200)) dust_level = DUST_LEVEL_23;  //
+		if(dust_last_display_value <= 100) dust_level = DUST_LEVEL_EXCELLENT;  //小于等于70为优
+		else if((dust_last_display_value > 100) && (dust_last_display_value <= 200))dust_level = DUST_LEVEL_12; 
+		else if((dust_last_display_value>200) && (dust_last_display_value <= 300)) dust_level = DUST_LEVEL_MEDIUM;  //小于等于70为优
+		//else if((dust_last_display_value>150) && (dust_last_display_value <= 300)) dust_level = DUST_LEVEL_23;  //
 		else dust_level = DUST_LEVEL_BAD;
 
 		

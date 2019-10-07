@@ -25,7 +25,7 @@
 #define		FAN_LEVEL1_PULSE_COUNT  60         //  300/60*12 = 60;  //风机返回的脉冲数
 #define		FAN_LEVEL2_PULSE_COUNT  300       //  1500/60*12 = 300;
 #define		FAN_LEVEL3_PULSE_COUNT	520			//  260/60*12 = 520;
-#define 	FAN_LEVEL12_PULSE_COUNT  200           //粉尘在70-100 1000/60*12 = 200
+#define 	FAN_LEVEL12_PULSE_COUNT  170           //粉尘在70-100 1000/60*12 = 200
 #define     FAN_LEVEL23_PULSE_COUNT 400            //粉尘在70-100 2000/60*12 = 400
 #define  	FAN_MUST_JUDGE_VALUE  10   //加上这个值下次风速一定要调整
 #define  	FAN_AUDGE_INIT			20

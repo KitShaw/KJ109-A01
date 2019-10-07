@@ -401,3 +401,72 @@ linking...
 Program Size: data=97.4 xdata=201 code=8910
 creating hex file from ".\obj\KJ109-A01"...
 ".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=97.4 xdata=201 code=8909
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9147 bytes programmed.
+CheckSum = 0xc24b
+Flash Verify Done: 9148 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=97.4 xdata=201 code=8909
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9147 bytes programmed.
+CheckSum = 0xc04b
+Flash Verify Done: 9148 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=97.4 xdata=201 code=8909
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9147 bytes programmed.
+CheckSum = 0x8712
+Flash Verify Done: 9148 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=97.4 xdata=201 code=8888
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9126 bytes programmed.
+CheckSum = 0xe4f6
+Flash Verify Done: 9128 bytes verified.
+Build target 'Target 1'
+compiling dust.c...
+linking...
+Program Size: data=97.4 xdata=201 code=8910
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 0 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9148 bytes programmed.
+CheckSum = 0x288a
+Flash Verify Done: 9148 bytes verified.
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除失败!
+Load "E:\\project\\ldc\\code\\KJ109-A01\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9148 bytes programmed.
+CheckSum = 0x288a
+Flash Verify Done: 9148 bytes verified.

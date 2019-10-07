@@ -173,7 +173,7 @@ void store_fan_return_pulse(void)
 }
 
 
-void fan_handle(void)  
+void fan_handle(void) 
 	//设置风机的速度，1s调用一次
 {
 	//static unsigned char tmp=0; 

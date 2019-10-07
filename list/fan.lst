@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 1   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE FAN
@@ -62,7 +62,7 @@ line level    source
   52   1      }
   53          
   54          void fan_init(void)
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 2   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 2   
 
   55          {
   56   1        fan_speed = FAN_SPEED_AUTO;
@@ -126,7 +126,7 @@ line level    source
  114          
  115          void fan_task(void)
  116            //10ms调用一次
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 3   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 3   
 
  117          {
  118   1        //unsigned int tmp;
@@ -190,7 +190,7 @@ line level    source
  176          void fan_handle(void)  
  177            //设置风机的速度，1s调用一次
  178          {
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 4   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 4   
 
  179   1        //static unsigned char tmp=0; 
  180   1        if(0 == fan_regulate_flag) return;
@@ -254,7 +254,7 @@ line level    source
  234   2                if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDG
              -E_VALUE;
  235   2                else fan_judge++;     
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 5   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 5   
 
  236   2              } else
  237   2              {
@@ -318,7 +318,7 @@ line level    source
  293   3              if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JU
              -DGE_VALUE;
  294   3            else fan_judge--;
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 6   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 6   
 
  295   3            }
  296   2          else fan_judge = FAN_AUDGE_INIT;      
@@ -382,7 +382,7 @@ line level    source
  351   2          else if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
  352   2            {
  353   3              if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JU
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 7   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 7   
 
              -DGE_VALUE;
  354   3            else fan_judge--;
@@ -446,7 +446,7 @@ line level    source
  409   2          else if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR))
  410   2            {
  411   3              if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_J
-C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 8   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 23:19:29 PAGE 8   
 
              -UDGE_VALUE;
  412   3            else fan_judge--;

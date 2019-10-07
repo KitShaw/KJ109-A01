@@ -215,20 +215,22 @@ void led_display_dust_level(void)
 			LED_RED = 1;
 		break;
 		case DUST_LEVEL_12:
-			LED_GREEN = 1;
+			LED_GREEN = 0;
 			LED_BLUE = 0;
 			LED_RED = 1;
 		break;
 		case DUST_LEVEL_MEDIUM:
-			LED_GREEN = 1;
-			LED_BLUE = 0;
-			LED_RED = 1;
+			LED_GREEN = 0;
+			LED_BLUE = 1;
+			LED_RED = 0;
 		break;
+		/*
 		case DUST_LEVEL_23:
 			LED_GREEN = 1;
 			LED_BLUE = 1;
 			LED_RED = 0;
 		break;
+		*/
 		case DUST_LEVEL_BAD:
 			LED_GREEN = 1;
 			LED_BLUE = 1;
