@@ -12,6 +12,12 @@
 #define DUST_LEVEL_MEDIUM          2                 //medium
 #define DUST_LEVEL_BAD             3
 
+#define DUST_LEVEL_12			4
+
+#define DUST_LEVEL_23			5	
+
+
+
 #define DUST_PWR_PIN P53
 #define	DUST_PIN P54
 #define DUST_SIZE  20

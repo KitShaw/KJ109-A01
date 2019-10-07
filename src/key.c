@@ -170,7 +170,7 @@ void key_task(void)
 	{
 		if(0 == KEY_LOCK_FLAG)
 		{
-			if(++key_lock_count >= 500)
+			if(++key_lock_count >= 5000)
 			{
 				KEY_LOCK_FLAG = 1;
 				//set_beep_count(10);
@@ -211,6 +211,7 @@ void reset_lock_flag(void)
 {
 	LOCK_FLAG = 0;
 	reset_key_no_move_count();
+	set_beep_count(10);
 }
 
 void key_timer_com(void)
@@ -231,7 +232,7 @@ void key_lock_com(void)
 	//UNLOCk_FLAG = ~UNLOCk_FLAG;
 	//LOCK_FLAG = ~LOCK_FLAG;      //½â
 	reset_lock_flag();	
-	set_beep_count(10);
+	
 }
 
 bit read_unlock_flag(void)

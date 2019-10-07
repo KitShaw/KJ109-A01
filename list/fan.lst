@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 22:47:59 PAGE 1   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE FAN
@@ -62,7 +62,7 @@ line level    source
   52   1      }
   53          
   54          void fan_init(void)
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 22:47:59 PAGE 2   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 2   
 
   55          {
   56   1        fan_speed = FAN_SPEED_AUTO;
@@ -126,7 +126,7 @@ line level    source
  114          
  115          void fan_task(void)
  116            //10msµ÷ÓÃÒ»´Î
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 22:47:59 PAGE 3   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 3   
 
  117          {
  118   1        //unsigned int tmp;
@@ -190,7 +190,7 @@ line level    source
  176          void fan_handle(void)  
  177            //ÉèÖÃ·ç»úµÄËÙ¶È£¬1sµ÷ÓÃÒ»´Î
  178          {
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 22:47:59 PAGE 4   
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 4   
 
  179   1        //static unsigned char tmp=0; 
  180   1        if(0 == fan_regulate_flag) return;
@@ -202,188 +202,297 @@ line level    source
  186   2            switch(read_dust_level())
  187   2            {
  188   3              case DUST_LEVEL_EXCELLENT: //ÓÅ1ËÙµµ
- 189   3                if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬
-             - Ã»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
- 190   3                  {
- 191   4                    if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JU
-             -DGE_VALUE;
- 192   4                    else fan_judge++;     
- 193   4                  } 
- 194   3                else
- 195   3                  {
- 196   4                    if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR))
- 197   4                    {
- 198   5                      if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUS
-             -T_JUDGE_VALUE;
- 199   5                    else fan_judge--;
- 200   5                    }
- 201   4                  else fan_judge = FAN_AUDGE_INIT;      
- 202   4                  }
- 203   3                            
- 204   3              break;
- 205   3              case DUST_LEVEL_MEDIUM: //ÖÐ2µµ
- 206   3                if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬
-             - Ã»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
- 207   3                  {
- 208   4                    if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JU
-             -DGE_VALUE;
- 209   4                    else fan_judge++;     
- 210   4                  } else
- 211   3                  {
- 212   4                  if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR))
- 213   4                  {
- 214   5                    if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST
-             -_JUDGE_VALUE;
- 215   5                  else fan_judge--;
- 216   5                  }
- 217   4                else fan_judge = FAN_AUDGE_INIT;      
- 218   4                  }         
- 219   3              break;
- 220   3              case DUST_LEVEL_BAD: //²î3µ²
- 221   3                if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬
-             - Ã»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
- 222   3                  {
- 223   4                    if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JU
-             -DGE_VALUE;
- 224   4                    else fan_judge++;     
- 225   4                  } else
- 226   3                  {
- 227   4                  if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
- 228   4                  {
- 229   5                    if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST
-             -_JUDGE_VALUE;
- 230   5                  else fan_judge--;
- 231   5                  }
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 22:47:59 PAGE 5   
+ 189   3                fan_level1_speed_judge();                     
+ 190   3              break;
+ 191   3              case DUST_LEVEL_MEDIUM: //ÖÐ2µµ
+ 192   3                fan_level2_speed_judge();       
+ 193   3              break;
+ 194   3              case DUST_LEVEL_BAD: //²î3µ²
+ 195   3                fan_level3_speed_judge();
+ 196   3                
+ 197   3              break;
+ 198   3              case DUST_LEVEL_12: //²î3µ²
+ 199   3                fan_level12_speed_judge();
+ 200   3                
+ 201   3              break;
+ 202   3              case DUST_LEVEL_23: //²î3µ²
+ 203   3                fan_level23_speed_judge();
+ 204   3                
+ 205   3              break;
+ 206   3            }
+ 207   2          break;
+ 208   2          case 1:               
+ 209   2            fan_level1_speed_judge();
+ 210   2          break;
+ 211   2          case 2: //
+ 212   2            fan_level2_speed_judge();
+ 213   2            /*
+ 214   2            if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã
+             -»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
+ 215   2              {
+ 216   2                if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDG
+             -E_VALUE;
+ 217   2                else fan_judge++;     
+ 218   2              } else
+ 219   2              {
+ 220   2                if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR))
+ 221   2                {
+ 222   2                  if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_
+             -JUDGE_VALUE;
+ 223   2                else fan_judge--;
+ 224   2                }
+ 225   2              else fan_judge = FAN_AUDGE_INIT;      
+ 226   2              }  
+ 227   2            */
+ 228   2          break;
+ 229   2          case 3:
+ 230   2            fan_level3_speed_judge();
+ 231   2            /*
+ 232   2            if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã
+             -»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
+ 233   2              {
+ 234   2                if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDG
+             -E_VALUE;
+ 235   2                else fan_judge++;     
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 5   
 
- 232   4                else fan_judge = FAN_AUDGE_INIT;      
- 233   4                  }  
- 234   3                
- 235   3              break;
- 236   3            }
- 237   2          break;
- 238   2          case 1:
- 239   2            
- 240   2            if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã
-             -»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
- 241   2              {
- 242   3                if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDG
-             -E_VALUE;
- 243   3                else fan_judge++;     
- 244   3              } else
- 245   2              {
- 246   3                if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR))
- 247   3                {
- 248   4                  if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_
+ 236   2              } else
+ 237   2              {
+ 238   2                if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
+ 239   2                {
+ 240   2                  if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_
              -JUDGE_VALUE;
- 249   4                else fan_judge--;
- 250   4                }
- 251   3              else fan_judge = FAN_AUDGE_INIT;      
- 252   3              }       
- 253   2            
- 254   2          break;
- 255   2          case 2: //
- 256   2          
- 257   2            if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã
-             -»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
- 258   2              {
- 259   3                if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDG
-             -E_VALUE;
- 260   3                else fan_judge++;     
- 261   3              } else
- 262   2              {
- 263   3                if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR))
- 264   3                {
- 265   4                  if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_
-             -JUDGE_VALUE;
- 266   4                else fan_judge--;
- 267   4                }
- 268   3              else fan_judge = FAN_AUDGE_INIT;      
- 269   3              }  
- 270   2            
- 271   2          break;
- 272   2          case 3:
- 273   2            
- 274   2            if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã
-             -»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
- 275   2              {
- 276   3                if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDG
-             -E_VALUE;
- 277   3                else fan_judge++;     
- 278   3              } else
- 279   2              {
- 280   3                if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
- 281   3                {
- 282   4                  if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_
-             -JUDGE_VALUE;
- 283   4                else fan_judge--;
- 284   4                }
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 22:47:59 PAGE 6   
+ 241   2                else fan_judge--;
+ 242   2                }
+ 243   2              else fan_judge = FAN_AUDGE_INIT;      
+ 244   2              }  
+ 245   2              */
+ 246   2          break;
+ 247   2          default:
+ 248   2          break;
+ 249   2        }
+ 250   1        
+ 251   1        if(fan_judge>21) 
+ 252   1        {
+ 253   2            fan_judge = FAN_AUDGE_INIT;
+ 254   2          fan_pulse_count++;
+ 255   2          
+ 256   2        }
+ 257   1        if (fan_judge<19) 
+ 258   1        {
+ 259   2            fan_judge = FAN_AUDGE_INIT;
+ 260   2            fan_pulse_count--;
+ 261   2        }
+ 262   1        if(fan_pulse_count>198)
+ 263   1        {   
+ 264   2          fan_pulse_count = 198;    
+ 265   2        } 
+ 266   1        //fan_return_pulse_count = 0;
+ 267   1      }
+ 268          
+ 269          
+ 270          void fan_level1_speed_judge(void)
+ 271          //1µµ×ªËÙµ÷Õû
+ 272          {
+ 273   1        if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã»´
+             -ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
+ 274   1          {
+ 275   2            if(fan_return_pulse_count <(FAN_LEVEL1_PULSE_COUNT - (CORRECTION_FACTOR_BIGGEST)))
+ 276   2            {
+ 277   3              fan_pulse_count += 5;
+ 278   3            }
+ 279   2          else if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR_BIG))
+ 280   2          {
+ 281   3            fan_judge += FAN_MUST_JUDGE_VALUE;
+ 282   3          }
+ 283   2            else fan_judge++;     
+ 284   2        } 
+ 285   1        else
+ 286   1          {
+ 287   2            if(fan_return_pulse_count >(FAN_LEVEL1_PULSE_COUNT + (CORRECTION_FACTOR_BIGGEST + 100)))
+ 288   2            {
+ 289   3              fan_pulse_count -= 5;
+ 290   3            }
+ 291   2          else if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR))
+ 292   2            {
+ 293   3              if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JU
+             -DGE_VALUE;
+ 294   3            else fan_judge--;
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 6   
 
- 285   3              else fan_judge = FAN_AUDGE_INIT;      
- 286   3              }  
- 287   2          break;
- 288   2          default:
- 289   2          break;
- 290   2        }
- 291   1        
- 292   1        if(fan_judge>21) 
- 293   1        {
- 294   2            fan_judge = FAN_AUDGE_INIT;
- 295   2          fan_pulse_count++;
- 296   2          
- 297   2        }
- 298   1        if (fan_judge<19) 
- 299   1        {
- 300   2            fan_judge = FAN_AUDGE_INIT;
- 301   2            fan_pulse_count--;
- 302   2        }
- 303   1        if(fan_pulse_count>160)
- 304   1        {   
- 305   2          fan_pulse_count = 160;    
- 306   2        } 
- 307   1        //fan_return_pulse_count = 0;
- 308   1      }
- 309          
- 310          
- 311          void power_on(void)
- 312          {
- 313   1        power_status = POWER_ON_STATUS;
- 314   1        led_on();  //¿ªÏÔÊ¾
- 315   1        ion_on();
- 316   1        //arom_on();
- 317   1        fan_pwm_start();
- 318   1        DUST_PWR_PIN = 0;
- 319   1        reset_key_no_move_count();
- 320   1      }
- 321          
- 322          void power_off(void)
- 323          {
- 324   1        
- 325   1        power_status = POWER_OFF_STATUS;  
- 326   1        ion_off();
- 327   1        set_arom_level(0);
- 328   1        reset_timing_off_level();
- 329   1        //arom_off();
- 330   1        led_off();
- 331   1        DUST_PWR_PIN = 1;
- 332   1        reset_key_no_move_count();
- 333   1        write_filter_time();
- 334   1        reset_lock_flag();
- 335   1      }
- 336          
- 337          
- 338          
- 339          
- 340          
- 341          
+ 295   3            }
+ 296   2          else fan_judge = FAN_AUDGE_INIT;      
+ 297   2         }  
+ 298   1      }
+ 299          
+ 300          void fan_level2_speed_judge(void)
+ 301          //2µµ×ªËÙµ÷Õû
+ 302          {
+ 303   1        if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã»´
+             -ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
+ 304   1          {
+ 305   2            if(fan_return_pulse_count <(FAN_LEVEL2_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+ 306   2            {
+ 307   3              fan_pulse_count += 5;
+ 308   3            }
+ 309   2          else if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))
+ 310   2          {
+ 311   3            fan_judge += FAN_MUST_JUDGE_VALUE;
+ 312   3          }
+ 313   2            else fan_judge++;     
+ 314   2        } 
+ 315   1        else
+ 316   1          {
+ 317   2            if(fan_return_pulse_count >(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+ 318   2            {
+ 319   3              fan_pulse_count -= 5;
+ 320   3            }
+ 321   2          else if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR))
+ 322   2            {
+ 323   3              if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JU
+             -DGE_VALUE;
+ 324   3            else fan_judge--;
+ 325   3            }
+ 326   2          else fan_judge = FAN_AUDGE_INIT;      
+ 327   2         }  
+ 328   1      }
+ 329          
+ 330          void fan_level3_speed_judge(void)
+ 331          //1µµ×ªËÙµ÷Õû
+ 332          {
+ 333   1        if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã»´
+             -ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
+ 334   1          {
+ 335   2            if(fan_return_pulse_count <(FAN_LEVEL3_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+ 336   2            {
+ 337   3              fan_pulse_count += 8;
+ 338   3            }
+ 339   2          else if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))
+ 340   2          {
+ 341   3            fan_judge += FAN_MUST_JUDGE_VALUE;
+ 342   3          }
+ 343   2            else fan_judge++;     
+ 344   2        } 
+ 345   1        else
+ 346   1          {
+ 347   2            if(fan_return_pulse_count >(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+ 348   2            {
+ 349   3              fan_pulse_count -= 5;
+ 350   3            }
+ 351   2          else if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
+ 352   2            {
+ 353   3              if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JU
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 7   
+
+             -DGE_VALUE;
+ 354   3            else fan_judge--;
+ 355   3            }
+ 356   2          else fan_judge = FAN_AUDGE_INIT;      
+ 357   2         }  
+ 358   1      }
+ 359          
+ 360          
+ 361          void fan_level12_speed_judge(void)
+ 362          {
+ 363   1        if(fan_return_pulse_count<(FAN_LEVEL12_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã»
+             -´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
+ 364   1          {
+ 365   2            if(fan_return_pulse_count <(FAN_LEVEL12_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+ 366   2            {
+ 367   3              fan_pulse_count += 5;
+ 368   3            }
+ 369   2          else if(fan_return_pulse_count<(FAN_LEVEL12_PULSE_COUNT-CORRECTION_FACTOR_BIG))
+ 370   2          {
+ 371   3            fan_judge += FAN_MUST_JUDGE_VALUE;
+ 372   3          }
+ 373   2            else fan_judge++;     
+ 374   2        } 
+ 375   1        else
+ 376   1          {
+ 377   2            if(fan_return_pulse_count >(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+ 378   2            {
+ 379   3              fan_pulse_count -= 5;
+ 380   3            }
+ 381   2          else if(fan_return_pulse_count>(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR))
+ 382   2            {
+ 383   3              if(fan_return_pulse_count>(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_J
+             -UDGE_VALUE;
+ 384   3            else fan_judge--;
+ 385   3            }
+ 386   2          else fan_judge = FAN_AUDGE_INIT;      
+ 387   2         } 
+ 388   1      }
+ 389          void fan_level23_speed_judge(void)
+ 390          {
+ 391   1        if(fan_return_pulse_count<(FAN_LEVEL23_PULSE_COUNT-CORRECTION_FACTOR))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý£¬ Ã»
+             -´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
+ 392   1          {
+ 393   2            if(fan_return_pulse_count <(FAN_LEVEL23_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+ 394   2            {
+ 395   3              fan_pulse_count += 5;
+ 396   3            }
+ 397   2          else if(fan_return_pulse_count<(FAN_LEVEL23_PULSE_COUNT-CORRECTION_FACTOR_BIG))
+ 398   2          {
+ 399   3            fan_judge += FAN_MUST_JUDGE_VALUE;
+ 400   3          }
+ 401   2            else fan_judge++;     
+ 402   2        } 
+ 403   1        else
+ 404   1          {
+ 405   2            if(fan_return_pulse_count >(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+ 406   2            {
+ 407   3              fan_pulse_count -= 5;
+ 408   3            }
+ 409   2          else if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR))
+ 410   2            {
+ 411   3              if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_J
+C51 COMPILER V9.52.0.0   FAN                                                               10/07/2019 22:08:53 PAGE 8   
+
+             -UDGE_VALUE;
+ 412   3            else fan_judge--;
+ 413   3            }
+ 414   2          else fan_judge = FAN_AUDGE_INIT;      
+ 415   2         } 
+ 416   1      }
+ 417          
+ 418          
+ 419          
+ 420          void power_on(void)
+ 421          {
+ 422   1        power_status = POWER_ON_STATUS;
+ 423   1        led_on();  //¿ªÏÔÊ¾
+ 424   1        ion_on();
+ 425   1        //arom_on();
+ 426   1        fan_pwm_start();
+ 427   1        DUST_PWR_PIN = 0;
+ 428   1        reset_key_no_move_count();
+ 429   1      }
+ 430          
+ 431          void power_off(void)
+ 432          {
+ 433   1        
+ 434   1        power_status = POWER_OFF_STATUS;  
+ 435   1        ion_off();
+ 436   1        set_arom_level(0);
+ 437   1        reset_timing_off_level();
+ 438   1        //arom_off();
+ 439   1        led_off();
+ 440   1        DUST_PWR_PIN = 1;
+ 441   1        reset_key_no_move_count();
+ 442   1        write_filter_time();
+ 443   1        reset_lock_flag();
+ 444   1      }
+ 445          
+ 446          
+ 447          
+ 448          
+ 449          
+ 450          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    796    ----
+   CODE SIZE        =   1027    ----
    CONSTANT SIZE    =   ----    ----
-C51 COMPILER V9.52.0.0   FAN                                                               10/05/2019 22:47:59 PAGE 7   
-
    XDATA SIZE       =      6    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =      8    ----

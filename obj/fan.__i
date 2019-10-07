@@ -1,0 +1,1 @@
+"src\fan.c" BROWSE INCDIR(.\inc;.\lib) DEBUG OBJECTEXTEND PRINT(.\list\fan.lst) TABS (2) OBJECT(.\obj\fan.obj)

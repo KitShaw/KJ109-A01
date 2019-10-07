@@ -6,6 +6,7 @@
 #ifndef __FAN_H_
 #define __FAN_H_
 
+#include "data_type.h"
 #define FAN_SPEED_AUTO  0
 #define FAN_SPEED_SLEEP 1
 #define FAN_SPEED_MIDDLE 2
@@ -20,9 +21,12 @@
 
 #define     CORRECTION_FACTOR              2    //ĞŞÕıÒò×Ó
 #define     CORRECTION_FACTOR_BIG              30    //´óĞŞÕıÒò×Ó, ÒªÈÃËÙ¶È¿ìËÙÏÂ½µºÍÉÏÉı
+#define     CORRECTION_FACTOR_BIGGEST              50    //×î´óĞŞÕıÒò×Ó, ÒªÈÃËÙ¶È¿ìËÙÏÂ½µºÍÉÏÉ
 #define		FAN_LEVEL1_PULSE_COUNT  60         //  300/60*12 = 60;  //·ç»ú·µ»ØµÄÂö³åÊı
-#define		FAN_LEVEL2_PULSE_COUNT  120//102		//  600/60*12 = 120;
-#define		FAN_LEVEL3_PULSE_COUNT	176			//  880/60*12 = 176;
+#define		FAN_LEVEL2_PULSE_COUNT  300       //  1500/60*12 = 300;
+#define		FAN_LEVEL3_PULSE_COUNT	520			//  260/60*12 = 520;
+#define 	FAN_LEVEL12_PULSE_COUNT  200           //·Û³¾ÔÚ70-100 1000/60*12 = 200
+#define     FAN_LEVEL23_PULSE_COUNT 400            //·Û³¾ÔÚ70-100 2000/60*12 = 400
 #define  	FAN_MUST_JUDGE_VALUE  10   //¼ÓÉÏÕâ¸öÖµÏÂ´Î·çËÙÒ»¶¨Òªµ÷Õû
 #define  	FAN_AUDGE_INIT			20
 
@@ -45,6 +49,11 @@ void fan_task(void);
 void fan_handle(void);  //
 void regulate_fan_speed(void);
 void store_fan_return_pulse(void);
+void fan_level1_speed_judge(void);
+void fan_level2_speed_judge(void);
+void fan_level3_speed_judge(void);
+void fan_level12_speed_judge(void);
+void fan_level23_speed_judge(void);
 
 #ifdef DEBUG_FAN_RETURN_PULSE
 unsigned int read_disp_fan_return_pulse(void);
