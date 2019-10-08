@@ -71,8 +71,10 @@ void fan_init(void)
 
 	//PWMCON = 99;           //周期设置低8位,50us  20k
     //PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
-	PWMCON = 199;           //周期设置低8位,100us, 10K
-    PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
+	//PWMCON = 199;           //周期设置低8位,100us, 10K
+    //PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
+	PWMCON = 1000%256;           //周期设置低8位,100us, 10K
+    PWMCFG = 0xb3;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
 	
 	PWMRD_42 = 0x8000 | 20;
 }
@@ -259,9 +261,9 @@ void fan_handle(void)
 			fan_judge = FAN_AUDGE_INIT;
 			fan_pulse_count--;
 	}
-	if(fan_pulse_count>198)
+	if(fan_pulse_count>500)
 	{		
-		fan_pulse_count = 198;		
+		fan_pulse_count = 500;		
 	}	
 	//fan_return_pulse_count = 0;
 }
