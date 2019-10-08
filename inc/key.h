@@ -10,7 +10,7 @@ void key_init(void);
 void key_task(void);
 void Sys_Scan(void);
 void key_speed_com(void);
-void key_speed_long_com(void);
+void key_power_long_com(void);
 void key_power_com(void);
 void key_ion_com(void);
 void key_arom_com(void);

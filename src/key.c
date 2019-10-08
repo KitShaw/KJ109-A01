@@ -35,7 +35,7 @@ unsigned short key_ion_count;
 unsigned short key_timer_count;
 unsigned short key_arom_count;
 
-unsigned short xdata key_no_move_count;      //按键没要按下计数, 如果一分钟没有动作,童锁就锁住
+unsigned long xdata key_no_move_count;      //按键没要按下计数, 如果一分钟没有动作,童锁就锁住
 
 
 INT32U exKeyValueFlag = 0;		//当前轮按键标志
@@ -80,7 +80,7 @@ void reset_key_no_move_count(void)
 void key_task(void)       
 //按键任务, 1ms调用一次
 {	
-	if(key_no_move_count >= 60000)
+	if(key_no_move_count >= 180000)
 	{
 		LOCK_FLAG = 1; 
 	}
@@ -94,15 +94,21 @@ void key_task(void)
 	{
 		if(0 == KEY_POWER_FLAG)
 		{			
-			if(++key_power_count >= 10)
+			if(++key_power_count >= 5000)
 			{
-				KEY_POWER_FLAG = 1;
-				key_power_com();				
+				KEY_POWER_FLAG = 1;		
+				key_power_long_com();
 			}
 		}
 	}
 	else 
 	{
+	
+		if((key_power_count>5) && (key_power_count< 5000))
+		{
+			key_power_com();
+		}
+		
 		KEY_POWER_FLAG = 0;
 		key_power_count = 0;
 	}
@@ -115,19 +121,19 @@ void key_task(void)
 	{
 		if(0 == KEY_SPEED_FLAG)
 		{
-			if(++key_speed_count >= 5000)
+			if(++key_speed_count >= 50)
 			{
 				KEY_SPEED_FLAG = 1;
-				key_speed_long_com();
+				key_speed_com();
 			}
 		}
 	}
 	else 
 	{
-		if((key_speed_count>5) && (key_speed_count< 5000))
-		{
-			key_speed_com();
-		}
+//		if((key_speed_count>5) && (key_speed_count< 5000))
+//		{
+//			key_speed_com();
+//		}
 		KEY_SPEED_FLAG = 0;
 		key_speed_count = 0;
 	}
@@ -247,8 +253,8 @@ void key_speed_com(void)
 	
 }
 
-void key_speed_long_com(void)
-//长按风速键清楚滤网寿命
+void key_power_long_com(void)
+//长按电源键清楚滤网寿命
 {
 	reset_filter_time();
 	set_beep_count(10);
