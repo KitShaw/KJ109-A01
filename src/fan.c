@@ -83,7 +83,7 @@ void fan_pwm_start(void)
 {
 	FAN_PC_PIN = 1;
 	//fan_pwm_value = 23;
-	fan_pulse_count = 25;
+	fan_pulse_count = 1;
 	PWMRD_42 |= 0x8000;
 	PWMRD_Temp = 0;
 }
@@ -270,7 +270,8 @@ void fan_handle(void)
 void fan_level1_speed_judge(void)
 //1档转速调整
 {
-	if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+	if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-(CORRECTION_FACTOR + 3)))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+	//  低档晃动的厉害, 改CORRECTION_FACTOR+3
     {
     	if(fan_return_pulse_count <(FAN_LEVEL1_PULSE_COUNT - (CORRECTION_FACTOR_BIGGEST)))
     	{

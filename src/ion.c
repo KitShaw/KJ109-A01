@@ -17,10 +17,10 @@ void ion_init(void)
 
 void ion_on(void)
 {
-	ION_PIN = 1;
+	ION_PIN = 0;
 }
 
 void ion_off(void)
 {
-	ION_PIN = 0;
+	ION_PIN = 1;
 }

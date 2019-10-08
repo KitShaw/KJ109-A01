@@ -22,7 +22,9 @@
 #define     CORRECTION_FACTOR              2    //пчуЩрРвс
 #define     CORRECTION_FACTOR_BIG              30    //╢СпчуЩрРвс, р╙хцкы╤х©Лкыоб╫╣╨миоиЩ
 #define     CORRECTION_FACTOR_BIGGEST              50    //вН╢СпчуЩрРвс, р╙хцкы╤х©Лкыоб╫╣╨миои
-#define		FAN_LEVEL1_PULSE_COUNT  60         //  300/60*12 = 60;  //╥Г╩З╥╣╩ь╣дбЖЁЕйЩ
+//#define		FAN_LEVEL1_PULSE_COUNT  60         //  300/60*12 = 60;  //╥Г╩З╥╣╩ь╣дбЖЁЕйЩ
+
+#define		FAN_LEVEL1_PULSE_COUNT  100         //  500/60*12 = 100;  //╥Г╩З╥╣╩ь╣дбЖЁЕйЩ
 #define		FAN_LEVEL2_PULSE_COUNT  300       //  1500/60*12 = 300;
 #define		FAN_LEVEL3_PULSE_COUNT	520			//  260/60*12 = 520;
 #define 	FAN_LEVEL12_PULSE_COUNT  170           //╥шЁ╬тз70-100 1000/60*12 = 200

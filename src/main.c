@@ -152,6 +152,7 @@ void timer0()interrupt 1
 **************************************************/
 void  Sys_Init(void)
 {	
+	unsigned long delay_count;
 	WDTCON  = 0x10;				    //1--1 -- 00    开WDT,WDT清0,WDT 524.288ms溢出;烧录时，可Code Option选择ENWDT
 	//TK对应的IO设置为强推挽输出1
 	
@@ -172,7 +173,13 @@ void  Sys_Init(void)
 	filter_init();
 	timing_off_init();
 	beep_init();
-	power_on();
+	led_all_on();
+	for(delay_count = 0; delay_count <80000; delay_count++)
+	{
+		WDTCON  = 0x10;
+	}
+	power_off();
+	//power_on();
 }
 void task_1ms(void)
 {
