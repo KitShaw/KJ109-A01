@@ -287,7 +287,7 @@ void led_display_lock(void)
 
 void led_display_ion(void)
 {
-	if(1 == ION_PIN)
+	if(0 == ION_PIN)
 	{
 		LEDRAM[16] |= 0x10;  //0x10 - IONÍ¼±ê, 0x08ÏãÞ¹°´¼ü, 
 	}
