@@ -57,8 +57,8 @@ void fan_init(void)
 	P0CON &= ~(1<<2);   //P02输入上拉
 	P0PH |= 1<<2;
 	
-	P1CON &= ~(1<<6);       //P16输入上拉
-	P1PH |= 1<<6;
+	//P1CON &= ~(1<<6);       //P16输入上拉
+	//P1PH |= 1<<6;
 
 	//INT1F |= 0X40 ;    //xxxx xxxx P16下降沿中断
 	//INT1R &= ~0X40 ;    //xxxx xxxx  0关闭 1使能

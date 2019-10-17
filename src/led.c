@@ -21,35 +21,22 @@ unsigned char xdata LEDRAM[30] _at_ 0x700;
 void led_init(void)
 {	
 	P5CON |= ((1<<0) | (1<<1)| (1<<2)); //
-	P5 &= ~((1<<0) | (1<<1)| (1<<2)); 
+	//P5 &= ~((1<<0) | (1<<1)| (1<<2)); 
+
+	P2CON |= 0x7f; //P2 out.
 	LED_RED = 1;
 	LED_GREEN = 1;
-	LED_BLUE = 0;	
-	
-	DDRCON |= 0xef;
-	//IOHCON0 = 0xc0;
-	//IOHCON1 = 0x00;
-	
-	//P1CON |= (1<<7);
-	P1VO |=  (1<<7);  //打开P17口的显示驱动输出功能
-	P2VO |= 0xff;     //P2口都用做led的显示
-	P0VO |= (1<<1) | (1<<0);  //P11, P01
-	//s11-s21
-	P3VO |= (1<<3) | (1<<4) |(1<<5) | (1<<6) | (1<<7);  //P33-P37LED驱动
-	//c3, c4, c5, c6, c7	
-	OTCON = 0x00;
+	LED_BLUE = 0;
 
-	LEDRAM[16] |= 0x08;  //0x10 - ION图标, 0x08香薰按键,   
-	//数码管F段
-	LEDRAM[17] |= 0x08;   //0x10- 高速 和 0x08-负离子按键
-	//数码管E段
-	LEDRAM[18] |= 0x08;   //0x10- 中速 , 0x08 - 模式按键
-	//数码管D段
-	LEDRAM[19] |= 0x08;  //低速 ,  童锁按键
-	//数码管C段
-	LEDRAM[20] |= 0x08;  //智能, 定时按键
-	//数码管B段
-	LEDRAM[21] |= 0x08;  //滤网, 电源按键
+	P3CON |= (1<<3) | (1<<4) | (1<<5) | (1<<6) | (1<<7); //P33, 34,35,35,37 out.
+
+	P4CON |= (1<<0) | (1<<1) | (1<<6) | (1<<7);
+	P0CON |= (1<<1) | (1<<5) | (1<<6);// | (1<<6) | (1<<7);
+	P1CON |= (1<<6) | (1<<7);
+
+	led_off();
+	
+	
 }
 
 void led_task(void)
@@ -82,7 +69,27 @@ void led_off(void)
 	LED_GREEN = 1;
 	LED_BLUE = 1;
 	LED_RED = 1;
-	
+	LED_PM2_5 = 1;
+	LED_TIMER_1H = 1;
+ 	LED_TIMER_2H = 1; 
+	LED_TIMER_4H = 1;
+	LED_KEY_TIMER = 1;
+	LED_FILTER = 1;
+	LED_ION = 1;
+	LED_KEY_ION  = 1;
+	LED_KEY_AROM  = 1;
+	LED_AROM_LOW = 1;
+	LED_AROM_MIDDLE = 1;
+	LED_AROM_HIGH  = 1;
+	LED_SPEED_LOW = 1;
+	LED_SPEED_MIDDLE = 1;
+	LED_SPEED_HIGH = 1;
+	LED_SPEED_AUTO = 1;
+	LED_KEY_MODE = 1;
+	LED_LOCK = 1;
+	LED_KEY_LOCK = 1;
+	LED_KEY_POWER = 1;
+	/*
 	LEDRAM[11] &= ~0x08;  // 童锁图标
 	LEDRAM[12] &= ~0x18;  //0x10 -P2.5  0x08-8H
 	LEDRAM[13] &= ~0x18;  //0x10 - 高, 0x08 - 4H
@@ -102,6 +109,7 @@ void led_off(void)
 	//数码管B段
 	LEDRAM[21] &= ~0xf0;  //滤网, 电源按键
 	//数码管A段
+	*/
 }
 
 void led_all_on(void)
@@ -110,7 +118,30 @@ void led_all_on(void)
 	LED_GREEN = 0;
 	LED_BLUE = 0;
 	LED_RED = 0;
-	
+
+	LED_PM2_5 = 0;
+	LED_TIMER_1H = 0;
+ 	LED_TIMER_2H = 0; 
+	LED_TIMER_4H = 0;
+	LED_KEY_TIMER = 0;
+	LED_FILTER = 0;
+	LED_ION = 0;
+	LED_KEY_ION  = 0;
+	LED_KEY_AROM  = 0;
+	LED_AROM_LOW = 0;
+	LED_AROM_MIDDLE = 0;
+	LED_AROM_HIGH  = 0;
+	LED_SPEED_LOW = 0;
+	LED_SPEED_MIDDLE = 0;
+	LED_SPEED_HIGH = 0;
+	LED_SPEED_AUTO = 0;
+	LED_KEY_MODE = 0;
+	LED_LOCK = 0;
+	LED_KEY_LOCK = 0;
+	LED_KEY_POWER = 0;
+
+
+	/*
 	LEDRAM[11] |= 0x08;  // 童锁图标
 	LEDRAM[12] |= 0x18;  //0x10 -P2.5  0x08-8H
 	LEDRAM[13] |= 0x18;  //0x10 - 高, 0x08 - 4H
@@ -130,6 +161,7 @@ void led_all_on(void)
 	//数码管B段
 	LEDRAM[21] |= 0xf8;;  //滤网, 电源按键
 	//数码管A段
+	*/
 }
 
 
@@ -289,11 +321,13 @@ void led_display_ion(void)
 {
 	if(0 == ION_PIN)
 	{
-		LEDRAM[16] |= 0x10;  //0x10 - ION图标, 0x08香薰按键, 
+		//LEDRAM[16] |= 0x10;  //0x10 - ION图标, 0x08香薰按键, 
+		LED_ION = LED_ON;
 	}
 	else
 	{
-		LEDRAM[16] &= ~0x10;  //0x10 - ION图标, 0x08香薰按键, 
+		LED_ION = LED_OFF;
+		//LEDRAM[16] &= ~0x10;  //0x10 - ION图标, 0x08香薰按键, 
 	}
 }
 

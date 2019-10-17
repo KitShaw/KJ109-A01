@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 1   
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
@@ -31,527 +31,563 @@ line level    source
   21          void led_init(void)
   22          { 
   23   1        P5CON |= ((1<<0) | (1<<1)| (1<<2)); //
-  24   1        P5 &= ~((1<<0) | (1<<1)| (1<<2)); 
-  25   1        LED_RED = 1;
-  26   1        LED_GREEN = 1;
-  27   1        LED_BLUE = 0; 
-  28   1        
-  29   1        DDRCON |= 0xef;
-  30   1        //IOHCON0 = 0xc0;
-  31   1        //IOHCON1 = 0x00;
-  32   1        
-  33   1        //P1CON |= (1<<7);
-  34   1        P1VO |=  (1<<7);  //打开P17口的显示驱动输出功能
-  35   1        P2VO |= 0xff;     //P2口都用做led的显示
-  36   1        P0VO |= (1<<1) | (1<<0);  //P11, P01
-  37   1        //s11-s21
-  38   1        P3VO |= (1<<3) | (1<<4) |(1<<5) | (1<<6) | (1<<7);  //P33-P37LED驱动
-  39   1        //c3, c4, c5, c6, c7  
-  40   1        OTCON = 0x00;
-  41   1      
-  42   1        LEDRAM[16] |= 0x08;  //0x10 - ION图标, 0x08香薰按键,   
-  43   1        //数码管F段
-  44   1        LEDRAM[17] |= 0x08;   //0x10- 高速 和 0x08-负离子按键
-  45   1        //数码管E段
-  46   1        LEDRAM[18] |= 0x08;   //0x10- 中速 , 0x08 - 模式按键
-  47   1        //数码管D段
-  48   1        LEDRAM[19] |= 0x08;  //低速 ,  童锁按键
-  49   1        //数码管C段
-  50   1        LEDRAM[20] |= 0x08;  //智能, 定时按键
-  51   1        //数码管B段
-  52   1        LEDRAM[21] |= 0x08;  //滤网, 电源按键
-  53   1      }
-  54          
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 2   
+  24   1        //P5 &= ~((1<<0) | (1<<1)| (1<<2)); 
+  25   1      
+  26   1        P2CON |= 0x7f; //P2 out.
+  27   1        LED_RED = 1;
+  28   1        LED_GREEN = 1;
+  29   1        LED_BLUE = 0;
+  30   1      
+  31   1        P3CON |= (1<<3) | (1<<4) | (1<<5) | (1<<6) | (1<<7); //P33, 34,35,35,37 out.
+  32   1      
+  33   1        P4CON |= (1<<0) | (1<<1) | (1<<6) | (1<<7);
+  34   1        P0CON |= (1<<1) | (1<<5) | (1<<6);// | (1<<6) | (1<<7);
+  35   1        P1CON |= (1<<6) | (1<<7);
+  36   1      
+  37   1        led_off();
+  38   1        
+  39   1        
+  40   1      }
+  41          
+  42          void led_task(void)
+  43          //100ms调用一次
+  44          {
+  45   1          if(read_power_status() == POWER_OFF_STATUS)
+  46   1          {     
+  47   2            return;
+  48   2          }
+  49   1          led_display_ion();
+  50   1          led_display_arom_level();
+  51   1          led_display_mode();
+  52   1          led_display_lock();
+  53   1        led_display_pm25();
+  54   1        led_display_dust_level();
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 2   
 
-  55          void led_task(void)
-  56          //100ms调用一次
-  57          {
-  58   1          if(read_power_status() == POWER_OFF_STATUS)
-  59   1          {     
-  60   2            return;
-  61   2          }
-  62   1          led_display_ion();
-  63   1          led_display_arom_level();
-  64   1          led_display_mode();
-  65   1          led_display_lock();
-  66   1        led_display_pm25();
-  67   1        led_display_dust_level();
-  68   1        led_display_timing_off_level();
-  69   1        
-  70   1      }
-  71          
-  72          
-  73          void led_display_filter_out(unsigned char filter_flag)
-  74          {
-  75   1        if( 1 == filter_flag) LEDRAM[21] |= 0x10;  //滤网, 电源按键
-  76   1        else LEDRAM[21] &= ~0x10;  //滤网, 电源按键
-  77   1      }
-  78          
-  79          void led_off(void)
-  80          {
-  81   1        //DDRCON &= ~0x80;
-  82   1        LED_GREEN = 1;
-  83   1        LED_BLUE = 1;
-  84   1        LED_RED = 1;
-  85   1        
-  86   1        LEDRAM[11] &= ~0x08;  // 童锁图标
-  87   1        LEDRAM[12] &= ~0x18;  //0x10 -P2.5  0x08-8H
-  88   1        LEDRAM[13] &= ~0x18;  //0x10 - 高, 0x08 - 4H
-  89   1        LEDRAM[14] &= ~0x18;  //0x10 - 中, 0x08 - 2H  
-  90   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
-  91   1        LEDRAM[15] &= ~0xf8;  //0x10 - 低, 0x08 - 1H
-  92   1        //数码管g段
-  93   1        LEDRAM[16] &= ~0xf0;  //0x10 - ION图标, 0x08香薰按键,   
-  94   1        //数码管F段
-  95   1        LEDRAM[17] &= ~0xf0;   //0x10- 高速 和 0x08-负离子按键
-  96   1        //数码管E段
-  97   1        LEDRAM[18] &= ~0xf0;   //0x10- 中速 , 0x08 - 模式按键
-  98   1        //数码管D段
-  99   1        LEDRAM[19] &= ~0xf0;  //低速 ,  童锁按键
- 100   1        //数码管C段
- 101   1        LEDRAM[20] &= ~0xf0;  //智能, 定时按键
- 102   1        //数码管B段
- 103   1        LEDRAM[21] &= ~0xf0;  //滤网, 电源按键
- 104   1        //数码管A段
- 105   1      }
- 106          
- 107          void led_all_on(void)
- 108          {
- 109   1        //DDRCON &= ~0x80;
- 110   1        LED_GREEN = 0;
- 111   1        LED_BLUE = 0;
- 112   1        LED_RED = 0;
- 113   1        
- 114   1        LEDRAM[11] |= 0x08;  // 童锁图标
- 115   1        LEDRAM[12] |= 0x18;  //0x10 -P2.5  0x08-8H
- 116   1        LEDRAM[13] |= 0x18;  //0x10 - 高, 0x08 - 4H
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 3   
+  55   1        led_display_timing_off_level();
+  56   1        
+  57   1      }
+  58          
+  59          
+  60          void led_display_filter_out(unsigned char filter_flag)
+  61          {
+  62   1        if( 1 == filter_flag) LEDRAM[21] |= 0x10;  //滤网, 电源按键
+  63   1        else LEDRAM[21] &= ~0x10;  //滤网, 电源按键
+  64   1      }
+  65          
+  66          void led_off(void)
+  67          {
+  68   1        //DDRCON &= ~0x80;
+  69   1        LED_GREEN = 1;
+  70   1        LED_BLUE = 1;
+  71   1        LED_RED = 1;
+  72   1        LED_PM2_5 = 1;
+  73   1        LED_TIMER_1H = 1;
+  74   1        LED_TIMER_2H = 1; 
+  75   1        LED_TIMER_4H = 1;
+  76   1        LED_KEY_TIMER = 1;
+  77   1        LED_FILTER = 1;
+  78   1        LED_ION = 1;
+  79   1        LED_KEY_ION  = 1;
+  80   1        LED_KEY_AROM  = 1;
+  81   1        LED_AROM_LOW = 1;
+  82   1        LED_AROM_MIDDLE = 1;
+  83   1        LED_AROM_HIGH  = 1;
+  84   1        LED_SPEED_LOW = 1;
+  85   1        LED_SPEED_MIDDLE = 1;
+  86   1        LED_SPEED_HIGH = 1;
+  87   1        LED_SPEED_AUTO = 1;
+  88   1        LED_KEY_MODE = 1;
+  89   1        LED_LOCK = 1;
+  90   1        LED_KEY_LOCK = 1;
+  91   1        LED_KEY_POWER = 1;
+  92   1        /*
+  93   1        LEDRAM[11] &= ~0x08;  // 童锁图标
+  94   1        LEDRAM[12] &= ~0x18;  //0x10 -P2.5  0x08-8H
+  95   1        LEDRAM[13] &= ~0x18;  //0x10 - 高, 0x08 - 4H
+  96   1        LEDRAM[14] &= ~0x18;  //0x10 - 中, 0x08 - 2H  
+  97   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+  98   1        LEDRAM[15] &= ~0xf8;  //0x10 - 低, 0x08 - 1H
+  99   1        //数码管g段
+ 100   1        LEDRAM[16] &= ~0xf0;  //0x10 - ION图标, 0x08香薰按键,   
+ 101   1        //数码管F段
+ 102   1        LEDRAM[17] &= ~0xf0;   //0x10- 高速 和 0x08-负离子按键
+ 103   1        //数码管E段
+ 104   1        LEDRAM[18] &= ~0xf0;   //0x10- 中速 , 0x08 - 模式按键
+ 105   1        //数码管D段
+ 106   1        LEDRAM[19] &= ~0xf0;  //低速 ,  童锁按键
+ 107   1        //数码管C段
+ 108   1        LEDRAM[20] &= ~0xf0;  //智能, 定时按键
+ 109   1        //数码管B段
+ 110   1        LEDRAM[21] &= ~0xf0;  //滤网, 电源按键
+ 111   1        //数码管A段
+ 112   1        */
+ 113   1      }
+ 114          
+ 115          void led_all_on(void)
+ 116          {
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 3   
 
- 117   1        LEDRAM[14] |= 0x18;  //0x10 - 中, 0x08 - 2H  
- 118   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 119   1        LEDRAM[15] |= 0xf8;  //0x10 - 低, 0x08 - 1H
- 120   1        //数码管g段
- 121   1        LEDRAM[16] |= 0xf8;;  //0x10 - ION图标, 0x08香薰按键,   
- 122   1        //数码管F段
- 123   1        LEDRAM[17] |= 0xf8;;   //0x10- 高速 和 0x08-负离子按键
- 124   1        //数码管E段
- 125   1        LEDRAM[18] |= 0xf8;;   //0x10- 中速 , 0x08 - 模式按键
- 126   1        //数码管D段
- 127   1        LEDRAM[19] |= 0xf8;;  //低速 ,  童锁按键
- 128   1        //数码管C段
- 129   1        LEDRAM[20] |= 0xf8;;  //智能, 定时按键
- 130   1        //数码管B段
- 131   1        LEDRAM[21] |= 0xf8;;  //滤网, 电源按键
- 132   1        //数码管A段
- 133   1      }
- 134          
- 135          
- 136          void led_on(void)
- 137          {
- 138   1        DDRCON |= 0x80;
- 139   1      }
- 140          
- 141          
- 142          void led_display_pm25(void)
- 143          {
- 144   1        unsigned short tmp_dust_display_value;
- 145   1        tmp_dust_display_value = read_dust_display_value();
- 146   1        led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
- 147   1        led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
- 148   1        led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
- 149   1        LEDRAM[12] |= 0x10;  //PM2.5图标
- 150   1      }
- 151          
- 152          void led_display_timing_off_level(void)
- 153          {
- 154   1        switch(read_timing_off_level())
- 155   1        {
- 156   2          //case 0:  //关闭
- 157   2          //  LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
- 158   2          //  LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
- 159   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 160   2          //  LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
- 161   2          //break;
- 162   2          case 1:  // 1H
- 163   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
- 164   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
- 165   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
- 166   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 167   2            LEDRAM[15] |= 0x08;  //0x10 - 低, 0x08 - 1H
- 168   2          break;
- 169   2          case 2:  // 2H
- 170   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
- 171   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
- 172   2            LEDRAM[14] |= 0x08;  //0x10 - 中, 0x08 - 2H  
- 173   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 174   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
- 175   2          break;
- 176   2          case 3:  // 4H
- 177   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
- 178   2            LEDRAM[13] |= 0x08;  //0x10 - 高, 0x08 - 4H
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 4   
+ 117   1        //DDRCON &= ~0x80;
+ 118   1        LED_GREEN = 0;
+ 119   1        LED_BLUE = 0;
+ 120   1        LED_RED = 0;
+ 121   1      
+ 122   1        LED_PM2_5 = 0;
+ 123   1        LED_TIMER_1H = 0;
+ 124   1        LED_TIMER_2H = 0; 
+ 125   1        LED_TIMER_4H = 0;
+ 126   1        LED_KEY_TIMER = 0;
+ 127   1        LED_FILTER = 0;
+ 128   1        LED_ION = 0;
+ 129   1        LED_KEY_ION  = 0;
+ 130   1        LED_KEY_AROM  = 0;
+ 131   1        LED_AROM_LOW = 0;
+ 132   1        LED_AROM_MIDDLE = 0;
+ 133   1        LED_AROM_HIGH  = 0;
+ 134   1        LED_SPEED_LOW = 0;
+ 135   1        LED_SPEED_MIDDLE = 0;
+ 136   1        LED_SPEED_HIGH = 0;
+ 137   1        LED_SPEED_AUTO = 0;
+ 138   1        LED_KEY_MODE = 0;
+ 139   1        LED_LOCK = 0;
+ 140   1        LED_KEY_LOCK = 0;
+ 141   1        LED_KEY_POWER = 0;
+ 142   1      
+ 143   1      
+ 144   1        /*
+ 145   1        LEDRAM[11] |= 0x08;  // 童锁图标
+ 146   1        LEDRAM[12] |= 0x18;  //0x10 -P2.5  0x08-8H
+ 147   1        LEDRAM[13] |= 0x18;  //0x10 - 高, 0x08 - 4H
+ 148   1        LEDRAM[14] |= 0x18;  //0x10 - 中, 0x08 - 2H  
+ 149   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 150   1        LEDRAM[15] |= 0xf8;  //0x10 - 低, 0x08 - 1H
+ 151   1        //数码管g段
+ 152   1        LEDRAM[16] |= 0xf8;;  //0x10 - ION图标, 0x08香薰按键,   
+ 153   1        //数码管F段
+ 154   1        LEDRAM[17] |= 0xf8;;   //0x10- 高速 和 0x08-负离子按键
+ 155   1        //数码管E段
+ 156   1        LEDRAM[18] |= 0xf8;;   //0x10- 中速 , 0x08 - 模式按键
+ 157   1        //数码管D段
+ 158   1        LEDRAM[19] |= 0xf8;;  //低速 ,  童锁按键
+ 159   1        //数码管C段
+ 160   1        LEDRAM[20] |= 0xf8;;  //智能, 定时按键
+ 161   1        //数码管B段
+ 162   1        LEDRAM[21] |= 0xf8;;  //滤网, 电源按键
+ 163   1        //数码管A段
+ 164   1        */
+ 165   1      }
+ 166          
+ 167          
+ 168          void led_on(void)
+ 169          {
+ 170   1        DDRCON |= 0x80;
+ 171   1      }
+ 172          
+ 173          
+ 174          void led_display_pm25(void)
+ 175          {
+ 176   1        unsigned short tmp_dust_display_value;
+ 177   1        tmp_dust_display_value = read_dust_display_value();
+ 178   1        led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 4   
 
- 179   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
- 180   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 181   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
- 182   2          break;
- 183   2          case 4:  // 8H
- 184   2            LEDRAM[12] |= 0x08;  //0x10 -P2.5  0x08-8H
- 185   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
- 186   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
- 187   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 188   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
- 189   2          break;
- 190   2          default:
- 191   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
- 192   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
- 193   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
- 194   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 195   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
- 196   2          break;
- 197   2        }
- 198   1      }
- 199          
- 200          void led_display_arom_level(void)
- 201          {
- 202   1        switch(read_arom_level())
- 203   1        {
- 204   2          //case 0:  //关闭
- 205   2          //  LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
- 206   2          //  LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
- 207   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 208   2          //  LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
- 209   2          //break;
- 210   2          case 1:  //低
- 211   2            LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
- 212   2            LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
- 213   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 214   2            LEDRAM[15] |= 0x10;  //0x10 - 低, 0x08 - 1H
- 215   2          break;
- 216   2          case 2:  //中
- 217   2            LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
- 218   2            LEDRAM[14] |= 0x10;  //0x10 - 中, 0x08 - 2H  
+ 179   1        led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
+ 180   1        led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
+ 181   1        LEDRAM[12] |= 0x10;  //PM2.5图标
+ 182   1      }
+ 183          
+ 184          void led_display_timing_off_level(void)
+ 185          {
+ 186   1        switch(read_timing_off_level())
+ 187   1        {
+ 188   2          //case 0:  //关闭
+ 189   2          //  LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+ 190   2          //  LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+ 191   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 192   2          //  LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+ 193   2          //break;
+ 194   2          case 1:  // 1H
+ 195   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+ 196   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+ 197   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+ 198   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 199   2            LEDRAM[15] |= 0x08;  //0x10 - 低, 0x08 - 1H
+ 200   2          break;
+ 201   2          case 2:  // 2H
+ 202   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+ 203   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+ 204   2            LEDRAM[14] |= 0x08;  //0x10 - 中, 0x08 - 2H  
+ 205   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 206   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
+ 207   2          break;
+ 208   2          case 3:  // 4H
+ 209   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+ 210   2            LEDRAM[13] |= 0x08;  //0x10 - 高, 0x08 - 4H
+ 211   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+ 212   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 213   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
+ 214   2          break;
+ 215   2          case 4:  // 8H
+ 216   2            LEDRAM[12] |= 0x08;  //0x10 -P2.5  0x08-8H
+ 217   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+ 218   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
  219   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 220   2            LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+ 220   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
  221   2          break;
- 222   2          case 3:  //高
- 223   2            LEDRAM[13] |= 0x10;  //0x10 - 高, 0x08 - 4H
- 224   2            LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
- 225   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 226   2            LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
- 227   2          break;
- 228   2          default:
- 229   2            LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
- 230   2            LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
- 231   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 232   2            LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
- 233   2          break;
- 234   2        }
- 235   1      }
- 236          
- 237          void led_display_dust_level(void)
- 238          {
- 239   1        switch(read_dust_level())
- 240   1        {
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 5   
+ 222   2          default:
+ 223   2            LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+ 224   2            LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+ 225   2            LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+ 226   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 227   2            LEDRAM[15] &= ~0x08;  //0x10 - 低, 0x08 - 1H
+ 228   2          break;
+ 229   2        }
+ 230   1      }
+ 231          
+ 232          void led_display_arom_level(void)
+ 233          {
+ 234   1        switch(read_arom_level())
+ 235   1        {
+ 236   2          //case 0:  //关闭
+ 237   2          //  LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+ 238   2          //  LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+ 239   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 240   2          //  LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 5   
 
- 241   2          case DUST_LEVEL_EXCELLENT:
- 242   2            LED_GREEN = 0;
- 243   2            LED_BLUE = 1;
- 244   2            LED_RED = 1;
- 245   2          break;
- 246   2          case DUST_LEVEL_12:
- 247   2            LED_GREEN = 0;
- 248   2            LED_BLUE = 0;
- 249   2            LED_RED = 1;
- 250   2          break;
- 251   2          case DUST_LEVEL_MEDIUM:
- 252   2            LED_GREEN = 0;
- 253   2            LED_BLUE = 1;
- 254   2            LED_RED = 0;
- 255   2          break;
- 256   2          /*
- 257   2          case DUST_LEVEL_23:
- 258   2            LED_GREEN = 1;
- 259   2            LED_BLUE = 1;
- 260   2            LED_RED = 0;
- 261   2          break;
- 262   2          */
- 263   2          case DUST_LEVEL_BAD:
- 264   2            LED_GREEN = 1;
- 265   2            LED_BLUE = 1;
- 266   2            LED_RED = 0;
- 267   2          break;
- 268   2          default:
- 269   2            LED_GREEN = 0;
- 270   2            LED_BLUE = 1;
- 271   2            LED_RED = 1;
- 272   2          break;
- 273   2        }
- 274   1      }
- 275          
- 276          void led_display_lock(void)
- 277          {
- 278   1        if( 0 == read_unlock_flag())
- 279   1        {
- 280   2          LEDRAM[11] &= ~0x08;  // 童锁图标
- 281   2        }
- 282   1        else
- 283   1        {
- 284   2          LEDRAM[11] |= 0x08;  // 童锁图标
- 285   2        }
- 286   1      }
- 287          
- 288          void led_display_ion(void)
- 289          {
- 290   1        if(0 == ION_PIN)
- 291   1        {
- 292   2          LEDRAM[16] |= 0x10;  //0x10 - ION图标, 0x08香薰按键, 
- 293   2        }
- 294   1        else
- 295   1        {
- 296   2          LEDRAM[16] &= ~0x10;  //0x10 - ION图标, 0x08香薰按键, 
- 297   2        }
- 298   1      }
- 299          
- 300          void led_display_mode(void)
- 301            //智能, 酒店, 中速, 超强
- 302          {
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 6   
+ 241   2          //break;
+ 242   2          case 1:  //低
+ 243   2            LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+ 244   2            LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+ 245   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 246   2            LEDRAM[15] |= 0x10;  //0x10 - 低, 0x08 - 1H
+ 247   2          break;
+ 248   2          case 2:  //中
+ 249   2            LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+ 250   2            LEDRAM[14] |= 0x10;  //0x10 - 中, 0x08 - 2H  
+ 251   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 252   2            LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+ 253   2          break;
+ 254   2          case 3:  //高
+ 255   2            LEDRAM[13] |= 0x10;  //0x10 - 高, 0x08 - 4H
+ 256   2            LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+ 257   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 258   2            LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+ 259   2          break;
+ 260   2          default:
+ 261   2            LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+ 262   2            LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+ 263   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 264   2            LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+ 265   2          break;
+ 266   2        }
+ 267   1      }
+ 268          
+ 269          void led_display_dust_level(void)
+ 270          {
+ 271   1        switch(read_dust_level())
+ 272   1        {
+ 273   2          case DUST_LEVEL_EXCELLENT:
+ 274   2            LED_GREEN = 0;
+ 275   2            LED_BLUE = 1;
+ 276   2            LED_RED = 1;
+ 277   2          break;
+ 278   2          case DUST_LEVEL_12:
+ 279   2            LED_GREEN = 0;
+ 280   2            LED_BLUE = 0;
+ 281   2            LED_RED = 1;
+ 282   2          break;
+ 283   2          case DUST_LEVEL_MEDIUM:
+ 284   2            LED_GREEN = 0;
+ 285   2            LED_BLUE = 1;
+ 286   2            LED_RED = 0;
+ 287   2          break;
+ 288   2          /*
+ 289   2          case DUST_LEVEL_23:
+ 290   2            LED_GREEN = 1;
+ 291   2            LED_BLUE = 1;
+ 292   2            LED_RED = 0;
+ 293   2          break;
+ 294   2          */
+ 295   2          case DUST_LEVEL_BAD:
+ 296   2            LED_GREEN = 1;
+ 297   2            LED_BLUE = 1;
+ 298   2            LED_RED = 0;
+ 299   2          break;
+ 300   2          default:
+ 301   2            LED_GREEN = 0;
+ 302   2            LED_BLUE = 1;
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 6   
 
- 303   1        switch(read_fan_speed())
- 304   1        {
- 305   2          case FAN_SPEED_AUTO:
- 306   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
- 307   2            //数码管E段
- 308   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
- 309   2            //数码管D段
- 310   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
- 311   2            //数码管C段
- 312   2            LEDRAM[20] |= 0x10;  //智能, 定时按键
- 313   2          break;
- 314   2          case FAN_SPEED_SLEEP:
- 315   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
- 316   2            //数码管E段
- 317   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
- 318   2            //数码管D段
- 319   2            LEDRAM[19] |= 0x10;  //低速 ,  童锁按键
- 320   2            //数码管C段
- 321   2            LEDRAM[20] &= ~0x10;  //智能, 定时按键
- 322   2          break;
- 323   2          case FAN_SPEED_MIDDLE:
- 324   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
- 325   2            //数码管E段
- 326   2            LEDRAM[18] |= 0x10;   //0x10- 中速 , 0x08 - 模式按键
- 327   2            //数码管D段
- 328   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
- 329   2            //数码管C段
- 330   2            LEDRAM[20] &= ~0x10;  //智能, 定时按键
- 331   2          break;
- 332   2          case FAN_SPEED_HIGH:
- 333   2            LEDRAM[17] |= 0x10;   //0x10- 高速 和 0x08-负离子按键
- 334   2            //数码管E段
- 335   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
- 336   2            //数码管D段
- 337   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
- 338   2            //数码管C段
- 339   2            LEDRAM[20] &= ~0x10;  //智能, 定时按键
- 340   2          break;
- 341   2          default:
- 342   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
- 343   2            //数码管E段
- 344   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
- 345   2            //数码管D段
- 346   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
- 347   2            //数码管C段
- 348   2            LEDRAM[20] |= 0x10;  //智能, 定时按键
- 349   2          break;
- 350   2        }
- 351   1      }
- 352          
- 353          void led_display_bcd(unsigned char bcd_value, unsigned char digit)
- 354          //digit, 第7位是百位, 6位是10位, 5位是个位
- 355          {
- 356   1        switch(bcd_value)
- 357   1        {
- 358   2          case 0:
- 359   2            LEDRAM[15] &= (~(1<<digit));
- 360   2            //数码管g段
- 361   2            LEDRAM[16] |= (1<<digit);  //  
- 362   2            //数码管F段
- 363   2            LEDRAM[17] |= (1<<digit);   //
- 364   2            //数码管E段
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 7   
+ 303   2            LED_RED = 1;
+ 304   2          break;
+ 305   2        }
+ 306   1      }
+ 307          
+ 308          void led_display_lock(void)
+ 309          {
+ 310   1        if( 0 == read_unlock_flag())
+ 311   1        {
+ 312   2          LEDRAM[11] &= ~0x08;  // 童锁图标
+ 313   2        }
+ 314   1        else
+ 315   1        {
+ 316   2          LEDRAM[11] |= 0x08;  // 童锁图标
+ 317   2        }
+ 318   1      }
+ 319          
+ 320          void led_display_ion(void)
+ 321          {
+ 322   1        if(0 == ION_PIN)
+ 323   1        {
+ 324   2          //LEDRAM[16] |= 0x10;  //0x10 - ION图标, 0x08香薰按键, 
+ 325   2          LED_ION = LED_ON;
+ 326   2        }
+ 327   1        else
+ 328   1        {
+ 329   2          LED_ION = LED_OFF;
+ 330   2          //LEDRAM[16] &= ~0x10;  //0x10 - ION图标, 0x08香薰按键, 
+ 331   2        }
+ 332   1      }
+ 333          
+ 334          void led_display_mode(void)
+ 335            //智能, 酒店, 中速, 超强
+ 336          {
+ 337   1        switch(read_fan_speed())
+ 338   1        {
+ 339   2          case FAN_SPEED_AUTO:
+ 340   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
+ 341   2            //数码管E段
+ 342   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
+ 343   2            //数码管D段
+ 344   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
+ 345   2            //数码管C段
+ 346   2            LEDRAM[20] |= 0x10;  //智能, 定时按键
+ 347   2          break;
+ 348   2          case FAN_SPEED_SLEEP:
+ 349   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
+ 350   2            //数码管E段
+ 351   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
+ 352   2            //数码管D段
+ 353   2            LEDRAM[19] |= 0x10;  //低速 ,  童锁按键
+ 354   2            //数码管C段
+ 355   2            LEDRAM[20] &= ~0x10;  //智能, 定时按键
+ 356   2          break;
+ 357   2          case FAN_SPEED_MIDDLE:
+ 358   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
+ 359   2            //数码管E段
+ 360   2            LEDRAM[18] |= 0x10;   //0x10- 中速 , 0x08 - 模式按键
+ 361   2            //数码管D段
+ 362   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
+ 363   2            //数码管C段
+ 364   2            LEDRAM[20] &= ~0x10;  //智能, 定时按键
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 7   
 
- 365   2            LEDRAM[18] |= (1<<digit);   //
- 366   2            //数码管D段
- 367   2            LEDRAM[19] |= (1<<digit);  //
- 368   2            //数码管C段
- 369   2            LEDRAM[20] |= (1<<digit);  //
- 370   2            //数码管B段
- 371   2            LEDRAM[21] |= (1<<digit);  //
- 372   2            //数码管A段
- 373   2          break;
- 374   2          case 1:
- 375   2            LEDRAM[15] &= (~(1<<digit));
- 376   2            //数码管g段
- 377   2            LEDRAM[16] &= (~(1<<digit));  //  
- 378   2            //数码管F段
- 379   2            LEDRAM[17] &= (~(1<<digit));  //
- 380   2            //数码管E段
- 381   2            LEDRAM[18] &= (~(1<<digit));  //
- 382   2            //数码管D段
- 383   2            LEDRAM[19] |= (1<<digit);  //
- 384   2            //数码管C段
- 385   2            LEDRAM[20] |= (1<<digit);  //
- 386   2            //数码管B段
- 387   2            LEDRAM[21] &= (~(1<<digit));  //
- 388   2            //数码管A段
- 389   2          break;
- 390   2          case 2:
- 391   2            LEDRAM[15] |= (1<<digit);
- 392   2            //数码管g段
- 393   2            LEDRAM[16] &= (~(1<<digit));  //  
- 394   2            //数码管F段
- 395   2            LEDRAM[17] |= (1<<digit);   //
- 396   2            //数码管E段
- 397   2            LEDRAM[18] |= (1<<digit);   //
- 398   2            //数码管D段
- 399   2            LEDRAM[19] &= ~(1<<digit);  //
- 400   2            //数码管C段
- 401   2            LEDRAM[20] |= (1<<digit);  //
- 402   2            //数码管B段
- 403   2            LEDRAM[21] |= (1<<digit);  //
- 404   2            //数码管A段
- 405   2          break;
- 406   2          case 3:
- 407   2            LEDRAM[15] |= (1<<digit);
- 408   2            //数码管g段
- 409   2            LEDRAM[16] &= (~(1<<digit)) ; //  
- 410   2            //数码管F段
- 411   2            LEDRAM[17] &= ~(1<<digit);   //
- 412   2            //数码管E段
- 413   2            LEDRAM[18] |= (1<<digit);   //
- 414   2            //数码管D段
- 415   2            LEDRAM[19] |= (1<<digit);  //
- 416   2            //数码管C段
- 417   2            LEDRAM[20] |= (1<<digit);  //
- 418   2            //数码管B段
- 419   2            LEDRAM[21] |= (1<<digit);  //
- 420   2            //数码管A段
- 421   2          break;
- 422   2          case 4:
- 423   2            LEDRAM[15] |= (1<<digit);
- 424   2            //数码管g段
- 425   2            LEDRAM[16] |= (1<<digit);  //  
- 426   2            //数码管F段
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 8   
+ 365   2          break;
+ 366   2          case FAN_SPEED_HIGH:
+ 367   2            LEDRAM[17] |= 0x10;   //0x10- 高速 和 0x08-负离子按键
+ 368   2            //数码管E段
+ 369   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
+ 370   2            //数码管D段
+ 371   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
+ 372   2            //数码管C段
+ 373   2            LEDRAM[20] &= ~0x10;  //智能, 定时按键
+ 374   2          break;
+ 375   2          default:
+ 376   2            LEDRAM[17] &= ~0x10;   //0x10- 高速 和 0x08-负离子按键
+ 377   2            //数码管E段
+ 378   2            LEDRAM[18] &= ~0x10;   //0x10- 中速 , 0x08 - 模式按键
+ 379   2            //数码管D段
+ 380   2            LEDRAM[19] &= ~0x10;  //低速 ,  童锁按键
+ 381   2            //数码管C段
+ 382   2            LEDRAM[20] |= 0x10;  //智能, 定时按键
+ 383   2          break;
+ 384   2        }
+ 385   1      }
+ 386          
+ 387          void led_display_bcd(unsigned char bcd_value, unsigned char digit)
+ 388          //digit, 第7位是百位, 6位是10位, 5位是个位
+ 389          {
+ 390   1        switch(bcd_value)
+ 391   1        {
+ 392   2          case 0:
+ 393   2            LEDRAM[15] &= (~(1<<digit));
+ 394   2            //数码管g段
+ 395   2            LEDRAM[16] |= (1<<digit);  //  
+ 396   2            //数码管F段
+ 397   2            LEDRAM[17] |= (1<<digit);   //
+ 398   2            //数码管E段
+ 399   2            LEDRAM[18] |= (1<<digit);   //
+ 400   2            //数码管D段
+ 401   2            LEDRAM[19] |= (1<<digit);  //
+ 402   2            //数码管C段
+ 403   2            LEDRAM[20] |= (1<<digit);  //
+ 404   2            //数码管B段
+ 405   2            LEDRAM[21] |= (1<<digit);  //
+ 406   2            //数码管A段
+ 407   2          break;
+ 408   2          case 1:
+ 409   2            LEDRAM[15] &= (~(1<<digit));
+ 410   2            //数码管g段
+ 411   2            LEDRAM[16] &= (~(1<<digit));  //  
+ 412   2            //数码管F段
+ 413   2            LEDRAM[17] &= (~(1<<digit));  //
+ 414   2            //数码管E段
+ 415   2            LEDRAM[18] &= (~(1<<digit));  //
+ 416   2            //数码管D段
+ 417   2            LEDRAM[19] |= (1<<digit);  //
+ 418   2            //数码管C段
+ 419   2            LEDRAM[20] |= (1<<digit);  //
+ 420   2            //数码管B段
+ 421   2            LEDRAM[21] &= (~(1<<digit));  //
+ 422   2            //数码管A段
+ 423   2          break;
+ 424   2          case 2:
+ 425   2            LEDRAM[15] |= (1<<digit);
+ 426   2            //数码管g段
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 8   
 
- 427   2            LEDRAM[17] &= ~(1<<digit);   //
- 428   2            //数码管E段
- 429   2            LEDRAM[18] &= ~(1<<digit);   //
- 430   2            //数码管D段
- 431   2            LEDRAM[19] |= (1<<digit);  //
- 432   2            //数码管C段
- 433   2            LEDRAM[20] |= (1<<digit);  //
- 434   2            //数码管B段
- 435   2            LEDRAM[21] &= ~(1<<digit);  //
- 436   2            //数码管A段
- 437   2          break;
- 438   2          case 5:
- 439   2            LEDRAM[15] |= (1<<digit);
- 440   2            //数码管g段
- 441   2            LEDRAM[16] |= (1<<digit);  //  
- 442   2            //数码管F段
- 443   2            LEDRAM[17] &= ~(1<<digit);   //
- 444   2            //数码管E段
- 445   2            LEDRAM[18] |= (1<<digit);   //
- 446   2            //数码管D段
- 447   2            LEDRAM[19] |= (1<<digit);  //
- 448   2            //数码管C段
- 449   2            LEDRAM[20] &= ~(1<<digit);  //
- 450   2            //数码管B段
- 451   2            LEDRAM[21] |= (1<<digit);  //
- 452   2            //数码管A段
- 453   2          break;
- 454   2          case 6:
- 455   2            LEDRAM[15] |= (1<<digit);
- 456   2            //数码管g段
- 457   2            LEDRAM[16] |= (1<<digit);  //  
- 458   2            //数码管F段
- 459   2            LEDRAM[17] |= (1<<digit);   //
- 460   2            //数码管E段
- 461   2            LEDRAM[18] |= (1<<digit);   //
- 462   2            //数码管D段
- 463   2            LEDRAM[19] |= (1<<digit);  //
- 464   2            //数码管C段
- 465   2            LEDRAM[20] &= ~(1<<digit);  //
- 466   2            //数码管B段
- 467   2            LEDRAM[21] |= (1<<digit);  //
- 468   2            //数码管A段
- 469   2          break;
- 470   2          case 7:
- 471   2            LEDRAM[15] &= ~(1<<digit);
- 472   2            //数码管g段
- 473   2            LEDRAM[16] &= ~(1<<digit);  //  
- 474   2            //数码管F段
- 475   2            LEDRAM[17] &= ~(1<<digit);   //
- 476   2            //数码管E段
- 477   2            LEDRAM[18] &= ~(1<<digit);   //
- 478   2            //数码管D段
- 479   2            LEDRAM[19] |= (1<<digit);  //
- 480   2            //数码管C段
- 481   2            LEDRAM[20] |= (1<<digit);  //
- 482   2            //数码管B段
- 483   2            LEDRAM[21] |= (1<<digit);  //
- 484   2            //数码管A段
- 485   2          break;
- 486   2          case 8:
- 487   2            LEDRAM[15] |= (1<<digit);
- 488   2            //数码管g段
-C51 COMPILER V9.52.0.0   LED                                                               10/14/2019 22:43:41 PAGE 9   
+ 427   2            LEDRAM[16] &= (~(1<<digit));  //  
+ 428   2            //数码管F段
+ 429   2            LEDRAM[17] |= (1<<digit);   //
+ 430   2            //数码管E段
+ 431   2            LEDRAM[18] |= (1<<digit);   //
+ 432   2            //数码管D段
+ 433   2            LEDRAM[19] &= ~(1<<digit);  //
+ 434   2            //数码管C段
+ 435   2            LEDRAM[20] |= (1<<digit);  //
+ 436   2            //数码管B段
+ 437   2            LEDRAM[21] |= (1<<digit);  //
+ 438   2            //数码管A段
+ 439   2          break;
+ 440   2          case 3:
+ 441   2            LEDRAM[15] |= (1<<digit);
+ 442   2            //数码管g段
+ 443   2            LEDRAM[16] &= (~(1<<digit)) ; //  
+ 444   2            //数码管F段
+ 445   2            LEDRAM[17] &= ~(1<<digit);   //
+ 446   2            //数码管E段
+ 447   2            LEDRAM[18] |= (1<<digit);   //
+ 448   2            //数码管D段
+ 449   2            LEDRAM[19] |= (1<<digit);  //
+ 450   2            //数码管C段
+ 451   2            LEDRAM[20] |= (1<<digit);  //
+ 452   2            //数码管B段
+ 453   2            LEDRAM[21] |= (1<<digit);  //
+ 454   2            //数码管A段
+ 455   2          break;
+ 456   2          case 4:
+ 457   2            LEDRAM[15] |= (1<<digit);
+ 458   2            //数码管g段
+ 459   2            LEDRAM[16] |= (1<<digit);  //  
+ 460   2            //数码管F段
+ 461   2            LEDRAM[17] &= ~(1<<digit);   //
+ 462   2            //数码管E段
+ 463   2            LEDRAM[18] &= ~(1<<digit);   //
+ 464   2            //数码管D段
+ 465   2            LEDRAM[19] |= (1<<digit);  //
+ 466   2            //数码管C段
+ 467   2            LEDRAM[20] |= (1<<digit);  //
+ 468   2            //数码管B段
+ 469   2            LEDRAM[21] &= ~(1<<digit);  //
+ 470   2            //数码管A段
+ 471   2          break;
+ 472   2          case 5:
+ 473   2            LEDRAM[15] |= (1<<digit);
+ 474   2            //数码管g段
+ 475   2            LEDRAM[16] |= (1<<digit);  //  
+ 476   2            //数码管F段
+ 477   2            LEDRAM[17] &= ~(1<<digit);   //
+ 478   2            //数码管E段
+ 479   2            LEDRAM[18] |= (1<<digit);   //
+ 480   2            //数码管D段
+ 481   2            LEDRAM[19] |= (1<<digit);  //
+ 482   2            //数码管C段
+ 483   2            LEDRAM[20] &= ~(1<<digit);  //
+ 484   2            //数码管B段
+ 485   2            LEDRAM[21] |= (1<<digit);  //
+ 486   2            //数码管A段
+ 487   2          break;
+ 488   2          case 6:
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 9   
 
- 489   2            LEDRAM[16] |= (1<<digit);  //  
- 490   2            //数码管F段
- 491   2            LEDRAM[17] |= (1<<digit);   //
- 492   2            //数码管E段
- 493   2            LEDRAM[18] |= (1<<digit);   //
- 494   2            //数码管D段
- 495   2            LEDRAM[19] |= (1<<digit);  //
- 496   2            //数码管C段
- 497   2            LEDRAM[20] |= (1<<digit);  //
- 498   2            //数码管B段
- 499   2            LEDRAM[21] |= (1<<digit);  //
- 500   2            //数码管A段
- 501   2          break;
- 502   2          case 9:
- 503   2            LEDRAM[15] |= (1<<digit);
- 504   2            //数码管g段
- 505   2            LEDRAM[16] |= (1<<digit);  //  
- 506   2            //数码管F段
- 507   2            LEDRAM[17] &= ~(1<<digit);   //
- 508   2            //数码管E段
- 509   2            LEDRAM[18] |= (1<<digit);   //
- 510   2            //数码管D段
- 511   2            LEDRAM[19] |= (1<<digit);  //
- 512   2            //数码管C段
- 513   2            LEDRAM[20] |= (1<<digit);  //
- 514   2            //数码管B段
- 515   2            LEDRAM[21] |= (1<<digit);  //
- 516   2            //数码管A段
- 517   2          break;
- 518   2          default:
- 519   2          break;        
- 520   2        }
- 521   1      }
- 522          
- 523          
- 524          
+ 489   2            LEDRAM[15] |= (1<<digit);
+ 490   2            //数码管g段
+ 491   2            LEDRAM[16] |= (1<<digit);  //  
+ 492   2            //数码管F段
+ 493   2            LEDRAM[17] |= (1<<digit);   //
+ 494   2            //数码管E段
+ 495   2            LEDRAM[18] |= (1<<digit);   //
+ 496   2            //数码管D段
+ 497   2            LEDRAM[19] |= (1<<digit);  //
+ 498   2            //数码管C段
+ 499   2            LEDRAM[20] &= ~(1<<digit);  //
+ 500   2            //数码管B段
+ 501   2            LEDRAM[21] |= (1<<digit);  //
+ 502   2            //数码管A段
+ 503   2          break;
+ 504   2          case 7:
+ 505   2            LEDRAM[15] &= ~(1<<digit);
+ 506   2            //数码管g段
+ 507   2            LEDRAM[16] &= ~(1<<digit);  //  
+ 508   2            //数码管F段
+ 509   2            LEDRAM[17] &= ~(1<<digit);   //
+ 510   2            //数码管E段
+ 511   2            LEDRAM[18] &= ~(1<<digit);   //
+ 512   2            //数码管D段
+ 513   2            LEDRAM[19] |= (1<<digit);  //
+ 514   2            //数码管C段
+ 515   2            LEDRAM[20] |= (1<<digit);  //
+ 516   2            //数码管B段
+ 517   2            LEDRAM[21] |= (1<<digit);  //
+ 518   2            //数码管A段
+ 519   2          break;
+ 520   2          case 8:
+ 521   2            LEDRAM[15] |= (1<<digit);
+ 522   2            //数码管g段
+ 523   2            LEDRAM[16] |= (1<<digit);  //  
+ 524   2            //数码管F段
+ 525   2            LEDRAM[17] |= (1<<digit);   //
+ 526   2            //数码管E段
+ 527   2            LEDRAM[18] |= (1<<digit);   //
+ 528   2            //数码管D段
+ 529   2            LEDRAM[19] |= (1<<digit);  //
+ 530   2            //数码管C段
+ 531   2            LEDRAM[20] |= (1<<digit);  //
+ 532   2            //数码管B段
+ 533   2            LEDRAM[21] |= (1<<digit);  //
+ 534   2            //数码管A段
+ 535   2          break;
+ 536   2          case 9:
+ 537   2            LEDRAM[15] |= (1<<digit);
+ 538   2            //数码管g段
+ 539   2            LEDRAM[16] |= (1<<digit);  //  
+ 540   2            //数码管F段
+ 541   2            LEDRAM[17] &= ~(1<<digit);   //
+ 542   2            //数码管E段
+ 543   2            LEDRAM[18] |= (1<<digit);   //
+ 544   2            //数码管D段
+ 545   2            LEDRAM[19] |= (1<<digit);  //
+ 546   2            //数码管C段
+ 547   2            LEDRAM[20] |= (1<<digit);  //
+ 548   2            //数码管B段
+ 549   2            LEDRAM[21] |= (1<<digit);  //
+ 550   2            //数码管A段
+C51 COMPILER V9.52.0.0   LED                                                               10/18/2019 07:27:34 PAGE 10  
+
+ 551   2          break;
+ 552   2          default:
+ 553   2          break;        
+ 554   2        }
+ 555   1      }
+ 556          
+ 557          
+ 558          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1335    ----
+   CODE SIZE        =   1259    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
