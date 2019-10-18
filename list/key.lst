@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   KEY                                                               10/17/2019 22:58:32 PAGE 1   
+C51 COMPILER V9.52.0.0   KEY                                                               10/19/2019 07:07:02 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE KEY
@@ -62,7 +62,7 @@ line level    source
   52   1        if(SOCAPI_TouchKeyStatus&0x80)      //重要步骤2:  触摸键扫描一轮标志，是否调用TouchKeyScan()一定要根据此标
              -志位置起后
   53   1         {                                      
-C51 COMPILER V9.52.0.0   KEY                                                               10/17/2019 22:58:32 PAGE 2   
+C51 COMPILER V9.52.0.0   KEY                                                               10/19/2019 07:07:02 PAGE 2   
 
   54   2          SOCAPI_TouchKeyStatus &= 0x7f;  //重要步骤3: 清除标志位， 需要外部清除。                              
   55   2          exKeyValueFlag = TouchKeyScan();//按键数据处理函数    
@@ -117,7 +117,7 @@ line level    source
  104   1        else 
  105   1        {
  106   2        
- 107   2          if((key_power_count>5) && (key_power_count< 5000))
+ 107   2          if((key_power_count>50) && (key_power_count< 5000))
  108   2          {
  109   3            key_power_com();
  110   3          }
@@ -126,7 +126,7 @@ line level    source
  113   2          key_power_count = 0;
  114   2        }
  115   1        
-C51 COMPILER V9.52.0.0   KEY                                                               10/17/2019 22:58:32 PAGE 3   
+C51 COMPILER V9.52.0.0   KEY                                                               10/19/2019 07:07:02 PAGE 3   
 
  116   1        
  117   1        
@@ -157,7 +157,7 @@ line level    source
  142   1        {
  143   2          if(0 == KEY_ION_FLAG)
  144   2          {
- 145   3            if(++key_ion_count >= 10)
+ 145   3            if(++key_ion_count >= 50)
  146   3            {
  147   4              KEY_ION_FLAG = 1;
  148   4              key_ion_com();        
@@ -174,7 +174,7 @@ line level    source
  159   1        {
  160   2          if(0 == KEY_AROM_FLAG)
  161   2          {
- 162   3            if(++key_arom_count >= 10)
+ 162   3            if(++key_arom_count >= 50)
  163   3            {
  164   4              KEY_AROM_FLAG = 1;
  165   4              key_arom_com();       
@@ -190,7 +190,7 @@ line level    source
  175   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000040)//
  176   1        {
  177   2          if(0 == KEY_LOCK_FLAG)
-C51 COMPILER V9.52.0.0   KEY                                                               10/17/2019 22:58:32 PAGE 4   
+C51 COMPILER V9.52.0.0   KEY                                                               10/19/2019 07:07:02 PAGE 4   
 
  178   2          {
  179   3            if(++key_lock_count >= 5000)
@@ -210,7 +210,7 @@ line level    source
  193   1        {
  194   2          if(0 == KEY_TIMER_FLAG)
  195   2          {
- 196   3            if(++key_timer_count >= 10)
+ 196   3            if(++key_timer_count >= 50)
  197   3            {
  198   4              KEY_TIMER_FLAG = 1;
  199   4              key_timer_com();        
@@ -241,26 +241,26 @@ line level    source
  224          {
  225   1        regulate_timing_off_level();
  226   1        set_beep_count(10);
- 227   1      }
- 228          
- 229          void key_arom_com(void)
- 230          {
- 231   1        regulate_arom_level();
- 232   1        set_beep_count(10);
- 233   1      }
- 234          
- 235          void key_lock_com(void)
- 236          {
- 237   1        //P52 = ~P52;
- 238   1        //UNLOCk_FLAG = ~UNLOCk_FLAG;
- 239   1        //LOCK_FLAG = ~LOCK_FLAG;      //解
-C51 COMPILER V9.52.0.0   KEY                                                               10/17/2019 22:58:32 PAGE 5   
+ 227   1        test_i2c();
+ 228   1      }
+ 229          
+ 230          void key_arom_com(void)
+ 231          {
+ 232   1        regulate_arom_level();
+ 233   1        set_beep_count(10);
+ 234   1      }
+ 235          
+ 236          void key_lock_com(void)
+ 237          {
+ 238   1        //P52 = ~P52;
+ 239   1        //UNLOCk_FLAG = ~UNLOCk_FLAG;
+C51 COMPILER V9.52.0.0   KEY                                                               10/19/2019 07:07:02 PAGE 5   
 
- 240   1        reset_lock_flag();  
- 241   1        
- 242   1      }
- 243          
- 244          bit read_unlock_flag(void)
+ 240   1        //LOCK_FLAG = ~LOCK_FLAG;      //解
+ 241   1        reset_lock_flag();  
+ 242   1        
+ 243   1      }
+ 244          unsigned char read_lock_flag(void)
  245          {
  246   1        return LOCK_FLAG;
  247   1      }
@@ -318,7 +318,7 @@ line level    source
  299   1        else
  300   1        {
  301   2          power_on();
-C51 COMPILER V9.52.0.0   KEY                                                               10/17/2019 22:58:32 PAGE 6   
+C51 COMPILER V9.52.0.0   KEY                                                               10/19/2019 07:07:02 PAGE 6   
 
  302   2        }
  303   1      }
@@ -327,7 +327,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    636    ----
+   CODE SIZE        =    639    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =      4    ----
    PDATA SIZE       =   ----    ----

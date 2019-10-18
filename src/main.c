@@ -178,6 +178,7 @@ void  Sys_Init(void)
 	{
 		WDTCON  = 0x10;
 	}
+	test_i2c();
 	power_off();
 	//power_on();
 }
@@ -235,6 +236,8 @@ void main(void)
 			if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
 			if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
 			fan_handle();
+
+			I2C_CLK = ~I2C_CLK;
 	} 
 }
 

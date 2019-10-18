@@ -16,7 +16,7 @@ void key_ion_com(void);
 void key_arom_com(void);
 void key_timer_com(void);
 void key_lock_com(void);
-bit read_unlock_flag(void);
+unsigned char read_lock_flag(void);
 void reset_key_no_move_count(void);
 void reset_lock_flag(void);
 

@@ -104,7 +104,7 @@ void key_task(void)
 	else 
 	{
 	
-		if((key_power_count>5) && (key_power_count< 5000))
+		if((key_power_count>50) && (key_power_count< 5000))
 		{
 			key_power_com();
 		}
@@ -142,7 +142,7 @@ void key_task(void)
 	{
 		if(0 == KEY_ION_FLAG)
 		{
-			if(++key_ion_count >= 10)
+			if(++key_ion_count >= 50)
 			{
 				KEY_ION_FLAG = 1;
 				key_ion_com();				
@@ -159,7 +159,7 @@ void key_task(void)
 	{
 		if(0 == KEY_AROM_FLAG)
 		{
-			if(++key_arom_count >= 10)
+			if(++key_arom_count >= 50)
 			{
 				KEY_AROM_FLAG = 1;
 				key_arom_com();				
@@ -193,7 +193,7 @@ void key_task(void)
 	{
 		if(0 == KEY_TIMER_FLAG)
 		{
-			if(++key_timer_count >= 10)
+			if(++key_timer_count >= 50)
 			{
 				KEY_TIMER_FLAG = 1;
 				key_timer_com();				
@@ -224,6 +224,7 @@ void key_timer_com(void)
 {
 	regulate_timing_off_level();
 	set_beep_count(10);
+	test_i2c();
 }
 
 void key_arom_com(void)
@@ -240,8 +241,7 @@ void key_lock_com(void)
 	reset_lock_flag();	
 	
 }
-
-bit read_unlock_flag(void)
+unsigned char read_lock_flag(void)
 {
 	return LOCK_FLAG;
 }
