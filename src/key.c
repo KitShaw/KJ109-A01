@@ -224,7 +224,6 @@ void key_timer_com(void)
 {
 	regulate_timing_off_level();
 	set_beep_count(10);
-	test_i2c();
 }
 
 void key_arom_com(void)

@@ -64,7 +64,7 @@
 
 void led_init(void);
 void led_task(void);
-void led_display_bcd(unsigned char bcd_value, unsigned char digit);
+unsigned char led_display_bcd(unsigned char bcd_value);
 void led_display_mode(void);
 void led_display_ion(void);
 void led_display_lock(void);
@@ -88,10 +88,12 @@ void i2c_clk_low(void);
 
 void i2c_din_high(void);
 void i2c_din_low(void);
-void test_i2c(void);
+//void test_i2c(void);
 void i2c_init(void);
 void sda_mode(unsigned char mode);
 void  i2c_waik_ack(void);
+void tm1650_set(unsigned char add,unsigned char dat);
+
 
 
 #endif

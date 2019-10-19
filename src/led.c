@@ -17,9 +17,10 @@
 #include "timing_off.h"
 #include "intrins.h"
 
-unsigned char xdata LEDRAM[30] _at_ 0x700;
+//unsigned char xdata LEDRAM[30] _at_ 0x700;
 
 unsigned int test_count;
+/*
 unsigned char leddata[]={ 
 
                 0x70,//0xc0,//0x3F,  //"0"  D7 =童锁右 (d6 d6)定时图标 
@@ -47,7 +48,7 @@ unsigned char leddata[]={
                 0xff,//0x40,  //"-"
                 0xff,//0x00,  //??
                     };
-
+*/
 
 void led_init(void)
 {	
@@ -218,6 +219,10 @@ void led_display_pm25(void)
 	//led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
 	//led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
 	//led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
+
+	tm1650_set(0x6E, led_display_bcd(tmp_dust_display_value / 100));   //
+	tm1650_set(0x6c, led_display_bcd(tmp_dust_display_value % 100 / 10));   //
+	tm1650_set(0x6A, led_display_bcd(tmp_dust_display_value % 10));   //
 	LED_PM2_5 = LED_ON; //PM2.5图标
 }
 
@@ -398,174 +403,49 @@ void led_display_mode(void)
 	}
 }
 
-void led_display_bcd(unsigned char bcd_value, unsigned char digit)
-//digit, 第7位是百位, 6位是10位, 5位是个位
+unsigned char led_display_bcd(unsigned char bcd_value)
+// 返回的数据
 {
+//8-e 7-d 6-dp 5-c 4-g 3-b 2-f 1-a
+	unsigned char tmp;
 	switch(bcd_value)
 	{
 		case 0:
-			LEDRAM[15] &= (~(1<<digit));
-			//数码管g段
-			LEDRAM[16] |= (1<<digit);  //  
-			//数码管F段
-			LEDRAM[17] |= (1<<digit);   //
-			//数码管E段
-			LEDRAM[18] |= (1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+			//tmp = 0xaf;
+			tmp = 0xd7;
 		break;
 		case 1:
-			LEDRAM[15] &= (~(1<<digit));
-			//数码管g段
-			LEDRAM[16] &= (~(1<<digit));  //  
-			//数码管F段
-			LEDRAM[17] &= (~(1<<digit));  //
-			//数码管E段
-			LEDRAM[18] &= (~(1<<digit));  //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] &= (~(1<<digit));  //
-			//数码管A段
+			tmp = 0x14;
 		break;
 		case 2:
-			LEDRAM[15] |= (1<<digit);
-			//数码管g段
-			LEDRAM[16] &= (~(1<<digit));  //  
-			//数码管F段
-			LEDRAM[17] |= (1<<digit);   //
-			//数码管E段
-			LEDRAM[18] |= (1<<digit);   //
-			//数码管D段
-			LEDRAM[19] &= ~(1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+			tmp = 0xcd;
 		break;
 		case 3:
-			LEDRAM[15] |= (1<<digit);
-			//数码管g段
-			LEDRAM[16] &= (~(1<<digit)) ; //  
-			//数码管F段
-			LEDRAM[17] &= ~(1<<digit);   //
-			//数码管E段
-			LEDRAM[18] |= (1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+			tmp = 0x5d;
 		break;
 		case 4:
-			LEDRAM[15] |= (1<<digit);
-			//数码管g段
-			LEDRAM[16] |= (1<<digit);  //  
-			//数码管F段
-			LEDRAM[17] &= ~(1<<digit);   //
-			//数码管E段
-			LEDRAM[18] &= ~(1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] &= ~(1<<digit);  //
-			//数码管A段
+			tmp = 0x1e;
 		break;
-		case 5:
-			LEDRAM[15] |= (1<<digit);
-			//数码管g段
-			LEDRAM[16] |= (1<<digit);  //  
-			//数码管F段
-			LEDRAM[17] &= ~(1<<digit);   //
-			//数码管E段
-			LEDRAM[18] |= (1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] &= ~(1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+		case 5://a
+			tmp = 0x5b;
 		break;
 		case 6:
-			LEDRAM[15] |= (1<<digit);
-			//数码管g段
-			LEDRAM[16] |= (1<<digit);  //  
-			//数码管F段
-			LEDRAM[17] |= (1<<digit);   //
-			//数码管E段
-			LEDRAM[18] |= (1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] &= ~(1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+			tmp = 0xdb;
 		break;
 		case 7:
-			LEDRAM[15] &= ~(1<<digit);
-			//数码管g段
-			LEDRAM[16] &= ~(1<<digit);  //  
-			//数码管F段
-			LEDRAM[17] &= ~(1<<digit);   //
-			//数码管E段
-			LEDRAM[18] &= ~(1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+			tmp = 0x15;
 		break;
 		case 8:
-			LEDRAM[15] |= (1<<digit);
-			//数码管g段
-			LEDRAM[16] |= (1<<digit);  //  
-			//数码管F段
-			LEDRAM[17] |= (1<<digit);   //
-			//数码管E段
-			LEDRAM[18] |= (1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+			tmp = 0xdf;
 		break;
 		case 9:
-			LEDRAM[15] |= (1<<digit);
-			//数码管g段
-			LEDRAM[16] |= (1<<digit);  //  
-			//数码管F段
-			LEDRAM[17] &= ~(1<<digit);   //
-			//数码管E段
-			LEDRAM[18] |= (1<<digit);   //
-			//数码管D段
-			LEDRAM[19] |= (1<<digit);  //
-			//数码管C段
-			LEDRAM[20] |= (1<<digit);  //
-			//数码管B段
-			LEDRAM[21] |= (1<<digit);  //
-			//数码管A段
+			tmp = 0x5f;
 		break;
 		default:
+			tmp = 0x00;
 		break;				
 	}
+	return tmp;
 }
 
 
@@ -576,9 +456,21 @@ void i2c_init(void)
 	
 	i2c_clk_low();
 	i2c_din_high();
-		
-	test_i2c();
+	tm1650_set(0x48, 0x05);   //开显示0段数码管,灰度1
+	//test_i2c();
 }
+
+void tm1650_set(unsigned char add,unsigned char dat) //数码管显示
+{
+        //写显存必须从高地址开始写
+        i2c_start();
+        i2c_write_byte(add); //第一个显存地址
+        i2c_waik_ack();
+        i2c_write_byte(dat);
+        i2c_waik_ack();
+        i2c_stop();
+}
+
 
 void sda_mode(unsigned char mode)
 	// 1输出, 0输入
@@ -593,7 +485,7 @@ void sda_mode(unsigned char mode)
 	}
 }
 
-
+/*
 void test_i2c(void)
 {
 	unsigned short i;
@@ -643,10 +535,9 @@ void test_i2c(void)
 	//}
 	i2c_write_byte(0xaa);  //写数据命令
 	i2c_waik_ack();
-	i2c_stop();
-	
+	i2c_stop();	
 }
-
+*/
 void delay_us(unsigned char val)
 {
 	unsigned char i;

@@ -178,7 +178,7 @@ void  Sys_Init(void)
 	{
 		WDTCON  = 0x10;
 	}
-	test_i2c();
+//	test_i2c();
 	power_off();
 	//power_on();
 }
