@@ -79,7 +79,7 @@ void led_display_timing_off_level(void);
 void led_display_filter_out(unsigned char filter_flag);
 
 
-void delay_5us(unsigned char val);
+void delay_us(unsigned char val);
 void i2c_write_byte(unsigned char val);
 void i2c_start(void);
 void i2c_stop(void);

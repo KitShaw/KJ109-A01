@@ -365,3 +365,440 @@ Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01"
 Flash Write Done: 9214 bytes programmed.
 CheckSum = 0x8c44
 Flash Verify Done: 9216 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+src\led.c(68): warning C206: 'i2c_init': missing function-prototype
+src\led.c(573): error C231: 'i2c_init': redefinition
+src\led.c(574): error C141: syntax error near '{'
+src\led.c(574): error C141: syntax error near ')'
+src\led.c(584): error C141: syntax error near 'void'
+src\led.c(601): error C202: 'i': undefined identifier
+src\led.c(603): error C202: 'i': undefined identifier
+src\led.c(611): error C231: 'i2c_init': redefinition
+compiling main.c...
+Target not created
+Build target 'Target 1'
+compiling led.c...
+src\led.c(68): warning C206: 'i2c_init': missing function-prototype
+src\led.c(573): error C231: 'i2c_init': redefinition
+src\led.c(574): error C141: syntax error near '<<'
+src\led.c(574): error C141: syntax error near ')'
+src\led.c(581): error C231: 'i2c_init': redefinition
+Target not created
+Build target 'Target 1'
+compiling led.c...
+src\led.c(68): warning C206: 'i2c_init': missing function-prototype
+src\led.c(573): error C231: 'i2c_init': redefinition
+src\led.c(581): error C231: 'i2c_init': redefinition
+Target not created
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_1US?LED
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1A89H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1AA3H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1AABH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1ABEH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1AD5H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2145H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 214DH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2155H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2160H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2168H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2170H
+Program Size: data=123.4 xdata=203 code=8993
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 14 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_DELAY_1US?LED
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1A8CH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1AA6H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1AAEH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1AC1H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 1AD8H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2148H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2150H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2158H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2163H
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 216BH
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  _DELAY_5US
+    MODULE:  .\obj\led.obj (LED)
+    ADDRESS: 2173H
+Program Size: data=123.4 xdata=203 code=8996
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 14 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=8981
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9219 bytes programmed.
+CheckSum = 0x7cf3
+Flash Verify Done: 9220 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9005
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9243 bytes programmed.
+CheckSum = 0x9c4e
+Flash Verify Done: 9244 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9005
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9243 bytes programmed.
+CheckSum = 0x2f2f
+Flash Verify Done: 9244 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=8994
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9232 bytes programmed.
+CheckSum = 0x41db
+Flash Verify Done: 9232 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9032
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9270 bytes programmed.
+CheckSum = 0x96e0
+Flash Verify Done: 9272 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=8983
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9221 bytes programmed.
+CheckSum = 0x0e83
+Flash Verify Done: 9224 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=8994
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9232 bytes programmed.
+CheckSum = 0x3969
+Flash Verify Done: 9232 bytes verified.
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+src\led.c(650): warning C209: '_delay_5us': too few actual parameters
+src\led.c(668): warning C209: '_delay_5us': too few actual parameters
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?I2C_WAIK_ACK?LED
+Program Size: data=124.4 xdata=203 code=9052
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+compiling fan.c...
+compiling filter.c...
+compiling key.c...
+compiling led.c...
+src\led.c(653): warning C209: '_delay_5us': too few actual parameters
+src\led.c(671): warning C209: '_delay_5us': too few actual parameters
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9055
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9059
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9297 bytes programmed.
+CheckSum = 0xfbe9
+Flash Verify Done: 9300 bytes verified.
+Build target 'Target 1'
+compiling key.c...
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9062
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9300 bytes programmed.
+CheckSum = 0x8faf
+Flash Verify Done: 9300 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9062
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9300 bytes programmed.
+CheckSum = 0x1fc1
+Flash Verify Done: 9300 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9064
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9302 bytes programmed.
+CheckSum = 0xeebf
+Flash Verify Done: 9304 bytes verified.
+Build target 'Target 1'
+compiling main.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9064
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9064
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9302 bytes programmed.
+CheckSum = 0xc7bf
+Flash Verify Done: 9304 bytes verified.
+Build target 'Target 1'
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9064
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9302 bytes programmed.
+CheckSum = 0xc7bf
+Flash Verify Done: 9304 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9064
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 1 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9302 bytes programmed.
+CheckSum = 0xc7bf
+Flash Verify Done: 9304 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+src\led.c(600): warning C280: 'addr': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9006
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9244 bytes programmed.
+CheckSum = 0x6b66
+Flash Verify Done: 9244 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+src\led.c(600): warning C280: 'addr': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9004
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+src\led.c(600): warning C280: 'addr': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9006
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Build target 'Target 1'
+compiling led.c...
+src\led.c(600): warning C280: 'addr': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9002
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9240 bytes programmed.
+CheckSum = 0x2a05
+Flash Verify Done: 9240 bytes verified.
+Build target 'Target 1'
+compiling led.c...
+src\led.c(600): warning C280: 'addr': unreferenced local variable
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_LED_DISPLAY_BCD?LED
+Program Size: data=123.4 xdata=203 code=9006
+creating hex file from ".\obj\KJ109-A01"...
+".\obj\KJ109-A01" - 0 Error(s), 2 Warning(s).

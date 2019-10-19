@@ -15,7 +15,7 @@
 #include "dust.h"
 #include "arom.h"
 #include "timing_off.h"
-//#include "instrin.h"
+#include "intrins.h"
 
 unsigned char xdata LEDRAM[30] _at_ 0x700;
 
@@ -605,13 +605,14 @@ void test_i2c(void)
 	i2c_write_byte(0x48);  //写数据命令
 	//i2c_stop();
 	i2c_waik_ack();
-	/*
-	for(i = 0; i<60; i++) WDTCON = 0x10;
+	
+	//for(i = 0; i<60; i++) WDTCON = 0x10;
 	//i2c_start();
 	
 	i2c_write_byte(0x05);  //7段显示, 开显示
 	i2c_waik_ack();
 	i2c_stop();
+	
 	for(i = 0; i<60; i++) WDTCON = 0x10;
 	i2c_start();
 	addr = 0x68;
@@ -625,21 +626,34 @@ void test_i2c(void)
 	//	i2c_write_byte(0x0f);  //写数据命令
 	//}
 	i2c_write_byte(0x0f);  //写数据命令
-	*/
+	i2c_waik_ack();
 	i2c_stop();
-	/*
+
+	for(i = 0; i<60; i++) WDTCON = 0x10;
 	i2c_start();
-	i2c_write_byte(0x8f);  //
+	addr = 0x6A;
+	i2c_write_byte(addr);  //设置地址命令00
+	i2c_waik_ack();
+	//i2c_write_byte(0xff);  //设置数据为0
+	
+	//for(i = 0; i<4; i++)
+	//{
+		
+	//	i2c_write_byte(0x0f);  //写数据命令
+	//}
+	i2c_write_byte(0xaa);  //写数据命令
+	i2c_waik_ack();
 	i2c_stop();
-	*/
+	
 }
 
-void delay_5us(unsigned char val)
+void delay_us(unsigned char val)
 {
 	unsigned char i;
 	for(i = 0; i < val; i++)
 	{
 		//_nop_();
+		_nop_();
 	}
 }
 
@@ -649,11 +663,12 @@ void  i2c_waik_ack(void)
    uchar EEPROM_err_count;
    
    //SDA_MODEL = 1; 
+   delay_us(5);
+   I2C_CLK = 1;    
+   //I2C_DIN = 1;      
+   delay_us(5); 
+   I2C_CLK = 0;
    sda_mode(IO_MODE_IN);
-   delay_5us(50); 
-   I2C_DIN = 1;  
-   I2C_CLK = 1;     
-   delay_5us(50);   
    while( 1 == I2C_DIN)
    {
       EEPROM_err_count++;
@@ -671,8 +686,8 @@ void  i2c_waik_ack(void)
    //SCL = 0; 
    I2C_CLK = 0;
    //Delay1us();
-   delay_5us(50); 
-   I2C_DIN = 0;
+   delay_us(5); 
+   //I2C_DIN = 0;
    //SDA = 0; 
    
 }
@@ -684,21 +699,21 @@ void i2c_write_byte(unsigned char val)
 		unsigned char val_count;
 		unsigned char write_data;
 		write_data = val;
-		delay_5us(10);
+		delay_us(5);
 		
-		i2c_din_low();
+		//i2c_din_low();
 		i2c_clk_low();
 		for(val_count = 0; val_count < 8; val_count++)
 		{
-			if((write_data & 0x01) > 0)
+			if((write_data & 0x80) > 0)
 			{
 				
 				i2c_din_high();
-				delay_5us(10);
+				delay_us(5);
 				i2c_clk_high();
-				delay_5us(10);
+				delay_us(5);
 				i2c_clk_low();
-				i2c_din_low();
+				//i2c_din_low();
 			}
 			else
 			{
@@ -706,14 +721,14 @@ void i2c_write_byte(unsigned char val)
 				//i2c_delay();
 				i2c_din_low();
 				i2c_clk_high();
-				delay_5us(10);
+				delay_us(5);
 				i2c_clk_low();
 				//i2c_din_low();
 			}
-			write_data >>= 1;
+			write_data <<= 1;
 		}
 		//i2c_stop();
-		delay_5us(10);
+		delay_us(5);
 		
 }
 
@@ -722,11 +737,11 @@ void i2c_start(void)
 	i2c_din_high();
 	//delay_5us(1);
 	i2c_clk_high();
-	delay_5us(10);
+	delay_us(5);
 	i2c_din_low();
-	delay_5us(10);
+	delay_us(5);
 	i2c_clk_low();
-	delay_5us(10);
+	delay_us(5);
 }
 
 void i2c_stop(void)
@@ -734,11 +749,11 @@ void i2c_stop(void)
 	i2c_din_low();
 	//delay_5us(1);
 	i2c_clk_high();
-	delay_5us(10);
+	delay_us(5);
 	i2c_din_high();
-	delay_5us(10);
+	delay_us(5);
 	i2c_clk_low();
-	delay_5us(10);
+	delay_us(5);
 }
 
 
