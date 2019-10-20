@@ -53,6 +53,8 @@
 #define I2C_CLK P00
 #define I2C_DIN P27
 
+#define LED_POWER_PERIOD           200        //电源按键的计数周期
+
 
 
 
@@ -93,6 +95,10 @@ void i2c_init(void);
 void sda_mode(unsigned char mode);
 void  i2c_waik_ack(void);
 void tm1650_set(unsigned char add,unsigned char dat);
+void led_key_on(void);
+void led_key_power(void);
+void led_key_power_count(void);
+
 
 
 

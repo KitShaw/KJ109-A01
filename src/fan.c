@@ -73,7 +73,7 @@ void fan_init(void)
     //PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
 	//PWMCON = 199;           //周期设置低8位,100us, 10K
     //PWMCFG = 0xb0;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
-	PWMCON = 1000%256;           //周期设置低8位,100us, 10K
+	PWMCON = 1000%256;           //周期设置低8位,1000us, 1K
     PWMCFG = 0xb3;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
 	
 	PWMRD_42 = 0x8000 | 20;
@@ -430,6 +430,7 @@ void power_on(void)
 	DUST_PWR_PIN = 0;
 	reset_key_no_move_count();
 	fan_speed = 0;
+	led_key_on();
 }
 
 void power_off(void)

@@ -123,6 +123,7 @@ void timer0()interrupt 1
 
 
  void Timer2Int(void) interrupt 5
+ 	//定时时间100us
  {	
  	//RCAP2L = 50;
 	//RCAP2H = 250;
@@ -142,6 +143,7 @@ void timer0()interrupt 1
 		//store_fan_return_pulse((TH0<<8) + TL0); 
 		store_fan_return_pulse();		
 	}  //电机计数1秒的脉冲用
+	led_key_power_count();
  }
 
  /**************************************************
@@ -200,6 +202,7 @@ void task_10ms(void)
 	dust_task();
 	fan_task();
 	beep_task();
+	led_key_power();
 }
 
 void task_100ms(void)
@@ -249,6 +252,7 @@ void main(void)
 *出口参数：void 
 **************************************************/
 void timer1()interrupt 3
+//用来读取粉尘传感器的值
 {
 	TR1 = 0;
 	adc_start();

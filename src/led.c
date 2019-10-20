@@ -17,6 +17,11 @@
 #include "timing_off.h"
 #include "intrins.h"
 
+unsigned char key_power_duty_count_flag;    //1加, 0减
+unsigned char key_power_duty_count;  //占空比
+unsigned char key_power_period;  //周期
+//unsigned char key_power_sum;       //计数总是,
+
 //unsigned char xdata LEDRAM[30] _at_ 0x700;
 
 unsigned int test_count;
@@ -88,6 +93,31 @@ void led_task(void)
 	
 }
 
+void led_key_power_count(void)
+//做电源按键呼吸灯效果计数用
+{
+	if(read_power_status() == POWER_OFF_STATUS)
+	//关机是才呼吸灯
+	{			
+		if(++key_power_period >= LED_POWER_PERIOD) key_power_period = 0;
+		if(key_power_duty_count>=key_power_period) LED_KEY_POWER = LED_ON;
+		else LED_KEY_POWER = LED_OFF;
+	}
+}
+
+void led_key_power(void)
+//10ms调用一次
+{
+	if(read_power_status() == POWER_OFF_STATUS)
+	//关机是才呼吸灯
+	{		
+		if(1 == key_power_duty_count_flag)key_power_duty_count++;
+			else key_power_duty_count--;	
+		if(key_power_duty_count >= LED_POWER_PERIOD) key_power_duty_count_flag = 0;
+		if(key_power_duty_count<=20) key_power_duty_count_flag = 1;		
+	}
+}
+
 
 void led_display_filter_out(unsigned char filter_flag)
 {
@@ -130,6 +160,9 @@ void led_off(void)
 	LED_LOCK = 1;
 	LED_KEY_LOCK = 1;
 	LED_KEY_POWER = 1;
+	tm1650_set(0x6E, 0x00);   //
+	tm1650_set(0x6c, 0x00);   //
+	tm1650_set(0x6A, 0x00);   //
 	/*
 	LEDRAM[11] &= ~0x08;  // 童锁图标
 	LEDRAM[12] &= ~0x18;  //0x10 -P2.5  0x08-8H
@@ -164,11 +197,8 @@ void led_all_on(void)
 	LED_TIMER_1H = 0;
  	LED_TIMER_2H = 0; 
 	LED_TIMER_4H = 0;
-	LED_KEY_TIMER = 0;
 	LED_FILTER = 0;
-	LED_ION = 0;
-	LED_KEY_ION  = 0;
-	LED_KEY_AROM  = 0;
+	LED_ION = 0;	
 	LED_AROM_LOW = 0;
 	LED_AROM_MIDDLE = 0;
 	LED_AROM_HIGH  = 0;
@@ -176,33 +206,30 @@ void led_all_on(void)
 	LED_SPEED_MIDDLE = 0;
 	LED_SPEED_HIGH = 0;
 	LED_SPEED_AUTO = 0;
-	LED_KEY_MODE = 0;
 	LED_LOCK = 0;
+
+	LED_KEY_TIMER = 0;
+	LED_KEY_MODE = 0;	
 	LED_KEY_LOCK = 0;
 	LED_KEY_POWER = 0;
+	LED_KEY_ION  = 0;
+	LED_KEY_AROM  = 0;
+
+	tm1650_set(0x6E, 0xff);   //
+	tm1650_set(0x6c, 0xff);   //
+	tm1650_set(0x6A, 0xff);   //
+}
 
 
-	/*
-	LEDRAM[11] |= 0x08;  // 童锁图标
-	LEDRAM[12] |= 0x18;  //0x10 -P2.5  0x08-8H
-	LEDRAM[13] |= 0x18;  //0x10 - 高, 0x08 - 4H
-	LEDRAM[14] |= 0x18;  //0x10 - 中, 0x08 - 2H  
-	//0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
-	LEDRAM[15] |= 0xf8;  //0x10 - 低, 0x08 - 1H
-	//数码管g段
-	LEDRAM[16] |= 0xf8;;  //0x10 - ION图标, 0x08香薰按键,   
-	//数码管F段
-	LEDRAM[17] |= 0xf8;;   //0x10- 高速 和 0x08-负离子按键
-	//数码管E段
-	LEDRAM[18] |= 0xf8;;   //0x10- 中速 , 0x08 - 模式按键
-	//数码管D段
-	LEDRAM[19] |= 0xf8;;  //低速 ,  童锁按键
-	//数码管C段
-	LEDRAM[20] |= 0xf8;;  //智能, 定时按键
-	//数码管B段
-	LEDRAM[21] |= 0xf8;;  //滤网, 电源按键
-	//数码管A段
-	*/
+void led_key_on(void)
+	//开机后按键的灯亮起来
+{
+	LED_KEY_TIMER = 0;
+	LED_KEY_MODE = 0;	
+	LED_KEY_LOCK = 0;
+	LED_KEY_POWER = 0;
+	LED_KEY_ION  = 0;
+	LED_KEY_AROM  = 0;
 }
 
 
