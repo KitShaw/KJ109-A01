@@ -198,12 +198,12 @@ void fan_handle(void)
 					
 				break;
 				case DUST_LEVEL_12: //²î3µ²
-					fan_level12_speed_judge();
-					
+					//fan_level12_speed_judge();
+					fan_level2_speed_judge();	
 				break;
 				case DUST_LEVEL_23: //²î3µ²
-					fan_level23_speed_judge();
-					
+					//fan_level23_speed_judge();
+					fan_level2_speed_judge();	
 				break;
 			}
 		break;

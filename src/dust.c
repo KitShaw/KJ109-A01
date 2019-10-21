@@ -60,9 +60,11 @@ void dust_adc_mean_value(void)
 	dust_adc_mean = sum / i;
 	dust_voltage = dust_adc_mean * 10000 * 5 /4096 ;
 	//if(dust_voltage > 6000) dust_voltage -= 6000;
-	if(dust_voltage > 5500) dust_voltage -= 5500;
+	//if(dust_voltage > 5500) dust_voltage -= 5500;
+	//if(dust_voltage > 4500) dust_voltage -= 4500;
+	if(dust_voltage > 3800) dust_voltage -= 3800;
 	else dust_voltage = 0;
-	dust_display_value = dust_voltage / 56;
+	dust_display_value = (dust_voltage / 56);  //20ÊÇ²¹³¥Öµ
 	//dust_display_value = dust_adc_mean / 10;// * 5 * 133 / 4096;  //dust_adc_mean/4096 *5
 	//dust_display_value = (unsigned short)((dust_adc_mean  * 5* 178 / 4096 - 60 * 178)  /100 );  //dust_adc_mean/4096 *5
 }

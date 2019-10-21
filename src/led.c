@@ -197,6 +197,7 @@ void led_all_on(void)
 	LED_TIMER_1H = 0;
  	LED_TIMER_2H = 0; 
 	LED_TIMER_4H = 0;
+	LED_TIMER_8H = 0;
 	LED_FILTER = 0;
 	LED_ION = 0;	
 	LED_AROM_LOW = 0;
