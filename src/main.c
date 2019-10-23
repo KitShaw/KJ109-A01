@@ -210,6 +210,7 @@ void task_100ms(void)
 	if(++task_1s_count>=10){task_1s_count = 0; task_1s_flag = 1; }
 	filter_task();
 	led_task();
+	//fan_task();
 }
 
 void task_1s(void)

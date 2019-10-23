@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   KEY                                                               10/21/2019 20:10:09 PAGE 1   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE KEY
@@ -62,7 +62,7 @@ line level    source
   52   1        if(SOCAPI_TouchKeyStatus&0x80)      //重要步骤2:  触摸键扫描一轮标志，是否调用TouchKeyScan()一定要根据此标
              -志位置起后
   53   1         {                                      
-C51 COMPILER V9.52.0.0   KEY                                                               10/21/2019 20:10:09 PAGE 2   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 2   
 
   54   2          SOCAPI_TouchKeyStatus &= 0x7f;  //重要步骤3: 清除标志位， 需要外部清除。                              
   55   2          exKeyValueFlag = TouchKeyScan();//按键数据处理函数    
@@ -126,7 +126,7 @@ line level    source
  113   2          key_power_count = 0;
  114   2        }
  115   1        
-C51 COMPILER V9.52.0.0   KEY                                                               10/21/2019 20:10:09 PAGE 3   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 3   
 
  116   1        
  117   1        
@@ -190,7 +190,7 @@ line level    source
  175   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000040)//
  176   1        {
  177   2          if(0 == KEY_LOCK_FLAG)
-C51 COMPILER V9.52.0.0   KEY                                                               10/21/2019 20:10:09 PAGE 4   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 4   
 
  178   2          {
  179   3            if(++key_lock_count >= 5000)
@@ -254,7 +254,7 @@ line level    source
  237   1        //P52 = ~P52;
  238   1        //UNLOCk_FLAG = ~UNLOCk_FLAG;
  239   1        //LOCK_FLAG = ~LOCK_FLAG;      //解
-C51 COMPILER V9.52.0.0   KEY                                                               10/21/2019 20:10:09 PAGE 5   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 5   
 
  240   1        reset_lock_flag();  
  241   1        
@@ -318,7 +318,7 @@ line level    source
  299   1        {
  300   2          power_on();
  301   2        }
-C51 COMPILER V9.52.0.0   KEY                                                               10/21/2019 20:10:09 PAGE 6   
+C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 6   
 
  302   1      }
  303          

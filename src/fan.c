@@ -156,8 +156,8 @@ void fan_task(void)
 #ifdef DEBUG_FAN_RETURN_PULSE
 unsigned int read_disp_fan_return_pulse(void)
 {
-	//return  disp_fan_return_pulse;
-	return fan_pulse_count;
+	return  disp_fan_return_pulse;
+	//return fan_pulse_count;
 }
 
 #endif
@@ -250,13 +250,13 @@ void fan_handle(void)
 		break;
 	}
 	
-	if(fan_judge>21) 
+	if(fan_judge>25) 
 	{
 			fan_judge = FAN_AUDGE_INIT;
 		fan_pulse_count++;
 		
 	}
-	if (fan_judge<19) 
+	if (fan_judge<15) 
 	{
 			fan_judge = FAN_AUDGE_INIT;
 			fan_pulse_count--;
@@ -272,6 +272,9 @@ void fan_handle(void)
 void fan_level1_speed_judge(void)
 //1档转速调整
 {
+	//fan_pulse_count = 52;
+	//fan_judge = FAN_AUDGE_INIT;
+	//return;
 	if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-(CORRECTION_FACTOR + 3)))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
 	//  低档晃动的厉害, 改CORRECTION_FACTOR+3
     {
@@ -303,6 +306,9 @@ void fan_level1_speed_judge(void)
 void fan_level2_speed_judge(void)
 //2档转速调整
 {
+	//fan_pulse_count = 259;
+	//fan_judge = FAN_AUDGE_INIT;
+	//return;
 	if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
     {
     	if(fan_return_pulse_count <(FAN_LEVEL2_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
@@ -333,6 +339,9 @@ void fan_level2_speed_judge(void)
 void fan_level3_speed_judge(void)
 //1档转速调整
 {
+	//fan_pulse_count = 560;
+	//fan_judge = FAN_AUDGE_INIT;
+	//return;
 	if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
     {
     	if(fan_return_pulse_count <(FAN_LEVEL3_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))

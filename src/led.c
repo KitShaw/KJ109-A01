@@ -479,9 +479,14 @@ unsigned char led_display_bcd(unsigned char bcd_value)
 
 void i2c_init(void)
 {
+	unsigned int i;
 	P0CON |= (1<<0);  //P00输出
 	P2CON |= (1<<7);  //P27输出
-	
+	//delay_us(10000);
+	for(i = 0; i<8000; i++)
+	{
+		WDTCON  = 0x10;
+	}
 	i2c_clk_low();
 	i2c_din_high();
 	tm1650_set(0x48, 0x05);   //开显示0段数码管,灰度1
