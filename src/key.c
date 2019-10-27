@@ -211,6 +211,7 @@ void key_ion_com(void)
 {
 	ION_PIN = !ION_PIN;
 	set_beep_count(10);
+	fan_pulse_count_add();
 }
 
 void reset_lock_flag(void)
@@ -230,6 +231,7 @@ void key_arom_com(void)
 {
 	regulate_arom_level();
 	set_beep_count(10);
+	fan_pulse_count_dec();
 }
 
 void key_lock_com(void)

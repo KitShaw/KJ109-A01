@@ -4,6 +4,8 @@
 
 //#define DEBUG_FAN_RETURN_PULSE
 
+#define VERSION 101
+
 
 typedef bit 			    BOOL; 		// 布尔变量（位变量）
 typedef unsigned char		CHAR;		// 字符变量

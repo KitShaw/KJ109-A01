@@ -34,6 +34,15 @@
 #define  	FAN_MUST_JUDGE_VALUE  10   //加上这个值下次风速一定要调整
 #define  	FAN_AUDGE_INIT			20
 
+#define		FAN_LEVEL1_PULSE	92   //1档的脉冲数89
+#define 	FAN_LEVEL2_PULSE    443  //1500
+#define 	FAN_LEVEL3_PULSE	683  //2500
+//298 1023
+//1500  433
+//2047  583
+//2583  686
+
+
 //高档发送的脉冲数为560
 
 //中档:259 
@@ -65,6 +74,12 @@ void fan_level2_speed_judge(void);
 void fan_level3_speed_judge(void);
 void fan_level12_speed_judge(void);
 void fan_level23_speed_judge(void);
+
+
+void fan_pulse_count_add(void);
+
+void fan_pulse_count_dec(void);
+
 
 #ifdef DEBUG_FAN_RETURN_PULSE
 unsigned int read_disp_fan_return_pulse(void);

@@ -156,8 +156,8 @@ void fan_task(void)
 #ifdef DEBUG_FAN_RETURN_PULSE
 unsigned int read_disp_fan_return_pulse(void)
 {
-	return  disp_fan_return_pulse;
-	//return fan_pulse_count;
+	//return  disp_fan_return_pulse;
+	return fan_pulse_count;
 }
 
 #endif
@@ -179,6 +179,7 @@ void fan_handle(void)
 	//设置风机的速度，1s调用一次
 {
 	//static unsigned char tmp=0; 
+	if(read_power_status() == POWER_OFF_STATUS) return; //关机状态直接返回
 	if(0 == fan_regulate_flag) return;
 	fan_regulate_flag = 0;
 	disp_fan_return_pulse = fan_return_pulse_count;
@@ -197,11 +198,11 @@ void fan_handle(void)
 					fan_level3_speed_judge();
 					
 				break;
-				case DUST_LEVEL_12: //差3挡
+				case DUST_LEVEL_12: //
 					//fan_level12_speed_judge();
 					fan_level2_speed_judge();	
 				break;
-				case DUST_LEVEL_23: //差3挡
+				case DUST_LEVEL_23: //
 					//fan_level23_speed_judge();
 					fan_level2_speed_judge();	
 				break;
@@ -250,13 +251,13 @@ void fan_handle(void)
 		break;
 	}
 	
-	if(fan_judge>25) 
+	if(fan_judge>22) 
 	{
 			fan_judge = FAN_AUDGE_INIT;
 		fan_pulse_count++;
 		
 	}
-	if (fan_judge<15) 
+	if (fan_judge<18) 
 	{
 			fan_judge = FAN_AUDGE_INIT;
 			fan_pulse_count--;
@@ -272,32 +273,43 @@ void fan_handle(void)
 void fan_level1_speed_judge(void)
 //1档转速调整
 {
-	//fan_pulse_count = 52;
-	//fan_judge = FAN_AUDGE_INIT;
-	//return;
+	//只有正负10的值可以调整,
 	if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-(CORRECTION_FACTOR + 3)))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
 	//  低档晃动的厉害, 改CORRECTION_FACTOR+3
     {
     	if(fan_return_pulse_count <(FAN_LEVEL1_PULSE_COUNT - (CORRECTION_FACTOR_BIGGEST)))
     	{
-    		fan_pulse_count += 20;
+    		//fan_pulse_count += 20;
+    		fan_pulse_count = FAN_LEVEL1_PULSE;
     	}
 		else if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-CORRECTION_FACTOR_BIG))
 		{
 			fan_judge += FAN_MUST_JUDGE_VALUE;
+			//fan_pulse_count = FAN_LEVEL1_PULSE;
 		}
-    	else fan_judge++;			
+    	else 
+    	{
+			if(fan_pulse_count < (FAN_LEVEL1_PULSE + 10))fan_judge++;			
+    	}
 	} 
 	else
     {
     	if(fan_return_pulse_count >(FAN_LEVEL1_PULSE_COUNT + (CORRECTION_FACTOR_BIGGEST + 100)))
     	{
-    		fan_pulse_count -= 20;
+    		//fan_pulse_count -= 20;
+    		fan_pulse_count = FAN_LEVEL1_PULSE;
     	}
 		else if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR))
     	{
-    		if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
-			else fan_judge--;
+    		if(fan_return_pulse_count>(FAN_LEVEL1_PULSE_COUNT + CORRECTION_FACTOR_BIG))
+    		{
+				fan_judge -= FAN_MUST_JUDGE_VALUE;
+				//fan_pulse_count = FAN_LEVEL1_PULSE;
+    		}
+			else 
+			{
+				if(fan_pulse_count > (FAN_LEVEL1_PULSE - 10))fan_judge--;
+			}
     	}
 		else fan_judge = FAN_AUDGE_INIT;			
 	 }  
@@ -306,68 +318,105 @@ void fan_level1_speed_judge(void)
 void fan_level2_speed_judge(void)
 //2档转速调整
 {
-	//fan_pulse_count = 259;
-	//fan_judge = FAN_AUDGE_INIT;
-	//return;
+	//只有正负10的值可以调整,
 	if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+	//  低档晃动的厉害, 改CORRECTION_FACTOR+3
     {
-    	if(fan_return_pulse_count <(FAN_LEVEL2_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+    	if(fan_return_pulse_count <(FAN_LEVEL2_PULSE_COUNT - (CORRECTION_FACTOR_BIGGEST)))
     	{
-    		fan_pulse_count += 20;
+    		//fan_pulse_count += 20;
+    		fan_pulse_count = FAN_LEVEL2_PULSE;
     	}
 		else if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))
 		{
 			fan_judge += FAN_MUST_JUDGE_VALUE;
+			//fan_pulse_count = FAN_LEVEL2_PULSE;
 		}
-    	else fan_judge++;			
+    	else 
+    	{
+			if(fan_pulse_count < (FAN_LEVEL2_PULSE + 10))fan_judge++;			
+    	}
 	} 
 	else
     {
-    	if(fan_return_pulse_count >(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+    	if(fan_return_pulse_count >(FAN_LEVEL2_PULSE_COUNT + (CORRECTION_FACTOR_BIGGEST + 100)))
     	{
-    		fan_pulse_count -= 20;
+    		//fan_pulse_count -= 20;
+    		fan_pulse_count = FAN_LEVEL2_PULSE;
     	}
 		else if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR))
     	{
-    		if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
-			else fan_judge--;
+    		if(fan_return_pulse_count>(FAN_LEVEL2_PULSE_COUNT + CORRECTION_FACTOR_BIG))
+    		{
+				fan_judge -= FAN_MUST_JUDGE_VALUE;
+				//fan_pulse_count = FAN_LEVEL2_PULSE;
+    		}
+			else 
+			{
+				if(fan_pulse_count > (FAN_LEVEL2_PULSE - 10))fan_judge--;
+			}
     	}
 		else fan_judge = FAN_AUDGE_INIT;			
 	 }  
 }
 
+
 void fan_level3_speed_judge(void)
-//1档转速调整
+//2档转速调整
 {
-	//fan_pulse_count = 560;
-	//fan_judge = FAN_AUDGE_INIT;
-	//return;
+	//只有正负10的值可以调整,
 	if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+	//  低档晃动的厉害, 改CORRECTION_FACTOR+3
     {
-    	if(fan_return_pulse_count <(FAN_LEVEL3_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+    	if(fan_return_pulse_count <(FAN_LEVEL3_PULSE_COUNT - (CORRECTION_FACTOR_BIGGEST)))
     	{
-    		fan_pulse_count += 20;
+    		//fan_pulse_count += 20;
+    		fan_pulse_count = FAN_LEVEL3_PULSE;
     	}
 		else if(fan_return_pulse_count<(FAN_LEVEL3_PULSE_COUNT-CORRECTION_FACTOR_BIG))
 		{
 			fan_judge += FAN_MUST_JUDGE_VALUE;
+			//fan_pulse_count = FAN_LEVEL3_PULSE;
 		}
-    	else fan_judge++;			
+    	else 
+    	{
+			if(fan_pulse_count < (FAN_LEVEL3_PULSE + 10))fan_judge++;			
+    	}
 	} 
 	else
     {
-    	if(fan_return_pulse_count >(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+    	if(fan_return_pulse_count >(FAN_LEVEL3_PULSE_COUNT + (CORRECTION_FACTOR_BIGGEST + 100)))
     	{
-    		fan_pulse_count -= 20;
+    		//fan_pulse_count -= 20;
+    		fan_pulse_count = FAN_LEVEL3_PULSE;
     	}
 		else if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR))
     	{
-    		if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
-			else fan_judge--;
+    		if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG))
+    		{
+				fan_judge -= FAN_MUST_JUDGE_VALUE;
+				//fan_pulse_count = FAN_LEVEL3_PULSE;
+    		}
+			else 
+			{
+				if(fan_pulse_count > FAN_LEVEL3_PULSE - 10)fan_judge--;
+			}
     	}
 		else fan_judge = FAN_AUDGE_INIT;			
 	 }  
 }
+
+
+void fan_pulse_count_add(void)
+{
+	fan_pulse_count++;
+}
+
+void fan_pulse_count_dec(void)
+{
+	fan_pulse_count--;
+}
+
 
 
 void fan_level12_speed_judge(void)
@@ -440,6 +489,7 @@ void power_on(void)
 	reset_key_no_move_count();
 	fan_speed = 0;
 	led_key_on();
+	//fan_pulse_count = FAN_LEVEL2_PULSE;
 }
 
 void power_off(void)

@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 1   
+C51 COMPILER V9.52.0.0   KEY                                                               10/27/2019 23:45:38 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE KEY
@@ -62,7 +62,7 @@ line level    source
   52   1        if(SOCAPI_TouchKeyStatus&0x80)      //重要步骤2:  触摸键扫描一轮标志，是否调用TouchKeyScan()一定要根据此标
              -志位置起后
   53   1         {                                      
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 2   
+C51 COMPILER V9.52.0.0   KEY                                                               10/27/2019 23:45:38 PAGE 2   
 
   54   2          SOCAPI_TouchKeyStatus &= 0x7f;  //重要步骤3: 清除标志位， 需要外部清除。                              
   55   2          exKeyValueFlag = TouchKeyScan();//按键数据处理函数    
@@ -126,7 +126,7 @@ line level    source
  113   2          key_power_count = 0;
  114   2        }
  115   1        
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 3   
+C51 COMPILER V9.52.0.0   KEY                                                               10/27/2019 23:45:38 PAGE 3   
 
  116   1        
  117   1        
@@ -190,7 +190,7 @@ line level    source
  175   1        if((exKeyValueFlag & 0x0000031e0) == 0x000000040)//
  176   1        {
  177   2          if(0 == KEY_LOCK_FLAG)
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 4   
+C51 COMPILER V9.52.0.0   KEY                                                               10/27/2019 23:45:38 PAGE 4   
 
  178   2          {
  179   3            if(++key_lock_count >= 5000)
@@ -228,105 +228,107 @@ line level    source
  211          {
  212   1        ION_PIN = !ION_PIN;
  213   1        set_beep_count(10);
- 214   1      }
- 215          
- 216          void reset_lock_flag(void)
- 217          {
- 218   1        LOCK_FLAG = 0;
- 219   1        reset_key_no_move_count();
- 220   1        set_beep_count(10);
- 221   1      }
- 222          
- 223          void key_timer_com(void)
- 224          {
- 225   1        regulate_timing_off_level();
- 226   1        set_beep_count(10);
- 227   1      }
- 228          
- 229          void key_arom_com(void)
- 230          {
- 231   1        regulate_arom_level();
- 232   1        set_beep_count(10);
- 233   1      }
- 234          
- 235          void key_lock_com(void)
- 236          {
- 237   1        //P52 = ~P52;
- 238   1        //UNLOCk_FLAG = ~UNLOCk_FLAG;
- 239   1        //LOCK_FLAG = ~LOCK_FLAG;      //解
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 5   
+ 214   1        fan_pulse_count_add();
+ 215   1      }
+ 216          
+ 217          void reset_lock_flag(void)
+ 218          {
+ 219   1        LOCK_FLAG = 0;
+ 220   1        reset_key_no_move_count();
+ 221   1        set_beep_count(10);
+ 222   1      }
+ 223          
+ 224          void key_timer_com(void)
+ 225          {
+ 226   1        regulate_timing_off_level();
+ 227   1        set_beep_count(10);
+ 228   1      }
+ 229          
+ 230          void key_arom_com(void)
+ 231          {
+ 232   1        regulate_arom_level();
+ 233   1        set_beep_count(10);
+ 234   1        fan_pulse_count_dec();
+ 235   1      }
+ 236          
+ 237          void key_lock_com(void)
+ 238          {
+ 239   1        //P52 = ~P52;
+C51 COMPILER V9.52.0.0   KEY                                                               10/27/2019 23:45:38 PAGE 5   
 
- 240   1        reset_lock_flag();  
- 241   1        
- 242   1      }
- 243          unsigned char read_lock_flag(void)
- 244          {
- 245   1        return LOCK_FLAG;
- 246   1      }
- 247          
- 248          void key_speed_com(void)
- 249          {
- 250   1        regulate_fan_speed();
- 251   1        set_beep_count(10);
- 252   1        
- 253   1      }
- 254          
- 255          void key_power_long_com(void)
- 256          //长按电源键清楚滤网寿命
- 257          {
- 258   1        reset_filter_time();
- 259   1        set_beep_count(10);
- 260   1      }
- 261          
- 262          //void key_sleep_com(void)
- 263          //{ 
- 264          //  P50 = ~P50;
- 265          //  if(read_fan_speed() != 0) 
- 266          //  {
- 267          /////   set_fan_speed(0);
- 268          //    //set_night_light_level(0);
- 269          //    //led_key_sleep();
- 270          //  }
- 271          //  else 
- 272          //  {
- 273          ////    set_fan_speed(1);
- 274          //    //led_key_speed();
- 275          //  }
- 276          //  
- 277          //}
- 278          
- 279          
+ 240   1        //UNLOCk_FLAG = ~UNLOCk_FLAG;
+ 241   1        //LOCK_FLAG = ~LOCK_FLAG;      //解
+ 242   1        reset_lock_flag();  
+ 243   1        
+ 244   1      }
+ 245          unsigned char read_lock_flag(void)
+ 246          {
+ 247   1        return LOCK_FLAG;
+ 248   1      }
+ 249          
+ 250          void key_speed_com(void)
+ 251          {
+ 252   1        regulate_fan_speed();
+ 253   1        set_beep_count(10);
+ 254   1        
+ 255   1      }
+ 256          
+ 257          void key_power_long_com(void)
+ 258          //长按电源键清楚滤网寿命
+ 259          {
+ 260   1        reset_filter_time();
+ 261   1        set_beep_count(10);
+ 262   1      }
+ 263          
+ 264          //void key_sleep_com(void)
+ 265          //{ 
+ 266          //  P50 = ~P50;
+ 267          //  if(read_fan_speed() != 0) 
+ 268          //  {
+ 269          /////   set_fan_speed(0);
+ 270          //    //set_night_light_level(0);
+ 271          //    //led_key_sleep();
+ 272          //  }
+ 273          //  else 
+ 274          //  {
+ 275          ////    set_fan_speed(1);
+ 276          //    //led_key_speed();
+ 277          //  }
+ 278          //  
+ 279          //}
  280          
- 281          void key_power_com(void)
- 282          {
- 283   1        //unsigned long filter_time_temp;
- 284   1        //P50 = ~P50;
- 285   1        set_beep_count(10);
- 286   1        if(POWER_ON_STATUS == read_power_status())
- 287   1        {
- 288   2          power_off();
- 289   2          //if((read_filter_time()) & 0x000000ff == 0) led_power_on();
- 290   2          
- 291   2          //filter_time_temp = read_filter_time();
- 292   2          //WDTCON  = 0x10;
- 293   2          //IAPWrite(0x0f,(unsigned char)(filter_time_temp & 0x000000ff),IapEPPROM); 
- 294   2          //IAPWrite(0x0f,0x20,IapEPPROM); 
- 295   2          //IAPWrite(0x0f,31,IapEPPROM); 
- 296   2          write_filter_time();
- 297   2        }
- 298   1        else
- 299   1        {
- 300   2          power_on();
- 301   2        }
-C51 COMPILER V9.52.0.0   KEY                                                               10/23/2019 21:44:14 PAGE 6   
+ 281          
+ 282          
+ 283          void key_power_com(void)
+ 284          {
+ 285   1        //unsigned long filter_time_temp;
+ 286   1        //P50 = ~P50;
+ 287   1        set_beep_count(10);
+ 288   1        if(POWER_ON_STATUS == read_power_status())
+ 289   1        {
+ 290   2          power_off();
+ 291   2          //if((read_filter_time()) & 0x000000ff == 0) led_power_on();
+ 292   2          
+ 293   2          //filter_time_temp = read_filter_time();
+ 294   2          //WDTCON  = 0x10;
+ 295   2          //IAPWrite(0x0f,(unsigned char)(filter_time_temp & 0x000000ff),IapEPPROM); 
+ 296   2          //IAPWrite(0x0f,0x20,IapEPPROM); 
+ 297   2          //IAPWrite(0x0f,31,IapEPPROM); 
+ 298   2          write_filter_time();
+ 299   2        }
+ 300   1        else
+ 301   1        {
+C51 COMPILER V9.52.0.0   KEY                                                               10/27/2019 23:45:38 PAGE 6   
 
- 302   1      }
- 303          
- 304          
+ 302   2          power_on();
+ 303   2        }
+ 304   1      }
+ 305          
+ 306          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    636    ----
+   CODE SIZE        =    642    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =      4    ----
    PDATA SIZE       =   ----    ----
