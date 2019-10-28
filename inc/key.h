@@ -19,6 +19,8 @@ void key_lock_com(void);
 unsigned char read_lock_flag(void);
 void reset_key_no_move_count(void);
 void reset_lock_flag(void);
+void key_power_speed_com(void);
+
 
 
 

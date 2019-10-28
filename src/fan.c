@@ -16,6 +16,7 @@
 #include "dust.h"
 #include "timing_off.h"
 #include "key.h"
+#include "eeprom.h"
 
 //unsigned int xdata PWMRD_40  _at_  0x740;
 //unsigned int xdata PWMRD_41  _at_  0x742;
@@ -37,6 +38,7 @@ unsigned char fan_judge; //判断是否要调整转速
 
 unsigned char power_status;
 unsigned char fan_speed;  // 0智能, 1静音, 2中, 3高
+unsigned char fan_init_speed;
 
 unsigned char fan_regulate_flag;  // 1要调整了, 0不调整
 
@@ -77,6 +79,24 @@ void fan_init(void)
     PWMCFG = 0xb3;           //7:开关  5-4：时钟源选择 11:fHRC/8 = 2M  3-0：周期设置高4位	
 	
 	PWMRD_42 = 0x8000 | 20;
+	fan_init_speed = read_speed();
+}
+
+void write_speed_to_eeprom(void)
+{
+	WDTCON = 0x10;
+	eeprom_write_byte(20, fan_speed);
+	fan_init_speed = fan_speed;
+}
+
+
+unsigned char read_speed(void)
+{
+	unsigned char tmp;
+	WDTCON = 0x10;
+	tmp = eeprom_read_byte(20);
+	if((tmp == 1) || (tmp==2) || (tmp == 3))return tmp;
+	else return 0;
 }
 
 
@@ -487,7 +507,7 @@ void power_on(void)
 	fan_pwm_start();
 	DUST_PWR_PIN = 0;
 	reset_key_no_move_count();
-	fan_speed = 0;
+	fan_speed = fan_init_speed;;
 	led_key_on();
 	//fan_pulse_count = FAN_LEVEL2_PULSE;
 }

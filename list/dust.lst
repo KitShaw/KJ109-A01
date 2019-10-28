@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   DUST                                                              10/27/2019 23:45:39 PAGE 1   
+C51 COMPILER V9.52.0.0   DUST                                                              10/28/2019 22:29:40 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE DUST
@@ -62,7 +62,7 @@ line level    source
   52   1        {
   53   2          sum += (unsigned long)dust_adc_value[i];
   54   2        }
-C51 COMPILER V9.52.0.0   DUST                                                              10/27/2019 23:45:39 PAGE 2   
+C51 COMPILER V9.52.0.0   DUST                                                              10/28/2019 22:29:40 PAGE 2   
 
   55   1        // y = 0.0056x + 0.6
   56   1        // µÁ—π = 0.0056 * PM2.5 + 0.6
@@ -126,7 +126,7 @@ line level    source
  111   2        }
  112   1      }
  113          
-C51 COMPILER V9.52.0.0   DUST                                                              10/27/2019 23:45:39 PAGE 3   
+C51 COMPILER V9.52.0.0   DUST                                                              10/28/2019 22:29:40 PAGE 3   
 
  114          unsigned char read_dust_level(void)
  115          {

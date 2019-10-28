@@ -19,6 +19,7 @@
 
 
 bitval key_flag;
+bitval key_flag2;
 
 #define KEY_POWER_FLAG	key_flag.bit0
 #define KEY_AROM_FLAG	key_flag.bit1   
@@ -27,6 +28,10 @@ bitval key_flag;
 #define LOCK_FLAG		key_flag.bit6            //童锁解锁标志, 0解锁, 1锁住
 #define KEY_ION_FLAG key_flag.bit4
 #define KEY_TIMER_FLAG key_flag.bit5
+#define KEY_POWER_SPEED_FLAG key_flag.bit7
+
+#define KEY_POWER_SPEED_FLAG2 key_flag2.bit0   
+//按下电源和风速键后要等2个按键都释放在复位此位
 
 unsigned short key_power_count;
 unsigned short key_speed_count;
@@ -34,6 +39,7 @@ unsigned short key_lock_count;
 unsigned short key_ion_count;
 unsigned short key_timer_count;
 unsigned short key_arom_count;
+unsigned short key_power_speed_count;
 
 unsigned long xdata key_no_move_count;      //按键没要按下计数, 如果一分钟没有动作,童锁就锁住
 
@@ -90,7 +96,10 @@ void key_task(void)
 		key_no_move_count++;
 	}
 
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000100) && (0 == LOCK_FLAG))//电源键  //灵敏度不够
+	
+
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000100) && (0 == KEY_POWER_SPEED_FLAG2)
+		&& (0 == LOCK_FLAG))//电源键  //灵敏度不够
 	{
 		if(0 == KEY_POWER_FLAG)
 		{			
@@ -103,21 +112,43 @@ void key_task(void)
 	}
 	else 
 	{
-	
+		if((exKeyValueFlag & 0x0000031e0) != 0x000000180) 
+		{
 		if((key_power_count>50) && (key_power_count< 5000))
 		{
 			key_power_com();
 		}
-		
+		}
 		KEY_POWER_FLAG = 0;
 		key_power_count = 0;
+		
 	}
 	
 	
 	
 	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000180) && (0 == LOCK_FLAG))
+	//风速加电源按键
+	{
+		if(0 == KEY_POWER_SPEED_FLAG)
+		{			
+			if(++key_power_speed_count >= 50)
+			{
+				KEY_POWER_SPEED_FLAG = 1;	
+				KEY_POWER_SPEED_FLAG2 = 1;
+				key_power_speed_com();
+			}
+		}
+	}
+	else 
+	{		
+		if(((exKeyValueFlag & 0x000000180) == 0)) KEY_POWER_SPEED_FLAG2 = 0;
+		KEY_POWER_SPEED_FLAG = 0;
+		key_power_speed_count = 0;
+	}
 	
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000080) && (0 == LOCK_FLAG))//风速键 
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000080)&& (0 == KEY_POWER_SPEED_FLAG2)
+		&& (0 == LOCK_FLAG))//风速键 
 	{
 		if(0 == KEY_SPEED_FLAG)
 		{
@@ -211,7 +242,7 @@ void key_ion_com(void)
 {
 	ION_PIN = !ION_PIN;
 	set_beep_count(10);
-	fan_pulse_count_add();
+	//fan_pulse_count_add();
 }
 
 void reset_lock_flag(void)
@@ -231,7 +262,14 @@ void key_arom_com(void)
 {
 	regulate_arom_level();
 	set_beep_count(10);
-	fan_pulse_count_dec();
+	//fan_pulse_count_dec();
+}
+
+void key_power_speed_com(void)
+{
+	regulate_fan_speed();//速度加1
+	write_speed_to_eeprom();//写入eeprom
+	set_beep_count(10);
 }
 
 void key_lock_com(void)

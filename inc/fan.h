@@ -79,6 +79,10 @@ void fan_level23_speed_judge(void);
 void fan_pulse_count_add(void);
 
 void fan_pulse_count_dec(void);
+unsigned char read_speed(void);
+void write_speed_to_eeprom(void);
+
+
 
 
 #ifdef DEBUG_FAN_RETURN_PULSE
