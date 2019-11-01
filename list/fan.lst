@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 1   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE FAN
@@ -62,7 +62,7 @@ line level    source
   52          {
   53   1        return power_status;
   54   1      }
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 2   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 2   
 
   55          
   56          void fan_init(void)
@@ -126,7 +126,7 @@ line level    source
  114          //{
  115          //  PWMCON &= 0x7f;
  116          //  FAN_PWM_PIN = 0;
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 3   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 3   
 
  117          //}
  118          
@@ -190,7 +190,7 @@ line level    source
  176          #ifdef DEBUG_FAN_RETURN_PULSE
               unsigned int read_disp_fan_return_pulse(void)
               {
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 4   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 4   
 
                 //return  disp_fan_return_pulse;
                 return fan_pulse_count;
@@ -254,7 +254,7 @@ line level    source
              -»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
  238   2              {
  239   2                if(fan_return_pulse_count<(FAN_LEVEL2_PULSE_COUNT-CORRECTION_FACTOR_BIG))fan_judge += FAN_MUST_JUDG
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 5   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 5   
 
              -E_VALUE;
  240   2                else fan_judge++;     
@@ -318,7 +318,7 @@ line level    source
  294          //1µµ×ªËÙµ÷Õû
  295          {
  296   1        //Ö»ÓÐÕý¸º10µÄÖµ¿ÉÒÔµ÷Õû,
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 6   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 6   
 
  297   1        if(fan_return_pulse_count<(FAN_LEVEL1_PULSE_COUNT-(CORRECTION_FACTOR + 3)))  //Ã¿0.5s¼ÆËãÒ»´Îµç»úµÄÂö³åÊý
              -£¬ Ã»´ïµ½ÒªÇóµÄ×ªËÙ¾Íµ÷ÕûÂö³åÊý
@@ -382,7 +382,7 @@ line level    source
  354   3          }
  355   2            else 
  356   2            {
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 7   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 7   
 
  357   3            if(fan_pulse_count < (FAN_LEVEL2_PULSE + 10))fan_judge++;     
  358   3            }
@@ -446,7 +446,7 @@ line level    source
  415   3              if(fan_return_pulse_count>(FAN_LEVEL3_PULSE_COUNT + CORRECTION_FACTOR_BIG))
  416   3              {
  417   4              fan_judge -= FAN_MUST_JUDGE_VALUE;
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 8   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 8   
 
  418   4              //fan_pulse_count = FAN_LEVEL3_PULSE;
  419   4              }
@@ -510,7 +510,7 @@ line level    source
  474   2            if(fan_return_pulse_count <(FAN_LEVEL23_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
  475   2            {
  476   3              fan_pulse_count += 20;
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 9   
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 9   
 
  477   3            }
  478   2          else if(fan_return_pulse_count<(FAN_LEVEL23_PULSE_COUNT-CORRECTION_FACTOR_BIG))
@@ -574,7 +574,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-C51 COMPILER V9.52.0.0   FAN                                                               10/28/2019 22:43:14 PAGE 10  
+C51 COMPILER V9.52.0.0   FAN                                                               11/01/2019 20:20:49 PAGE 10  
 
    CODE SIZE        =   1142    ----
    CONSTANT SIZE    =   ----    ----

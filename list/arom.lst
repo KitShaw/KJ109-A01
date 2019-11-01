@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   AROM                                                              10/08/2019 19:58:40 PAGE 1   
+C51 COMPILER V9.52.0.0   AROM                                                              11/01/2019 20:20:50 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE AROM
@@ -29,63 +29,68 @@ line level    source
   19          
   20          void arom_task(void)
   21            // 1s掉用一次
-  22          {
-  23   1        switch(arom_level)
-  24   1        {
-  25   2          case 1://低档工作10分钟停10分钟
-  26   2           if(arom_work_count == 0)arom_on();
-  27   2           if(arom_work_count == 600)arom_off();
-  28   2           if(++arom_work_count>=1200) arom_work_count = 0;
-  29   2          break;
-  30   2          case 2://中档 : 工作30分钟停10分钟
-  31   2            if(arom_work_count == 0)arom_on();
-  32   2            if(arom_work_count == 1800)arom_off();
-  33   2            if(++arom_work_count>=2400) arom_work_count = 0;
-  34   2          break;
-  35   2          case 3://高档: 连续工作
-  36   2            arom_on();
+  22            // low 工作1分钟停12分钟
+  23            // mid 工作1分钟停8分钟
+  24            // high 工作1分钟停4分钟
+  25          {
+  26   1        switch(arom_level)
+  27   1        {
+  28   2          case 1://低档工作10分钟停10分钟
+  29   2           if(arom_work_count == 0)arom_on();
+  30   2           if(arom_work_count == 60)arom_off();
+  31   2           if(++arom_work_count>=780) arom_work_count = 0;
+  32   2          break;
+  33   2          case 2://中档 : 工作30分钟停10分钟
+  34   2            if(arom_work_count == 0)arom_on();
+  35   2            if(arom_work_count == 60)arom_off();
+  36   2            if(++arom_work_count>=540) arom_work_count = 0;
   37   2          break;
-  38   2          default:
-  39   2            arom_off();
-  40   2          break;
-  41   2        }
-  42   1      }
-  43          
-  44          void arom_on(void)
-  45          {
-  46   1        AROM_PIN = 1;
+  38   2          case 3://高档: 连续工作
+  39   2            if(arom_work_count == 0)arom_on();
+  40   2            if(arom_work_count == 60)arom_off();
+  41   2            if(++arom_work_count>=300) arom_work_count = 0;
+  42   2          break;
+  43   2          default:
+  44   2            arom_off();
+  45   2          break;
+  46   2        }
   47   1      }
   48          
-  49          void arom_off(void)
+  49          void arom_on(void)
   50          {
-  51   1        AROM_PIN = 0;
+  51   1        AROM_PIN = 1;
   52   1      }
   53          
-  54          void regulate_arom_level(void)
-C51 COMPILER V9.52.0.0   AROM                                                              10/08/2019 19:58:40 PAGE 2   
+  54          void arom_off(void)
+C51 COMPILER V9.52.0.0   AROM                                                              11/01/2019 20:20:50 PAGE 2   
 
-  55          //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
-  56          {
-  57   1        if(++arom_level> 3) arom_level = 0; 
-  58   1        arom_work_count = 0;
-  59   1      }
-  60          
-  61          void set_arom_level(unsigned char level)
-  62          {
-  63   1        arom_level = level;
+  55          {
+  56   1        AROM_PIN = 0;
+  57   1      }
+  58          
+  59          void regulate_arom_level(void)
+  60          //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
+  61          {
+  62   1        if(++arom_level> 3) arom_level = 0; 
+  63   1        arom_work_count = 0;
   64   1      }
   65          
-  66          unsigned char read_arom_level(void)
+  66          void set_arom_level(unsigned char level)
   67          {
-  68   1        return arom_level;
+  68   1        arom_level = level;
   69   1      }
   70          
-  71          
-  72          
+  71          unsigned char read_arom_level(void)
+  72          {
+  73   1        return arom_level;
+  74   1      }
+  75          
+  76          
+  77          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    146    ----
+   CODE SIZE        =    178    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

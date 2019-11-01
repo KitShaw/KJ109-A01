@@ -19,21 +19,26 @@ void arom_init(void)
 
 void arom_task(void)
 	// 1s掉用一次
+	// low 工作1分钟停12分钟
+	// mid 工作1分钟停8分钟
+	// high 工作1分钟停4分钟
 {
 	switch(arom_level)
 	{
 		case 1://低档工作10分钟停10分钟
 		 if(arom_work_count == 0)arom_on();
-		 if(arom_work_count == 600)arom_off();
-		 if(++arom_work_count>=1200) arom_work_count = 0;
+		 if(arom_work_count == 60)arom_off();
+		 if(++arom_work_count>=780) arom_work_count = 0;
 		break;
 		case 2://中档 : 工作30分钟停10分钟
 			if(arom_work_count == 0)arom_on();
-		 	if(arom_work_count == 1800)arom_off();
-		 	if(++arom_work_count>=2400) arom_work_count = 0;
+		 	if(arom_work_count == 60)arom_off();
+		 	if(++arom_work_count>=540) arom_work_count = 0;
 		break;
 		case 3://高档: 连续工作
-			arom_on();
+			if(arom_work_count == 0)arom_on();
+		 	if(arom_work_count == 60)arom_off();
+		 	if(++arom_work_count>=300) arom_work_count = 0;
 		break;
 		default:
 			arom_off();
