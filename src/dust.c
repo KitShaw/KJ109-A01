@@ -14,6 +14,7 @@ xdata unsigned short dust_adc_value[DUST_SIZE];
 xdata unsigned long dust_adc_mean;       //平均值
 xdata unsigned short dust_display_value;  //
 xdata unsigned short dust_last_display_value;
+xdata unsigned char dust_chang_count; //联系2次不一样再变化
 xdata unsigned char dust_ok_flag;            //adc转换完成标志
 xdata unsigned char dust_index = 0;
 xdata unsigned short dust_delay_count;   //PM25延时显示计数
@@ -91,11 +92,23 @@ void dust_task(void)
 		//dust_last_display_value = dust_display_value;  //更新显示值
 		if((dust_display_value + 20) < dust_last_display_value)
 		{
+			//if(dust_last_display_value>400);  //更新显示值)
 			dust_last_display_value -= (rand()%10);  //更新显示值
 		}
 		else 
-		{
-			dust_last_display_value = dust_display_value;  //更新显示值
+		{			
+			if((dust_display_value - dust_last_display_value) > 10 )
+			{
+				dust_last_display_value = dust_display_value;  //更新显示值
+			}
+			else if(dust_last_display_value != dust_display_value)
+			{
+				if(++dust_chang_count>=3)
+				{
+					dust_chang_count = 0;
+					dust_last_display_value = dust_display_value;  //更新显示值
+				}
+			}
 		}
 		//if(dust_last_display_value>=153) dust_last_display_value = 153;
 		if(dust_last_display_value>=999) dust_last_display_value = 999;

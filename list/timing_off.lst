@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   TIMING_OFF                                                        11/01/2019 20:20:50 PAGE 1   
+C51 COMPILER V9.52.0.0   TIMING_OFF                                                        11/01/2019 20:54:58 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE TIMING_OFF
@@ -62,7 +62,7 @@ line level    source
   52          
   53          unsigned char read_timing_off_level(void)
   54          {
-C51 COMPILER V9.52.0.0   TIMING_OFF                                                        11/01/2019 20:20:50 PAGE 2   
+C51 COMPILER V9.52.0.0   TIMING_OFF                                                        11/01/2019 20:54:58 PAGE 2   
 
   55   1        return timing_off_level;
   56   1      }
