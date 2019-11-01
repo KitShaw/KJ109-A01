@@ -96,10 +96,31 @@ void dust_task(void)
 			dust_last_display_value -= (rand()%10);  //更新显示值
 		}
 		else 
-		{			
-			if((dust_display_value - dust_last_display_value) > 10 )
+		{	
+			if(dust_display_value > dust_last_display_value )
+			{
+				if((dust_display_value - dust_last_display_value)> 20)
+				{
+					dust_last_display_value = dust_display_value;  //更新显示值	
+				}
+			}
+			else
+			{//if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
+			
+				if(++dust_chang_count>=3)
+				{
+					dust_chang_count = 0;
+					dust_last_display_value = dust_display_value;  //更新显示值
+					if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
+				}
+			}
+			//dust_last_display_value = dust_display_value;  //更新显示值
+				
+		/*
+			if((dust_display_value - dust_last_display_value) > 20 )
 			{
 				dust_last_display_value = dust_display_value;  //更新显示值
+				//if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
 			}
 			else if(dust_last_display_value != dust_display_value)
 			{
@@ -110,6 +131,7 @@ void dust_task(void)
 					if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
 				}
 			}
+			*/
 		}
 		//if(dust_last_display_value>=153) dust_last_display_value = 153;
 		if(dust_last_display_value>=999) dust_last_display_value = 999;
