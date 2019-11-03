@@ -27,6 +27,7 @@ void dust_init(void)
 	//ADCCFG1 |= 1<<7; //AIN15位acd输入口
 	adc_init(15);
 	dust_adc_mean = 0;
+	dust_last_display_value = 2;
 }
 
 //unsigned short read_dust_adc_value(void)
@@ -107,7 +108,7 @@ void dust_task(void)
 			else
 			{//if( dust_last_display_value == 0) dust_last_display_value = (rand()%5 + 1);
 			
-				if(++dust_chang_count>=3)
+				if(++dust_chang_count>=5)
 				{
 					dust_chang_count = 0;
 					dust_last_display_value = dust_display_value;  //更新显示值
