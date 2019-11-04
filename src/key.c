@@ -93,7 +93,7 @@ void key_task(void)
 	else
 	{
 		//reset_key_no_move_count();
-		key_no_move_count++;
+		if(POWER_ON_STATUS == read_power_status())key_no_move_count++;
 	}
 
 	
