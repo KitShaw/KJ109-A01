@@ -78,7 +78,7 @@ void led_task(void)
 //100ms调用一次
 {
 		if(read_power_status() == POWER_OFF_STATUS)
-		{			
+		{				
 			return;
 		}
 		led_display_ion();
@@ -90,6 +90,14 @@ void led_task(void)
 	led_display_timing_off_level();
 	
 }
+
+void led_display_version(void)
+{
+	tm1650_set(0x6E, led_display_bcd(VERSION / 100));   //
+	tm1650_set(0x6c, led_display_bcd(VERSION% 100 / 10));   //
+	tm1650_set(0x6A, led_display_bcd(VERSION% 10));   //
+}
+
 
 void led_key_power_count(void)
 //做电源按键呼吸灯效果计数用

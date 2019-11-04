@@ -232,6 +232,7 @@ void main(void)
 	Sys_Init();
 	//ion_init();
 	//DUST_PWR_PIN = 0;
+	//led_display_version();
 	while(1)
 	{
 	   WDTCON  = 0x10;	   

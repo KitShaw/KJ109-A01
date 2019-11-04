@@ -72,13 +72,14 @@ void store_fan_return_pulse(void);
 void fan_level1_speed_judge(void);
 void fan_level2_speed_judge(void);
 void fan_level3_speed_judge(void);
-void fan_level12_speed_judge(void);
-void fan_level23_speed_judge(void);
+//void fan_level12_speed_judge(void);
+//void fan_level23_speed_judge(void);
 
 
-void fan_pulse_count_add(void);
+//void fan_pulse_count_add(void);
 
-void fan_pulse_count_dec(void);
+//void fan_pulse_count_dec(void);
+
 unsigned char read_speed(void);
 void write_speed_to_eeprom(void);
 

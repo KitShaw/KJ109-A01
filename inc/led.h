@@ -79,6 +79,7 @@ void led_all_on(void);
 void led_display_arom_level(void);
 void led_display_timing_off_level(void);
 void led_display_filter_out(unsigned char filter_flag);
+void led_display_version(void);
 
 
 void delay_us(unsigned char val);

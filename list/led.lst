@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 1   
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
@@ -62,7 +62,7 @@ line level    source
   52                          0xff,//0x5C,  //"o"
   53                          0xff,//0x40,  //"-"
   54                          0xff,//0x00,  //??
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 2   
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 2   
 
   55                              };
   56          */
@@ -90,7 +90,7 @@ line level    source
   78          //100ms调用一次
   79          {
   80   1          if(read_power_status() == POWER_OFF_STATUS)
-  81   1          {     
+  81   1          {       
   82   2            return;
   83   2          }
   84   1          led_display_ion();
@@ -103,645 +103,653 @@ line level    source
   91   1        
   92   1      }
   93          
-  94          void led_key_power_count(void)
-  95          //做电源按键呼吸灯效果计数用
-  96          {
-  97   1        if(read_power_status() == POWER_OFF_STATUS)
-  98   1        //关机是才呼吸灯
-  99   1        {     
- 100   2          if(++key_power_period >= LED_POWER_PERIOD) key_power_period = 0;
- 101   2          if(key_power_duty_count>=key_power_period) LED_KEY_POWER = LED_ON;
- 102   2          else LED_KEY_POWER = LED_OFF;
- 103   2        }
- 104   1      }
- 105          
- 106          void led_key_power(void)
- 107          //10ms调用一次
- 108          {
- 109   1        if(read_power_status() == POWER_OFF_STATUS)
- 110   1        //关机是才呼吸灯
- 111   1        {   
- 112   2          if(1 == key_power_duty_count_flag)key_power_duty_count++;
- 113   2            else key_power_duty_count--;  
- 114   2          if(key_power_duty_count >= LED_POWER_PERIOD) key_power_duty_count_flag = 0;
- 115   2          if(key_power_duty_count<=20) key_power_duty_count_flag = 1;   
- 116   2        }
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 3   
+  94          void led_display_version(void)
+  95          {
+  96   1        tm1650_set(0x6E, led_display_bcd(VERSION / 100));   //
+  97   1        tm1650_set(0x6c, led_display_bcd(VERSION% 100 / 10));   //
+  98   1        tm1650_set(0x6A, led_display_bcd(VERSION% 10));   //
+  99   1      }
+ 100          
+ 101          
+ 102          void led_key_power_count(void)
+ 103          //做电源按键呼吸灯效果计数用
+ 104          {
+ 105   1        if(read_power_status() == POWER_OFF_STATUS)
+ 106   1        //关机是才呼吸灯
+ 107   1        {     
+ 108   2          if(++key_power_period >= LED_POWER_PERIOD) key_power_period = 0;
+ 109   2          if(key_power_duty_count>=key_power_period) LED_KEY_POWER = LED_ON;
+ 110   2          else LED_KEY_POWER = LED_OFF;
+ 111   2        }
+ 112   1      }
+ 113          
+ 114          void led_key_power(void)
+ 115          //10ms调用一次
+ 116          {
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 3   
 
- 117   1      }
- 118          
- 119          
- 120          void led_display_filter_out(unsigned char filter_flag)
- 121          {
- 122   1        if( 1 == filter_flag) 
- 123   1        {
- 124   2        //LEDRAM[21] |= 0x10;  //滤网, 电源按键
- 125   2          LED_FILTER = LED_ON;
- 126   2        }
- 127   1        else
- 128   1        {
- 129   2          //  LEDRAM[21] &= ~0x10;  //滤网, 电源按键
- 130   2          LED_FILTER = LED_OFF;
- 131   2        }
- 132   1      }
- 133          
- 134          void led_off(void)
- 135          {
- 136   1        //DDRCON &= ~0x80;
- 137   1        LED_GREEN = 1;
- 138   1        LED_BLUE = 1;
- 139   1        LED_RED = 1;
- 140   1        LED_PM2_5 = 1;
- 141   1        LED_TIMER_1H = 1;
- 142   1        LED_TIMER_2H = 1; 
- 143   1        LED_TIMER_4H = 1;
- 144   1        LED_TIMER_8H = 1;
- 145   1        LED_KEY_TIMER = 1;
- 146   1        LED_FILTER = 1;
- 147   1        LED_ION = 1;
- 148   1        LED_KEY_ION  = 1;
- 149   1        LED_KEY_AROM  = 1;
- 150   1        LED_AROM_LOW = 1;
- 151   1        LED_AROM_MIDDLE = 1;
- 152   1        LED_AROM_HIGH  = 1;
- 153   1        LED_SPEED_LOW = 1;
- 154   1        LED_SPEED_MIDDLE = 1;
- 155   1        LED_SPEED_HIGH = 1;
- 156   1        LED_SPEED_AUTO = 1;
- 157   1        LED_KEY_MODE = 1;
- 158   1        LED_LOCK = 1;
- 159   1        LED_KEY_LOCK = 1;
- 160   1        LED_KEY_POWER = 1;
- 161   1        tm1650_set(0x6E, 0x00);   //
- 162   1        tm1650_set(0x6c, 0x00);   //
- 163   1        tm1650_set(0x6A, 0x00);   //
- 164   1        /*
- 165   1        LEDRAM[11] &= ~0x08;  // 童锁图标
- 166   1        LEDRAM[12] &= ~0x18;  //0x10 -P2.5  0x08-8H
- 167   1        LEDRAM[13] &= ~0x18;  //0x10 - 高, 0x08 - 4H
- 168   1        LEDRAM[14] &= ~0x18;  //0x10 - 中, 0x08 - 2H  
- 169   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 170   1        LEDRAM[15] &= ~0xf8;  //0x10 - 低, 0x08 - 1H
- 171   1        //数码管g段
- 172   1        LEDRAM[16] &= ~0xf0;  //0x10 - ION图标, 0x08香薰按键,   
- 173   1        //数码管F段
- 174   1        LEDRAM[17] &= ~0xf0;   //0x10- 高速 和 0x08-负离子按键
- 175   1        //数码管E段
- 176   1        LEDRAM[18] &= ~0xf0;   //0x10- 中速 , 0x08 - 模式按键
- 177   1        //数码管D段
- 178   1        LEDRAM[19] &= ~0xf0;  //低速 ,  童锁按键
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 4   
+ 117   1        if(read_power_status() == POWER_OFF_STATUS)
+ 118   1        //关机是才呼吸灯
+ 119   1        {   
+ 120   2          if(1 == key_power_duty_count_flag)key_power_duty_count++;
+ 121   2            else key_power_duty_count--;  
+ 122   2          if(key_power_duty_count >= LED_POWER_PERIOD) key_power_duty_count_flag = 0;
+ 123   2          if(key_power_duty_count<=20) key_power_duty_count_flag = 1;   
+ 124   2        }
+ 125   1      }
+ 126          
+ 127          
+ 128          void led_display_filter_out(unsigned char filter_flag)
+ 129          {
+ 130   1        if( 1 == filter_flag) 
+ 131   1        {
+ 132   2        //LEDRAM[21] |= 0x10;  //滤网, 电源按键
+ 133   2          LED_FILTER = LED_ON;
+ 134   2        }
+ 135   1        else
+ 136   1        {
+ 137   2          //  LEDRAM[21] &= ~0x10;  //滤网, 电源按键
+ 138   2          LED_FILTER = LED_OFF;
+ 139   2        }
+ 140   1      }
+ 141          
+ 142          void led_off(void)
+ 143          {
+ 144   1        //DDRCON &= ~0x80;
+ 145   1        LED_GREEN = 1;
+ 146   1        LED_BLUE = 1;
+ 147   1        LED_RED = 1;
+ 148   1        LED_PM2_5 = 1;
+ 149   1        LED_TIMER_1H = 1;
+ 150   1        LED_TIMER_2H = 1; 
+ 151   1        LED_TIMER_4H = 1;
+ 152   1        LED_TIMER_8H = 1;
+ 153   1        LED_KEY_TIMER = 1;
+ 154   1        LED_FILTER = 1;
+ 155   1        LED_ION = 1;
+ 156   1        LED_KEY_ION  = 1;
+ 157   1        LED_KEY_AROM  = 1;
+ 158   1        LED_AROM_LOW = 1;
+ 159   1        LED_AROM_MIDDLE = 1;
+ 160   1        LED_AROM_HIGH  = 1;
+ 161   1        LED_SPEED_LOW = 1;
+ 162   1        LED_SPEED_MIDDLE = 1;
+ 163   1        LED_SPEED_HIGH = 1;
+ 164   1        LED_SPEED_AUTO = 1;
+ 165   1        LED_KEY_MODE = 1;
+ 166   1        LED_LOCK = 1;
+ 167   1        LED_KEY_LOCK = 1;
+ 168   1        LED_KEY_POWER = 1;
+ 169   1        tm1650_set(0x6E, 0x00);   //
+ 170   1        tm1650_set(0x6c, 0x00);   //
+ 171   1        tm1650_set(0x6A, 0x00);   //
+ 172   1        /*
+ 173   1        LEDRAM[11] &= ~0x08;  // 童锁图标
+ 174   1        LEDRAM[12] &= ~0x18;  //0x10 -P2.5  0x08-8H
+ 175   1        LEDRAM[13] &= ~0x18;  //0x10 - 高, 0x08 - 4H
+ 176   1        LEDRAM[14] &= ~0x18;  //0x10 - 中, 0x08 - 2H  
+ 177   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 178   1        LEDRAM[15] &= ~0xf8;  //0x10 - 低, 0x08 - 1H
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 4   
 
- 179   1        //数码管C段
- 180   1        LEDRAM[20] &= ~0xf0;  //智能, 定时按键
- 181   1        //数码管B段
- 182   1        LEDRAM[21] &= ~0xf0;  //滤网, 电源按键
- 183   1        //数码管A段
- 184   1        */
- 185   1      }
- 186          
- 187          void led_all_on(void)
- 188          {
- 189   1        //DDRCON &= ~0x80;
- 190   1        LED_GREEN = 0;
- 191   1        LED_BLUE = 0;
- 192   1        LED_RED = 0;
- 193   1      
- 194   1        LED_PM2_5 = 0;
- 195   1        LED_TIMER_1H = 0;
- 196   1        LED_TIMER_2H = 0; 
- 197   1        LED_TIMER_4H = 0;
- 198   1        LED_TIMER_8H = 0;
- 199   1        LED_FILTER = 0;
- 200   1        LED_ION = 0;  
- 201   1        LED_AROM_LOW = 0;
- 202   1        LED_AROM_MIDDLE = 0;
- 203   1        LED_AROM_HIGH  = 0;
- 204   1        LED_SPEED_LOW = 0;
- 205   1        LED_SPEED_MIDDLE = 0;
- 206   1        LED_SPEED_HIGH = 0;
- 207   1        LED_SPEED_AUTO = 0;
- 208   1        LED_LOCK = 0;
- 209   1      
- 210   1        LED_KEY_TIMER = 0;
- 211   1        LED_KEY_MODE = 0; 
- 212   1        LED_KEY_LOCK = 0;
- 213   1        LED_KEY_POWER = 0;
- 214   1        LED_KEY_ION  = 0;
- 215   1        LED_KEY_AROM  = 0;
- 216   1      
- 217   1        tm1650_set(0x6E, 0xff);   //
- 218   1        tm1650_set(0x6c, 0xff);   //
- 219   1        tm1650_set(0x6A, 0xff);   //
- 220   1      }
- 221          
- 222          
- 223          void led_key_on(void)
- 224            //开机后按键的灯亮起来
- 225          {
- 226   1        LED_KEY_TIMER = 0;
- 227   1        LED_KEY_MODE = 0; 
- 228   1        LED_KEY_LOCK = 0;
- 229   1        LED_KEY_POWER = 0;
- 230   1        LED_KEY_ION  = 0;
- 231   1        LED_KEY_AROM  = 0;
- 232   1      }
- 233          
- 234          
- 235          void led_on(void)
- 236          {
- 237   1        //DDRCON |= 0x80;
- 238   1      }
- 239          
- 240          
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 5   
+ 179   1        //数码管g段
+ 180   1        LEDRAM[16] &= ~0xf0;  //0x10 - ION图标, 0x08香薰按键,   
+ 181   1        //数码管F段
+ 182   1        LEDRAM[17] &= ~0xf0;   //0x10- 高速 和 0x08-负离子按键
+ 183   1        //数码管E段
+ 184   1        LEDRAM[18] &= ~0xf0;   //0x10- 中速 , 0x08 - 模式按键
+ 185   1        //数码管D段
+ 186   1        LEDRAM[19] &= ~0xf0;  //低速 ,  童锁按键
+ 187   1        //数码管C段
+ 188   1        LEDRAM[20] &= ~0xf0;  //智能, 定时按键
+ 189   1        //数码管B段
+ 190   1        LEDRAM[21] &= ~0xf0;  //滤网, 电源按键
+ 191   1        //数码管A段
+ 192   1        */
+ 193   1      }
+ 194          
+ 195          void led_all_on(void)
+ 196          {
+ 197   1        //DDRCON &= ~0x80;
+ 198   1        LED_GREEN = 0;
+ 199   1        LED_BLUE = 0;
+ 200   1        LED_RED = 0;
+ 201   1      
+ 202   1        LED_PM2_5 = 0;
+ 203   1        LED_TIMER_1H = 0;
+ 204   1        LED_TIMER_2H = 0; 
+ 205   1        LED_TIMER_4H = 0;
+ 206   1        LED_TIMER_8H = 0;
+ 207   1        LED_FILTER = 0;
+ 208   1        LED_ION = 0;  
+ 209   1        LED_AROM_LOW = 0;
+ 210   1        LED_AROM_MIDDLE = 0;
+ 211   1        LED_AROM_HIGH  = 0;
+ 212   1        LED_SPEED_LOW = 0;
+ 213   1        LED_SPEED_MIDDLE = 0;
+ 214   1        LED_SPEED_HIGH = 0;
+ 215   1        LED_SPEED_AUTO = 0;
+ 216   1        LED_LOCK = 0;
+ 217   1      
+ 218   1        LED_KEY_TIMER = 0;
+ 219   1        LED_KEY_MODE = 0; 
+ 220   1        LED_KEY_LOCK = 0;
+ 221   1        LED_KEY_POWER = 0;
+ 222   1        LED_KEY_ION  = 0;
+ 223   1        LED_KEY_AROM  = 0;
+ 224   1      
+ 225   1        tm1650_set(0x6E, 0xff);   //
+ 226   1        tm1650_set(0x6c, 0xff);   //
+ 227   1        tm1650_set(0x6A, 0xff);   //
+ 228   1      }
+ 229          
+ 230          
+ 231          void led_key_on(void)
+ 232            //开机后按键的灯亮起来
+ 233          {
+ 234   1        LED_KEY_TIMER = 0;
+ 235   1        LED_KEY_MODE = 0; 
+ 236   1        LED_KEY_LOCK = 0;
+ 237   1        LED_KEY_POWER = 0;
+ 238   1        LED_KEY_ION  = 0;
+ 239   1        LED_KEY_AROM  = 0;
+ 240   1      }
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 5   
 
- 241          void led_display_pm25(void)
- 242          {
- 243   1        unsigned short tmp_dust_display_value;
- 244   1        tmp_dust_display_value = read_dust_display_value();
- 245   1        //led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
- 246   1        //led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
- 247   1        //led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
- 248   1      
- 249   1        tm1650_set(0x6E, led_display_bcd(tmp_dust_display_value / 100));   //
- 250   1        tm1650_set(0x6c, led_display_bcd(tmp_dust_display_value % 100 / 10));   //
- 251   1        tm1650_set(0x6A, led_display_bcd(tmp_dust_display_value % 10));   //
- 252   1        LED_PM2_5 = LED_ON; //PM2.5图标
- 253   1      }
- 254          
- 255          void led_display_timing_off_level(void)
- 256          {
- 257   1        switch(read_timing_off_level())
- 258   1        {
- 259   2          //case 0:  //关闭
- 260   2          //  LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
- 261   2          //  LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
- 262   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
- 263   2          //  LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
- 264   2          //break;
- 265   2          case 1:  // 1H
- 266   2            //LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
- 267   2            //LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
- 268   2            //LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
- 269   2            //LEDRAM[15] |= 0x08;  //0x10 - 低, 0x08 - 1H
- 270   2            LED_TIMER_1H = LED_ON;
- 271   2            LED_TIMER_2H = LED_OFF;
- 272   2            LED_TIMER_4H = LED_OFF;
- 273   2            LED_TIMER_8H = LED_OFF;
- 274   2          break;
- 275   2          case 2:  // 2H
- 276   2            LED_TIMER_1H = LED_OFF;
- 277   2            LED_TIMER_2H = LED_ON;
- 278   2            LED_TIMER_4H = LED_OFF;
- 279   2            LED_TIMER_8H = LED_OFF;
- 280   2          break;
- 281   2          case 3:  // 4H
- 282   2            LED_TIMER_1H = LED_OFF;
- 283   2            LED_TIMER_2H = LED_OFF;
- 284   2            LED_TIMER_4H = LED_ON;
- 285   2            LED_TIMER_8H = LED_OFF;
- 286   2          break;
- 287   2          case 4:  // 8H
- 288   2            LED_TIMER_1H = LED_OFF;
- 289   2            LED_TIMER_2H = LED_OFF;
- 290   2            LED_TIMER_4H = LED_OFF;
- 291   2            LED_TIMER_8H = LED_ON;
- 292   2          break;
- 293   2          default:
- 294   2            LED_TIMER_1H = LED_OFF;
- 295   2            LED_TIMER_2H = LED_OFF;
- 296   2            LED_TIMER_4H = LED_OFF;
- 297   2            LED_TIMER_8H = LED_OFF;
- 298   2          break;
- 299   2        }
- 300   1      }
- 301          
- 302          void led_display_arom_level(void)
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 6   
+ 241          
+ 242          
+ 243          void led_on(void)
+ 244          {
+ 245   1        //DDRCON |= 0x80;
+ 246   1      }
+ 247          
+ 248          
+ 249          void led_display_pm25(void)
+ 250          {
+ 251   1        unsigned short tmp_dust_display_value;
+ 252   1        tmp_dust_display_value = read_dust_display_value();
+ 253   1        //led_display_bcd(tmp_dust_display_value / 100, HUNDRED_DIGIT);
+ 254   1        //led_display_bcd(tmp_dust_display_value % 100 / 10, TEN_DIGIT);
+ 255   1        //led_display_bcd(tmp_dust_display_value % 10, SINGLE_DIGIT);
+ 256   1      
+ 257   1        tm1650_set(0x6E, led_display_bcd(tmp_dust_display_value / 100));   //
+ 258   1        tm1650_set(0x6c, led_display_bcd(tmp_dust_display_value % 100 / 10));   //
+ 259   1        tm1650_set(0x6A, led_display_bcd(tmp_dust_display_value % 10));   //
+ 260   1        LED_PM2_5 = LED_ON; //PM2.5图标
+ 261   1      }
+ 262          
+ 263          void led_display_timing_off_level(void)
+ 264          {
+ 265   1        switch(read_timing_off_level())
+ 266   1        {
+ 267   2          //case 0:  //关闭
+ 268   2          //  LEDRAM[13] &= ~0x10;  //0x10 - 高, 0x08 - 4H
+ 269   2          //  LEDRAM[14] &= ~0x10;  //0x10 - 中, 0x08 - 2H  
+ 270   2            //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
+ 271   2          //  LEDRAM[15] &= ~0x10;  //0x10 - 低, 0x08 - 1H
+ 272   2          //break;
+ 273   2          case 1:  // 1H
+ 274   2            //LEDRAM[12] &= ~0x08;  //0x10 -P2.5  0x08-8H
+ 275   2            //LEDRAM[13] &= ~0x08;  //0x10 - 高, 0x08 - 4H
+ 276   2            //LEDRAM[14] &= ~0x08;  //0x10 - 中, 0x08 - 2H  
+ 277   2            //LEDRAM[15] |= 0x08;  //0x10 - 低, 0x08 - 1H
+ 278   2            LED_TIMER_1H = LED_ON;
+ 279   2            LED_TIMER_2H = LED_OFF;
+ 280   2            LED_TIMER_4H = LED_OFF;
+ 281   2            LED_TIMER_8H = LED_OFF;
+ 282   2          break;
+ 283   2          case 2:  // 2H
+ 284   2            LED_TIMER_1H = LED_OFF;
+ 285   2            LED_TIMER_2H = LED_ON;
+ 286   2            LED_TIMER_4H = LED_OFF;
+ 287   2            LED_TIMER_8H = LED_OFF;
+ 288   2          break;
+ 289   2          case 3:  // 4H
+ 290   2            LED_TIMER_1H = LED_OFF;
+ 291   2            LED_TIMER_2H = LED_OFF;
+ 292   2            LED_TIMER_4H = LED_ON;
+ 293   2            LED_TIMER_8H = LED_OFF;
+ 294   2          break;
+ 295   2          case 4:  // 8H
+ 296   2            LED_TIMER_1H = LED_OFF;
+ 297   2            LED_TIMER_2H = LED_OFF;
+ 298   2            LED_TIMER_4H = LED_OFF;
+ 299   2            LED_TIMER_8H = LED_ON;
+ 300   2          break;
+ 301   2          default:
+ 302   2            LED_TIMER_1H = LED_OFF;
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 6   
 
- 303          {
- 304   1        switch(read_arom_level())
- 305   1        {
- 306   2          case 1:  //低
- 307   2            LED_AROM_LOW= LED_ON;
- 308   2            LED_AROM_MIDDLE= LED_OFF;
- 309   2            LED_AROM_HIGH= LED_OFF;     
- 310   2          break;
- 311   2          case 2:  //中
- 312   2            LED_AROM_LOW= LED_OFF;
- 313   2            LED_AROM_MIDDLE= LED_ON;
- 314   2            LED_AROM_HIGH= LED_OFF; 
- 315   2          break;
- 316   2          case 3:  //高
- 317   2            LED_AROM_LOW= LED_OFF;
- 318   2            LED_AROM_MIDDLE= LED_OFF;
- 319   2            LED_AROM_HIGH= LED_ON;  
- 320   2          break;
- 321   2          default:
- 322   2            LED_AROM_LOW= LED_OFF;
- 323   2            LED_AROM_MIDDLE= LED_OFF;
- 324   2            LED_AROM_HIGH= LED_OFF; 
- 325   2          break;
- 326   2        }
- 327   1      }
- 328          
- 329          void led_display_dust_level(void)
- 330          {
- 331   1        switch(read_dust_level())
- 332   1        {
- 333   2          case DUST_LEVEL_EXCELLENT:
- 334   2            LED_GREEN = 0;
- 335   2            LED_BLUE = 1;
- 336   2            LED_RED = 1;
- 337   2          break;
- 338   2          case DUST_LEVEL_12:
- 339   2            LED_GREEN = 0;
- 340   2            LED_BLUE = 0;
- 341   2            LED_RED = 1;
- 342   2          break;
- 343   2          case DUST_LEVEL_MEDIUM:
- 344   2            LED_GREEN = 0;
- 345   2            LED_BLUE = 1;
- 346   2            LED_RED = 0;
- 347   2          break;
- 348   2          /*
- 349   2          case DUST_LEVEL_23:
- 350   2            LED_GREEN = 1;
- 351   2            LED_BLUE = 1;
- 352   2            LED_RED = 0;
- 353   2          break;
- 354   2          */
- 355   2          case DUST_LEVEL_BAD:
- 356   2            LED_GREEN = 1;
- 357   2            LED_BLUE = 1;
- 358   2            LED_RED = 0;
- 359   2          break;
- 360   2          default:
- 361   2            LED_GREEN = 0;
- 362   2            LED_BLUE = 1;
- 363   2            LED_RED = 1;
- 364   2          break;
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 7   
+ 303   2            LED_TIMER_2H = LED_OFF;
+ 304   2            LED_TIMER_4H = LED_OFF;
+ 305   2            LED_TIMER_8H = LED_OFF;
+ 306   2          break;
+ 307   2        }
+ 308   1      }
+ 309          
+ 310          void led_display_arom_level(void)
+ 311          {
+ 312   1        switch(read_arom_level())
+ 313   1        {
+ 314   2          case 1:  //低
+ 315   2            LED_AROM_LOW= LED_ON;
+ 316   2            LED_AROM_MIDDLE= LED_OFF;
+ 317   2            LED_AROM_HIGH= LED_OFF;     
+ 318   2          break;
+ 319   2          case 2:  //中
+ 320   2            LED_AROM_LOW= LED_OFF;
+ 321   2            LED_AROM_MIDDLE= LED_ON;
+ 322   2            LED_AROM_HIGH= LED_OFF; 
+ 323   2          break;
+ 324   2          case 3:  //高
+ 325   2            LED_AROM_LOW= LED_OFF;
+ 326   2            LED_AROM_MIDDLE= LED_OFF;
+ 327   2            LED_AROM_HIGH= LED_ON;  
+ 328   2          break;
+ 329   2          default:
+ 330   2            LED_AROM_LOW= LED_OFF;
+ 331   2            LED_AROM_MIDDLE= LED_OFF;
+ 332   2            LED_AROM_HIGH= LED_OFF; 
+ 333   2          break;
+ 334   2        }
+ 335   1      }
+ 336          
+ 337          void led_display_dust_level(void)
+ 338          {
+ 339   1        switch(read_dust_level())
+ 340   1        {
+ 341   2          case DUST_LEVEL_EXCELLENT:
+ 342   2            LED_GREEN = 0;
+ 343   2            LED_BLUE = 1;
+ 344   2            LED_RED = 1;
+ 345   2          break;
+ 346   2          case DUST_LEVEL_12:
+ 347   2            LED_GREEN = 0;
+ 348   2            LED_BLUE = 0;
+ 349   2            LED_RED = 1;
+ 350   2          break;
+ 351   2          case DUST_LEVEL_MEDIUM:
+ 352   2            LED_GREEN = 0;
+ 353   2            LED_BLUE = 1;
+ 354   2            LED_RED = 0;
+ 355   2          break;
+ 356   2          /*
+ 357   2          case DUST_LEVEL_23:
+ 358   2            LED_GREEN = 1;
+ 359   2            LED_BLUE = 1;
+ 360   2            LED_RED = 0;
+ 361   2          break;
+ 362   2          */
+ 363   2          case DUST_LEVEL_BAD:
+ 364   2            LED_GREEN = 1;
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 7   
 
- 365   2        }
- 366   1      }
- 367          
- 368          void led_display_lock(void)
- 369          {
- 370   1        if( 0 == read_lock_flag())
- 371   1        {
- 372   2          LED_LOCK = LED_OFF;
+ 365   2            LED_BLUE = 1;
+ 366   2            LED_RED = 0;
+ 367   2          break;
+ 368   2          default:
+ 369   2            LED_GREEN = 0;
+ 370   2            LED_BLUE = 1;
+ 371   2            LED_RED = 1;
+ 372   2          break;
  373   2        }
- 374   1        else
- 375   1        {
- 376   2          LED_LOCK = LED_ON;
- 377   2        }
- 378   1      }
- 379          
- 380          void led_display_ion(void)
- 381          {
- 382   1        if(0 == ION_PIN)
+ 374   1      }
+ 375          
+ 376          void led_display_lock(void)
+ 377          {
+ 378   1        if( 0 == read_lock_flag())
+ 379   1        {
+ 380   2          LED_LOCK = LED_OFF;
+ 381   2        }
+ 382   1        else
  383   1        {
- 384   2          //LEDRAM[16] |= 0x10;  //0x10 - ION图标, 0x08香薰按键, 
- 385   2          LED_ION = LED_ON;
- 386   2        }
- 387   1        else
- 388   1        {
- 389   2          LED_ION = LED_OFF;
- 390   2          //LEDRAM[16] &= ~0x10;  //0x10 - ION图标, 0x08香薰按键, 
- 391   2        }
- 392   1      }
- 393          
- 394          void led_display_mode(void)
- 395            //智能, 酒店, 中速, 超强
- 396          {
- 397   1        switch(read_fan_speed())
- 398   1        {
- 399   2          case FAN_SPEED_AUTO:
- 400   2            LED_SPEED_AUTO = LED_ON;
- 401   2            LED_SPEED_LOW = LED_OFF;
- 402   2            LED_SPEED_MIDDLE= LED_OFF;
- 403   2            LED_SPEED_HIGH= LED_OFF;
- 404   2          break;
- 405   2          case FAN_SPEED_SLEEP:
- 406   2            LED_SPEED_AUTO = LED_OFF;
- 407   2            LED_SPEED_LOW = LED_ON;
- 408   2            LED_SPEED_MIDDLE= LED_OFF;
- 409   2            LED_SPEED_HIGH= LED_OFF;
- 410   2          break;
- 411   2          case FAN_SPEED_MIDDLE:
- 412   2            LED_SPEED_AUTO = LED_OFF;
- 413   2            LED_SPEED_LOW = LED_OFF;
- 414   2            LED_SPEED_MIDDLE= LED_ON;
- 415   2            LED_SPEED_HIGH= LED_OFF;
- 416   2          break;
- 417   2          case FAN_SPEED_HIGH:
- 418   2            LED_SPEED_AUTO = LED_OFF;
- 419   2            LED_SPEED_LOW = LED_OFF;
- 420   2            LED_SPEED_MIDDLE= LED_OFF;
- 421   2            LED_SPEED_HIGH= LED_ON;
- 422   2          break;
- 423   2          default:
- 424   2            LED_SPEED_AUTO = LED_OFF;
- 425   2            LED_SPEED_LOW = LED_OFF;
- 426   2            LED_SPEED_MIDDLE= LED_OFF;
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 8   
+ 384   2          LED_LOCK = LED_ON;
+ 385   2        }
+ 386   1      }
+ 387          
+ 388          void led_display_ion(void)
+ 389          {
+ 390   1        if(0 == ION_PIN)
+ 391   1        {
+ 392   2          //LEDRAM[16] |= 0x10;  //0x10 - ION图标, 0x08香薰按键, 
+ 393   2          LED_ION = LED_ON;
+ 394   2        }
+ 395   1        else
+ 396   1        {
+ 397   2          LED_ION = LED_OFF;
+ 398   2          //LEDRAM[16] &= ~0x10;  //0x10 - ION图标, 0x08香薰按键, 
+ 399   2        }
+ 400   1      }
+ 401          
+ 402          void led_display_mode(void)
+ 403            //智能, 酒店, 中速, 超强
+ 404          {
+ 405   1        switch(read_fan_speed())
+ 406   1        {
+ 407   2          case FAN_SPEED_AUTO:
+ 408   2            LED_SPEED_AUTO = LED_ON;
+ 409   2            LED_SPEED_LOW = LED_OFF;
+ 410   2            LED_SPEED_MIDDLE= LED_OFF;
+ 411   2            LED_SPEED_HIGH= LED_OFF;
+ 412   2          break;
+ 413   2          case FAN_SPEED_SLEEP:
+ 414   2            LED_SPEED_AUTO = LED_OFF;
+ 415   2            LED_SPEED_LOW = LED_ON;
+ 416   2            LED_SPEED_MIDDLE= LED_OFF;
+ 417   2            LED_SPEED_HIGH= LED_OFF;
+ 418   2          break;
+ 419   2          case FAN_SPEED_MIDDLE:
+ 420   2            LED_SPEED_AUTO = LED_OFF;
+ 421   2            LED_SPEED_LOW = LED_OFF;
+ 422   2            LED_SPEED_MIDDLE= LED_ON;
+ 423   2            LED_SPEED_HIGH= LED_OFF;
+ 424   2          break;
+ 425   2          case FAN_SPEED_HIGH:
+ 426   2            LED_SPEED_AUTO = LED_OFF;
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 8   
 
- 427   2            LED_SPEED_HIGH= LED_OFF;
- 428   2          break;
- 429   2        }
- 430   1      }
- 431          
- 432          unsigned char led_display_bcd(unsigned char bcd_value)
- 433          // 返回的数据
- 434          {
- 435   1      //8-e 7-d 6-dp 5-c 4-g 3-b 2-f 1-a
- 436   1        unsigned char tmp;
- 437   1        switch(bcd_value)
- 438   1        {
- 439   2          case 0:
- 440   2            //tmp = 0xaf;
- 441   2            tmp = 0xd7;
- 442   2          break;
- 443   2          case 1:
- 444   2            tmp = 0x14;
- 445   2          break;
- 446   2          case 2:
- 447   2            tmp = 0xcd;
- 448   2          break;
- 449   2          case 3:
- 450   2            tmp = 0x5d;
- 451   2          break;
- 452   2          case 4:
- 453   2            tmp = 0x1e;
- 454   2          break;
- 455   2          case 5://a
- 456   2            tmp = 0x5b;
- 457   2          break;
- 458   2          case 6:
- 459   2            tmp = 0xdb;
- 460   2          break;
- 461   2          case 7:
- 462   2            tmp = 0x15;
- 463   2          break;
- 464   2          case 8:
- 465   2            tmp = 0xdf;
- 466   2          break;
- 467   2          case 9:
- 468   2            tmp = 0x5f;
- 469   2          break;
- 470   2          default:
- 471   2            tmp = 0x00;
- 472   2          break;        
- 473   2        }
- 474   1        return tmp;
- 475   1      }
- 476          
- 477          
- 478          void i2c_init(void)
- 479          {
- 480   1        unsigned int i;
- 481   1        P0CON |= (1<<0);  //P00输出
- 482   1        P2CON |= (1<<7);  //P27输出
- 483   1        //delay_us(10000);
- 484   1        for(i = 0; i<8000; i++)
- 485   1        {
- 486   2          WDTCON  = 0x10;
- 487   2        }
- 488   1        i2c_clk_low();
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 9   
+ 427   2            LED_SPEED_LOW = LED_OFF;
+ 428   2            LED_SPEED_MIDDLE= LED_OFF;
+ 429   2            LED_SPEED_HIGH= LED_ON;
+ 430   2          break;
+ 431   2          default:
+ 432   2            LED_SPEED_AUTO = LED_OFF;
+ 433   2            LED_SPEED_LOW = LED_OFF;
+ 434   2            LED_SPEED_MIDDLE= LED_OFF;
+ 435   2            LED_SPEED_HIGH= LED_OFF;
+ 436   2          break;
+ 437   2        }
+ 438   1      }
+ 439          
+ 440          unsigned char led_display_bcd(unsigned char bcd_value)
+ 441          // 返回的数据
+ 442          {
+ 443   1      //8-e 7-d 6-dp 5-c 4-g 3-b 2-f 1-a
+ 444   1        unsigned char tmp;
+ 445   1        switch(bcd_value)
+ 446   1        {
+ 447   2          case 0:
+ 448   2            //tmp = 0xaf;
+ 449   2            tmp = 0xd7;
+ 450   2          break;
+ 451   2          case 1:
+ 452   2            tmp = 0x14;
+ 453   2          break;
+ 454   2          case 2:
+ 455   2            tmp = 0xcd;
+ 456   2          break;
+ 457   2          case 3:
+ 458   2            tmp = 0x5d;
+ 459   2          break;
+ 460   2          case 4:
+ 461   2            tmp = 0x1e;
+ 462   2          break;
+ 463   2          case 5://a
+ 464   2            tmp = 0x5b;
+ 465   2          break;
+ 466   2          case 6:
+ 467   2            tmp = 0xdb;
+ 468   2          break;
+ 469   2          case 7:
+ 470   2            tmp = 0x15;
+ 471   2          break;
+ 472   2          case 8:
+ 473   2            tmp = 0xdf;
+ 474   2          break;
+ 475   2          case 9:
+ 476   2            tmp = 0x5f;
+ 477   2          break;
+ 478   2          default:
+ 479   2            tmp = 0x00;
+ 480   2          break;        
+ 481   2        }
+ 482   1        return tmp;
+ 483   1      }
+ 484          
+ 485          
+ 486          void i2c_init(void)
+ 487          {
+ 488   1        unsigned int i;
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 9   
 
- 489   1        i2c_din_high();
- 490   1        tm1650_set(0x48, 0x05);   //开显示0段数码管,灰度1
- 491   1        //test_i2c();
- 492   1      }
- 493          
- 494          void tm1650_set(unsigned char add,unsigned char dat) //数码管显示
- 495          {
- 496   1              //写显存必须从高地址开始写
- 497   1              i2c_start();
- 498   1              i2c_write_byte(add); //第一个显存地址
- 499   1              i2c_waik_ack();
- 500   1              i2c_write_byte(dat);
- 501   1              i2c_waik_ack();
- 502   1              i2c_stop();
- 503   1      }
- 504          
- 505          
- 506          void sda_mode(unsigned char mode)
- 507            // 1输出, 0输入
- 508          {
- 509   1        if(IO_MODE_IN == mode)
- 510   1        {
- 511   2          P2CON &= ~(1<<7);  //P27输入
- 512   2        }
- 513   1        else
- 514   1        {
- 515   2          P2CON |= (1<<7);  //P27输出
- 516   2        }
- 517   1      }
- 518          
- 519          /*
- 520          void test_i2c(void)
- 521          {
- 522            unsigned short i;
- 523            unsigned char addr;
- 524            //delay_ms(1000);
- 525            for(i = 0; i< 10000; i++)WDTCON  = 0x10;
- 526            i2c_start();
- 527            //i2c_write_byte(0x80);  //写数据命令
- 528            i2c_write_byte(0x48);  //写数据命令
- 529            //i2c_stop();
- 530            i2c_waik_ack();
- 531            
- 532            //for(i = 0; i<60; i++) WDTCON = 0x10;
- 533            //i2c_start();
- 534            
- 535            i2c_write_byte(0x05);  //7段显示, 开显示
- 536            i2c_waik_ack();
- 537            i2c_stop();
- 538            
- 539            for(i = 0; i<60; i++) WDTCON = 0x10;
- 540            i2c_start();
- 541            addr = 0x68;
- 542            i2c_write_byte(addr);  //设置地址命令00
- 543            i2c_waik_ack();
- 544            //i2c_write_byte(0xff);  //设置数据为0
- 545            
- 546            //for(i = 0; i<4; i++)
- 547            //{
- 548              
- 549            //  i2c_write_byte(0x0f);  //写数据命令
- 550            //}
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 10  
+ 489   1        P0CON |= (1<<0);  //P00输出
+ 490   1        P2CON |= (1<<7);  //P27输出
+ 491   1        //delay_us(10000);
+ 492   1        for(i = 0; i<8000; i++)
+ 493   1        {
+ 494   2          WDTCON  = 0x10;
+ 495   2        }
+ 496   1        i2c_clk_low();
+ 497   1        i2c_din_high();
+ 498   1        tm1650_set(0x48, 0x05);   //开显示0段数码管,灰度1
+ 499   1        //test_i2c();
+ 500   1      }
+ 501          
+ 502          void tm1650_set(unsigned char add,unsigned char dat) //数码管显示
+ 503          {
+ 504   1              //写显存必须从高地址开始写
+ 505   1              i2c_start();
+ 506   1              i2c_write_byte(add); //第一个显存地址
+ 507   1              i2c_waik_ack();
+ 508   1              i2c_write_byte(dat);
+ 509   1              i2c_waik_ack();
+ 510   1              i2c_stop();
+ 511   1      }
+ 512          
+ 513          
+ 514          void sda_mode(unsigned char mode)
+ 515            // 1输出, 0输入
+ 516          {
+ 517   1        if(IO_MODE_IN == mode)
+ 518   1        {
+ 519   2          P2CON &= ~(1<<7);  //P27输入
+ 520   2        }
+ 521   1        else
+ 522   1        {
+ 523   2          P2CON |= (1<<7);  //P27输出
+ 524   2        }
+ 525   1      }
+ 526          
+ 527          /*
+ 528          void test_i2c(void)
+ 529          {
+ 530            unsigned short i;
+ 531            unsigned char addr;
+ 532            //delay_ms(1000);
+ 533            for(i = 0; i< 10000; i++)WDTCON  = 0x10;
+ 534            i2c_start();
+ 535            //i2c_write_byte(0x80);  //写数据命令
+ 536            i2c_write_byte(0x48);  //写数据命令
+ 537            //i2c_stop();
+ 538            i2c_waik_ack();
+ 539            
+ 540            //for(i = 0; i<60; i++) WDTCON = 0x10;
+ 541            //i2c_start();
+ 542            
+ 543            i2c_write_byte(0x05);  //7段显示, 开显示
+ 544            i2c_waik_ack();
+ 545            i2c_stop();
+ 546            
+ 547            for(i = 0; i<60; i++) WDTCON = 0x10;
+ 548            i2c_start();
+ 549            addr = 0x68;
+ 550            i2c_write_byte(addr);  //设置地址命令00
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 10  
 
- 551            i2c_write_byte(0x0f);  //写数据命令
- 552            i2c_waik_ack();
- 553            i2c_stop();
- 554          
- 555            for(i = 0; i<60; i++) WDTCON = 0x10;
- 556            i2c_start();
- 557            addr = 0x6A;
- 558            i2c_write_byte(addr);  //设置地址命令00
- 559            i2c_waik_ack();
- 560            //i2c_write_byte(0xff);  //设置数据为0
- 561            
- 562            //for(i = 0; i<4; i++)
- 563            //{
- 564              
- 565            //  i2c_write_byte(0x0f);  //写数据命令
- 566            //}
- 567            i2c_write_byte(0xaa);  //写数据命令
- 568            i2c_waik_ack();
- 569            i2c_stop(); 
- 570          }
- 571          */
- 572          void delay_us(unsigned char val)
- 573          {
- 574   1        unsigned char i;
- 575   1        for(i = 0; i < val; i++)
- 576   1        {
- 577   2          //_nop_();
- 578   2          _nop_();
- 579   2        }
- 580   1      }
- 581          
- 582          
- 583          void  i2c_waik_ack(void)
- 584          {
- 585   1         uchar EEPROM_err_count;
- 586   1         
- 587   1         //SDA_MODEL = 1; 
- 588   1         delay_us(5);
- 589   1         I2C_CLK = 1;    
- 590   1         //I2C_DIN = 1;      
- 591   1         delay_us(5); 
- 592   1         I2C_CLK = 0;
- 593   1         sda_mode(IO_MODE_IN);
- 594   1         while( 1 == I2C_DIN)
- 595   1         {
- 596   2            EEPROM_err_count++;
- 597   2            if(EEPROM_err_count>=240)
- 598   2            {
- 599   3               EEPROM_err_count=0;
- 600   3               //EEPROM_err_flag=1;
- 601   3               ION_PIN = ~ION_PIN;
- 602   3           sda_mode(IO_MODE_OUT);
- 603   3               break;
- 604   3            }
- 605   2         }     
- 606   1         //SDA_MODEL = 0;  
- 607   1         sda_mode(IO_MODE_OUT);
- 608   1         //SCL = 0; 
- 609   1         I2C_CLK = 0;
- 610   1         //Delay1us();
- 611   1         delay_us(5); 
- 612   1         //I2C_DIN = 0;
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 11  
+ 551            i2c_waik_ack();
+ 552            //i2c_write_byte(0xff);  //设置数据为0
+ 553            
+ 554            //for(i = 0; i<4; i++)
+ 555            //{
+ 556              
+ 557            //  i2c_write_byte(0x0f);  //写数据命令
+ 558            //}
+ 559            i2c_write_byte(0x0f);  //写数据命令
+ 560            i2c_waik_ack();
+ 561            i2c_stop();
+ 562          
+ 563            for(i = 0; i<60; i++) WDTCON = 0x10;
+ 564            i2c_start();
+ 565            addr = 0x6A;
+ 566            i2c_write_byte(addr);  //设置地址命令00
+ 567            i2c_waik_ack();
+ 568            //i2c_write_byte(0xff);  //设置数据为0
+ 569            
+ 570            //for(i = 0; i<4; i++)
+ 571            //{
+ 572              
+ 573            //  i2c_write_byte(0x0f);  //写数据命令
+ 574            //}
+ 575            i2c_write_byte(0xaa);  //写数据命令
+ 576            i2c_waik_ack();
+ 577            i2c_stop(); 
+ 578          }
+ 579          */
+ 580          void delay_us(unsigned char val)
+ 581          {
+ 582   1        unsigned char i;
+ 583   1        for(i = 0; i < val; i++)
+ 584   1        {
+ 585   2          //_nop_();
+ 586   2          _nop_();
+ 587   2        }
+ 588   1      }
+ 589          
+ 590          
+ 591          void  i2c_waik_ack(void)
+ 592          {
+ 593   1         uchar EEPROM_err_count;
+ 594   1         
+ 595   1         //SDA_MODEL = 1; 
+ 596   1         delay_us(5);
+ 597   1         I2C_CLK = 1;    
+ 598   1         //I2C_DIN = 1;      
+ 599   1         delay_us(5); 
+ 600   1         I2C_CLK = 0;
+ 601   1         sda_mode(IO_MODE_IN);
+ 602   1         while( 1 == I2C_DIN)
+ 603   1         {
+ 604   2            EEPROM_err_count++;
+ 605   2            if(EEPROM_err_count>=240)
+ 606   2            {
+ 607   3               EEPROM_err_count=0;
+ 608   3               //EEPROM_err_flag=1;
+ 609   3               ION_PIN = ~ION_PIN;
+ 610   3           sda_mode(IO_MODE_OUT);
+ 611   3               break;
+ 612   3            }
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 11  
 
- 613   1         //SDA = 0; 
- 614   1         
- 615   1      }
- 616          
- 617          
- 618          void i2c_write_byte(unsigned char val)
- 619            //写一个字节
- 620          {
- 621   1          unsigned char val_count;
- 622   1          unsigned char write_data;
- 623   1          write_data = val;
- 624   1          delay_us(5);
- 625   1          
- 626   1          //i2c_din_low();
- 627   1          i2c_clk_low();
- 628   1          for(val_count = 0; val_count < 8; val_count++)
- 629   1          {
- 630   2            if((write_data & 0x80) > 0)
- 631   2            {
- 632   3              
- 633   3              i2c_din_high();
- 634   3              delay_us(5);
- 635   3              i2c_clk_high();
- 636   3              delay_us(5);
- 637   3              i2c_clk_low();
- 638   3              //i2c_din_low();
- 639   3            }
- 640   2            else
- 641   2            {
- 642   3              //i2c_clk_low();
- 643   3              //i2c_delay();
- 644   3              i2c_din_low();
- 645   3              i2c_clk_high();
- 646   3              delay_us(5);
- 647   3              i2c_clk_low();
- 648   3              //i2c_din_low();
- 649   3            }
- 650   2            write_data <<= 1;
- 651   2          }
- 652   1          //i2c_stop();
- 653   1          delay_us(5);
- 654   1          
- 655   1      }
- 656          
- 657          void i2c_start(void)
- 658          {
- 659   1        i2c_din_high();
- 660   1        //delay_5us(1);
- 661   1        i2c_clk_high();
- 662   1        delay_us(5);
- 663   1        i2c_din_low();
- 664   1        delay_us(5);
- 665   1        i2c_clk_low();
- 666   1        delay_us(5);
- 667   1      }
- 668          
- 669          void i2c_stop(void)
- 670          {
+ 613   2         }     
+ 614   1         //SDA_MODEL = 0;  
+ 615   1         sda_mode(IO_MODE_OUT);
+ 616   1         //SCL = 0; 
+ 617   1         I2C_CLK = 0;
+ 618   1         //Delay1us();
+ 619   1         delay_us(5); 
+ 620   1         //I2C_DIN = 0;
+ 621   1         //SDA = 0; 
+ 622   1         
+ 623   1      }
+ 624          
+ 625          
+ 626          void i2c_write_byte(unsigned char val)
+ 627            //写一个字节
+ 628          {
+ 629   1          unsigned char val_count;
+ 630   1          unsigned char write_data;
+ 631   1          write_data = val;
+ 632   1          delay_us(5);
+ 633   1          
+ 634   1          //i2c_din_low();
+ 635   1          i2c_clk_low();
+ 636   1          for(val_count = 0; val_count < 8; val_count++)
+ 637   1          {
+ 638   2            if((write_data & 0x80) > 0)
+ 639   2            {
+ 640   3              
+ 641   3              i2c_din_high();
+ 642   3              delay_us(5);
+ 643   3              i2c_clk_high();
+ 644   3              delay_us(5);
+ 645   3              i2c_clk_low();
+ 646   3              //i2c_din_low();
+ 647   3            }
+ 648   2            else
+ 649   2            {
+ 650   3              //i2c_clk_low();
+ 651   3              //i2c_delay();
+ 652   3              i2c_din_low();
+ 653   3              i2c_clk_high();
+ 654   3              delay_us(5);
+ 655   3              i2c_clk_low();
+ 656   3              //i2c_din_low();
+ 657   3            }
+ 658   2            write_data <<= 1;
+ 659   2          }
+ 660   1          //i2c_stop();
+ 661   1          delay_us(5);
+ 662   1          
+ 663   1      }
+ 664          
+ 665          void i2c_start(void)
+ 666          {
+ 667   1        i2c_din_high();
+ 668   1        //delay_5us(1);
+ 669   1        i2c_clk_high();
+ 670   1        delay_us(5);
  671   1        i2c_din_low();
- 672   1        //delay_5us(1);
- 673   1        i2c_clk_high();
+ 672   1        delay_us(5);
+ 673   1        i2c_clk_low();
  674   1        delay_us(5);
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 22:20:23 PAGE 12  
+C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 12  
 
- 675   1        i2c_din_high();
- 676   1        delay_us(5);
- 677   1        i2c_clk_low();
- 678   1        delay_us(5);
- 679   1      }
- 680          
- 681          
- 682          void i2c_clk_high(void)
- 683          {
- 684   1        //GPIO_SetBits(GPIOB, GPIO_Pin_5);   //将LED端口拉高，熄灭所有LED  clk
- 685   1        I2C_CLK = 1;
- 686   1      }
- 687          
- 688          void i2c_clk_low(void)
- 689          {
- 690   1        //GPIO_ResetBits(GPIOB, GPIO_Pin_5);   //将LED端口拉高，熄灭所有LED  clk
- 691   1        I2C_CLK = 0;
- 692   1      }
- 693          
- 694          void i2c_din_high(void)
- 695          {
- 696   1        //GPIO_SetBits(GPIOB, GPIO_Pin_4);   //将LED端口拉高，熄灭所有LED  clk
- 697   1        I2C_DIN = 1;
- 698   1      }
- 699          
- 700          void i2c_din_low(void)
- 701          {
- 702   1        //GPIO_ResetBits(GPIOB, GPIO_Pin_4);   //将LED端口拉高，熄灭所有LED  clk
- 703   1        I2C_DIN = 0;
- 704   1      }
- 705          
- 706          
+ 675   1      }
+ 676          
+ 677          void i2c_stop(void)
+ 678          {
+ 679   1        i2c_din_low();
+ 680   1        //delay_5us(1);
+ 681   1        i2c_clk_high();
+ 682   1        delay_us(5);
+ 683   1        i2c_din_high();
+ 684   1        delay_us(5);
+ 685   1        i2c_clk_low();
+ 686   1        delay_us(5);
+ 687   1      }
+ 688          
+ 689          
+ 690          void i2c_clk_high(void)
+ 691          {
+ 692   1        //GPIO_SetBits(GPIOB, GPIO_Pin_5);   //将LED端口拉高，熄灭所有LED  clk
+ 693   1        I2C_CLK = 1;
+ 694   1      }
+ 695          
+ 696          void i2c_clk_low(void)
+ 697          {
+ 698   1        //GPIO_ResetBits(GPIOB, GPIO_Pin_5);   //将LED端口拉高，熄灭所有LED  clk
+ 699   1        I2C_CLK = 0;
+ 700   1      }
+ 701          
+ 702          void i2c_din_high(void)
+ 703          {
+ 704   1        //GPIO_SetBits(GPIOB, GPIO_Pin_4);   //将LED端口拉高，熄灭所有LED  clk
+ 705   1        I2C_DIN = 1;
+ 706   1      }
  707          
- 708          
+ 708          void i2c_din_low(void)
+ 709          {
+ 710   1        //GPIO_ResetBits(GPIOB, GPIO_Pin_4);   //将LED端口拉高，熄灭所有LED  clk
+ 711   1        I2C_DIN = 0;
+ 712   1      }
+ 713          
+ 714          
+ 715          
+ 716          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    926    ----
+   CODE SIZE        =    962    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

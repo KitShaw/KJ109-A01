@@ -427,74 +427,74 @@ void fan_level3_speed_judge(void)
 }
 
 
-void fan_pulse_count_add(void)
-{
-	fan_pulse_count++;
-}
+//void fan_pulse_count_add(void)
+//{
+//	fan_pulse_count++;
+//}
 
-void fan_pulse_count_dec(void)
-{
-	fan_pulse_count--;
-}
+//void fan_pulse_count_dec(void)
+//{
+//	fan_pulse_count--;
+//}
 
 
 
-void fan_level12_speed_judge(void)
-{
-	if(fan_return_pulse_count<(FAN_LEVEL12_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
-    {
-    	if(fan_return_pulse_count <(FAN_LEVEL12_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
-    	{
-    		fan_pulse_count += 20;
-    	}
-		else if(fan_return_pulse_count<(FAN_LEVEL12_PULSE_COUNT-CORRECTION_FACTOR_BIG))
-		{
-			fan_judge += FAN_MUST_JUDGE_VALUE;
-		}
-    	else fan_judge++;			
-	} 
-	else
-    {
-    	if(fan_return_pulse_count >(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
-    	{
-    		fan_pulse_count -= 20;
-    	}
-		else if(fan_return_pulse_count>(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR))
-    	{
-    		if(fan_return_pulse_count>(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
-			else fan_judge--;
-    	}
-		else fan_judge = FAN_AUDGE_INIT;			
-	 } 
-}
-void fan_level23_speed_judge(void)
-{
-	if(fan_return_pulse_count<(FAN_LEVEL23_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
-    {
-    	if(fan_return_pulse_count <(FAN_LEVEL23_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
-    	{
-    		fan_pulse_count += 20;
-    	}
-		else if(fan_return_pulse_count<(FAN_LEVEL23_PULSE_COUNT-CORRECTION_FACTOR_BIG))
-		{
-			fan_judge += FAN_MUST_JUDGE_VALUE;
-		}
-    	else fan_judge++;			
-	} 
-	else
-    {
-    	if(fan_return_pulse_count >(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
-    	{
-    		fan_pulse_count -= 20;
-    	}
-		else if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR))
-    	{
-    		if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
-			else fan_judge--;
-    	}
-		else fan_judge = FAN_AUDGE_INIT;			
-	 } 
-}
+//void fan_level12_speed_judge(void)
+//{
+//	if(fan_return_pulse_count<(FAN_LEVEL12_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+//    {
+//    	if(fan_return_pulse_count <(FAN_LEVEL12_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+//    	{
+//    		fan_pulse_count += 20;
+//    	}
+//		else if(fan_return_pulse_count<(FAN_LEVEL12_PULSE_COUNT-CORRECTION_FACTOR_BIG))
+//		{
+//			fan_judge += FAN_MUST_JUDGE_VALUE;
+//		}
+//    	else fan_judge++;			
+//	} 
+//	else
+//    {
+//    	if(fan_return_pulse_count >(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+//    	{
+//    		fan_pulse_count -= 20;
+//    	}
+//		else if(fan_return_pulse_count>(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR))
+//    	{
+//    		if(fan_return_pulse_count>(FAN_LEVEL12_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+//			else fan_judge--;
+//    	}
+//		else fan_judge = FAN_AUDGE_INIT;			
+//	 } 
+//}
+//void fan_level23_speed_judge(void)
+//{
+//	if(fan_return_pulse_count<(FAN_LEVEL23_PULSE_COUNT-CORRECTION_FACTOR))  //每0.5s计算一次电机的脉冲数， 没达到要求的转速就调整脉冲数
+//    {
+//    	if(fan_return_pulse_count <(FAN_LEVEL23_PULSE_COUNT - CORRECTION_FACTOR_BIGGEST))
+//    	{
+//    		fan_pulse_count += 20;
+//    	}
+//		else if(fan_return_pulse_count<(FAN_LEVEL23_PULSE_COUNT-CORRECTION_FACTOR_BIG))
+//		{
+//			fan_judge += FAN_MUST_JUDGE_VALUE;
+//		}
+//    	else fan_judge++;			
+//	} 
+//	else
+//    {
+//    	if(fan_return_pulse_count >(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR_BIGGEST))
+//    	{
+//    		fan_pulse_count -= 20;
+//    	}
+//		else if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR))
+//    	{
+//    		if(fan_return_pulse_count>(FAN_LEVEL23_PULSE_COUNT + CORRECTION_FACTOR_BIG)) fan_judge -= FAN_MUST_JUDGE_VALUE;
+//			else fan_judge--;
+//    	}
+//		else fan_judge = FAN_AUDGE_INIT;			
+//	 } 
+//}
 
 
 

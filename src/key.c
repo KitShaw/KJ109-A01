@@ -32,8 +32,10 @@ bitval key_flag2;
 
 #define KEY_POWER_SPEED_FLAG2 key_flag2.bit0 
 #define KEY_POWER_SHORT_FLAG key_flag2.bit1
+#define KEY_SPEED_TIMER_FLAG key_flag2.bit2
 //按下电源和风速键后要等2个按键都释放在复位此位
 
+unsigned short key_speed_timer_count;
 unsigned short key_power_count;
 unsigned short key_speed_count;
 unsigned short key_lock_count;
@@ -41,6 +43,7 @@ unsigned short key_ion_count;
 unsigned short key_timer_count;
 unsigned short key_arom_count;
 unsigned short key_power_speed_count;
+unsigned short power_up_20s_count;  //上电20s计数, 20秒内可以查看版本号
 
 unsigned long xdata key_no_move_count;      //按键没要按下计数, 如果一分钟没有动作,童锁就锁住
 
@@ -69,6 +72,19 @@ void key_init(void)
 {
 	LOCK_FLAG = 0;  
 	reset_key_no_move_count();
+	//KEY_AROM_SPEED_TIMER_FLAG = 0;
+	KEY_POWER_FLAG = 0;
+	KEY_AROM_FLAG = 0;
+	KEY_SPEED_FLAG = 0;
+	KEY_LOCK_FLAG = 0;
+	LOCK_FLAG = 0;            //童锁解锁标志, 0解锁, 1锁住
+	KEY_ION_FLAG = 0;
+	KEY_TIMER_FLAG = 0;
+	KEY_POWER_SPEED_FLAG = 0;
+	KEY_POWER_SPEED_FLAG2  = 0;
+	KEY_POWER_SHORT_FLAG = 0;
+	KEY_SPEED_TIMER_FLAG = 0;
+	power_up_20s_count = 0;
 }
 
 void reset_key_no_move_count(void)
@@ -96,6 +112,7 @@ void key_task(void)
 		//reset_key_no_move_count();
 		if(POWER_ON_STATUS == read_power_status())key_no_move_count++;
 	}
+	
 
 	
 
@@ -128,12 +145,26 @@ void key_task(void)
 		
 	}
 	
+	if(power_up_20s_count < 20000) power_up_20s_count++;
 	
-	
-	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000180) && (0 == LOCK_FLAG)
-		&& (0 ==KEY_AROM_FLAG) && (0 == KEY_ION_FLAG) && (0 == KEY_TIMER_FLAG)
-		&& (0 == KEY_LOCK_FLAG))
+	if(read_power_status() == POWER_OFF_STATUS)
+	{
+		if((exKeyValueFlag & 0x0000031e0) == 0x0000000a0)  //80(s 2000a 20t
+		{
+			if(0 == KEY_SPEED_TIMER_FLAG)
+			{
+				if(++key_speed_timer_count >= 15000)
+					//显示软件版本号
+				{
+					KEY_SPEED_TIMER_FLAG = 1;
+					led_display_version();
+				}
+			}
+			
+		}
+		return; //关机状态直接返回
+	}
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000180) && (0 == LOCK_FLAG))
 	//风速加电源按键
 	{
 		if(0 == KEY_POWER_SPEED_FLAG)
