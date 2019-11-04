@@ -1,0 +1,29 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+E:\project\ldc\code\KJ109-101\KJ109-101.uvproj
+Project File Date:  11/04/2019
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling key.c...
+linking...
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_PULSE_COUNT_ADD?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_PULSE_COUNT_DEC?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_LEVEL12_SPEED_JUDGE?FAN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FAN_LEVEL23_SPEED_JUDGE?FAN
+Program Size: data=106.4 xdata=174 code=8960
+creating hex file from ".\obj\KJ109-A01发固定脉冲"...
+".\obj\KJ109-A01发固定脉冲" - 0 Error(s), 4 Warning(s).
+Load "E:\\project\\ldc\\code\\KJ109-101\\obj\\KJ109-A01发固定脉冲" 
+仿真器已连接.
+擦除成功!
+Flash Write Done: 9198 bytes programmed.
+CheckSum = 0xb58c
+Flash Verify Done: 9200 bytes verified.

@@ -30,7 +30,8 @@ bitval key_flag2;
 #define KEY_TIMER_FLAG key_flag.bit5
 #define KEY_POWER_SPEED_FLAG key_flag.bit7
 
-#define KEY_POWER_SPEED_FLAG2 key_flag2.bit0   
+#define KEY_POWER_SPEED_FLAG2 key_flag2.bit0 
+#define KEY_POWER_SHORT_FLAG key_flag2.bit1
 //按下电源和风速键后要等2个按键都释放在复位此位
 
 unsigned short key_power_count;
@@ -112,13 +113,16 @@ void key_task(void)
 	}
 	else 
 	{
-		if((exKeyValueFlag & 0x0000031e0) != 0x000000180) 
+		//if((exKeyValueFlag & 0x0000031e0) != 0x000000180) 
+		if((exKeyValueFlag & 0x0000031e0) == 0) 
 		{
-		if((key_power_count>50) && (key_power_count< 5000))
-		{
-			key_power_com();
+			if((key_power_count>50) && (key_power_count< 5000) )//&& ( 0 == KEY_POWER_SHORT_FLAG))
+			{
+				//KEY_POWER_SHORT_FLAG = 1;
+				key_power_com();
+			}
 		}
-		}
+		//if((exKeyValueFlag & 0x0000031e0) == 0x000000000) KEY_POWER_SHORT_FLAG = 0;
 		KEY_POWER_FLAG = 0;
 		key_power_count = 0;
 		
@@ -127,7 +131,9 @@ void key_task(void)
 	
 	
 	if(read_power_status() == POWER_OFF_STATUS)return; //关机状态直接返回
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000180) && (0 == LOCK_FLAG))
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000180) && (0 == LOCK_FLAG)
+		&& (0 ==KEY_AROM_FLAG) && (0 == KEY_ION_FLAG) && (0 == KEY_TIMER_FLAG)
+		&& (0 == KEY_LOCK_FLAG))
 	//风速加电源按键
 	{
 		if(0 == KEY_POWER_SPEED_FLAG)
@@ -148,7 +154,7 @@ void key_task(void)
 	}
 	
 	if(((exKeyValueFlag & 0x0000031e0) == 0x000000080)&& (0 == KEY_POWER_SPEED_FLAG2)
-		&& (0 == LOCK_FLAG))//风速键 
+		&& (0 == LOCK_FLAG) )//风速键 
 	{
 		if(0 == KEY_SPEED_FLAG)
 		{
@@ -161,12 +167,11 @@ void key_task(void)
 	}
 	else 
 	{
-//		if((key_speed_count>5) && (key_speed_count< 5000))
-//		{
-//			key_speed_com();
-//		}
-		KEY_SPEED_FLAG = 0;
-		key_speed_count = 0;
+		if((exKeyValueFlag & 0x000000080) == 0)
+		{
+			KEY_SPEED_FLAG = 0;
+			key_speed_count = 0;
+		}
 	}
 	
 	if(((exKeyValueFlag & 0x0000031e0) == 0x000001000) && (0 == LOCK_FLAG))//ion
@@ -182,8 +187,11 @@ void key_task(void)
 	}
 	else 
 	{
-		KEY_ION_FLAG = 0;
-		key_ion_count = 0;
+		if((exKeyValueFlag & 0x000001000) == 0)
+		{
+			KEY_ION_FLAG = 0;
+			key_ion_count = 0;
+		}
 	}
 	
 	if(((exKeyValueFlag & 0x0000031e0) == 0x000002000) && (0 == LOCK_FLAG))//arom
@@ -199,8 +207,11 @@ void key_task(void)
 	}
 	else 
 	{
-		KEY_AROM_FLAG = 0;
-		key_arom_count = 0;
+		if((exKeyValueFlag & 0x000002000) == 0)
+		{
+			KEY_AROM_FLAG = 0;
+			key_arom_count = 0;
+		}
 	}
 		
 	if((exKeyValueFlag & 0x0000031e0) == 0x000000040)//
@@ -217,8 +228,11 @@ void key_task(void)
 	}
 	else 
 	{
-		KEY_LOCK_FLAG = 0;
-		key_lock_count = 0;
+		if((exKeyValueFlag & 0x000000040) == 0x000000000)
+		{
+			KEY_LOCK_FLAG = 0;
+			key_lock_count = 0;
+		}
 	}
 	if(((exKeyValueFlag & 0x0000031e0) == 0x000000020) && (0 == LOCK_FLAG))//
 	{
@@ -233,8 +247,11 @@ void key_task(void)
 	}
 	else 
 	{
-		KEY_TIMER_FLAG = 0;
-		key_timer_count = 0;
+		if((exKeyValueFlag & 0x000000020) == 0x000000000)
+		{
+			KEY_TIMER_FLAG = 0;
+			key_timer_count = 0;
+		}
 	}
 }
 

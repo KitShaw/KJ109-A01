@@ -63,17 +63,15 @@ void led_init(void)
 	P2CON |= 0x7f; //P2 out.
 	LED_RED = 1;
 	LED_GREEN = 1;
-	LED_BLUE = 0;
+	LED_BLUE = 1;
 
 	P3CON |= (1<<3) | (1<<4) | (1<<5) | (1<<6) | (1<<7); //P33, 34,35,35,37 out.
 
 	P4CON |= (1<<0) | (1<<1) | (1<<6) | (1<<7);
 	P0CON |= (1<<1) | (1<<5) | (1<<6);// | (1<<6) | (1<<7);
 	P1CON |= (1<<6) | (1<<7);
-
-	i2c_init();
 	led_off();
-	
+	i2c_init();
 }
 
 void led_task(void)
