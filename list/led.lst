@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 1   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE LED
@@ -62,7 +62,7 @@ line level    source
   52                          0xff,//0x5C,  //"o"
   53                          0xff,//0x40,  //"-"
   54                          0xff,//0x00,  //??
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 2   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 2   
 
   55                              };
   56          */
@@ -126,7 +126,7 @@ line level    source
  114          void led_key_power(void)
  115          //10ms调用一次
  116          {
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 3   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 3   
 
  117   1        if(read_power_status() == POWER_OFF_STATUS)
  118   1        //关机是才呼吸灯
@@ -190,7 +190,7 @@ line level    source
  176   1        LEDRAM[14] &= ~0x18;  //0x10 - 中, 0x08 - 2H  
  177   1        //0x80 - 数码管百位的小数点,  0x40 十位, 0x20 个位
  178   1        LEDRAM[15] &= ~0xf8;  //0x10 - 低, 0x08 - 1H
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 4   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 4   
 
  179   1        //数码管g段
  180   1        LEDRAM[16] &= ~0xf0;  //0x10 - ION图标, 0x08香薰按键,   
@@ -254,7 +254,7 @@ line level    source
  238   1        LED_KEY_ION  = 0;
  239   1        LED_KEY_AROM  = 0;
  240   1      }
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 5   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 5   
 
  241          
  242          
@@ -318,7 +318,7 @@ line level    source
  300   2          break;
  301   2          default:
  302   2            LED_TIMER_1H = LED_OFF;
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 6   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 6   
 
  303   2            LED_TIMER_2H = LED_OFF;
  304   2            LED_TIMER_4H = LED_OFF;
@@ -382,7 +382,7 @@ line level    source
  362   2          */
  363   2          case DUST_LEVEL_BAD:
  364   2            LED_GREEN = 1;
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 7   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 7   
 
  365   2            LED_BLUE = 1;
  366   2            LED_RED = 0;
@@ -446,7 +446,7 @@ line level    source
  424   2          break;
  425   2          case FAN_SPEED_HIGH:
  426   2            LED_SPEED_AUTO = LED_OFF;
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 8   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 8   
 
  427   2            LED_SPEED_LOW = LED_OFF;
  428   2            LED_SPEED_MIDDLE= LED_OFF;
@@ -510,7 +510,7 @@ line level    source
  486          void i2c_init(void)
  487          {
  488   1        unsigned int i;
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 9   
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 9   
 
  489   1        P0CON |= (1<<0);  //P00输出
  490   1        P2CON |= (1<<7);  //P27输出
@@ -574,7 +574,7 @@ line level    source
  548            i2c_start();
  549            addr = 0x68;
  550            i2c_write_byte(addr);  //设置地址命令00
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 10  
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 10  
 
  551            i2c_waik_ack();
  552            //i2c_write_byte(0xff);  //设置数据为0
@@ -638,7 +638,7 @@ line level    source
  610   3           sda_mode(IO_MODE_OUT);
  611   3               break;
  612   3            }
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 11  
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 11  
 
  613   2         }     
  614   1         //SDA_MODEL = 0;  
@@ -702,7 +702,7 @@ line level    source
  672   1        delay_us(5);
  673   1        i2c_clk_low();
  674   1        delay_us(5);
-C51 COMPILER V9.52.0.0   LED                                                               11/04/2019 23:23:20 PAGE 12  
+C51 COMPILER V9.52.0.0   LED                                                               11/23/2019 21:07:51 PAGE 12  
 
  675   1      }
  676          

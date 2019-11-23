@@ -12,6 +12,7 @@
 void ion_init(void)
 {
 	P4CON |= 1<<5;  //P45输出模式
+	//P4PH |= 1<<5;  //上拉
 	ion_off();
 }
 
