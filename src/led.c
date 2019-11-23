@@ -606,7 +606,7 @@ void  i2c_waik_ack(void)
       {
          EEPROM_err_count=0;
          //EEPROM_err_flag=1;
-         ION_PIN = ~ION_PIN;
+//         ION_PIN = ~ION_PIN;
 		 sda_mode(IO_MODE_OUT);
          break;
       }
