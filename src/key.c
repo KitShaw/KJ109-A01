@@ -249,7 +249,7 @@ void key_task(void)
 	{
 		if(0 == KEY_LOCK_FLAG)
 		{
-			if(++key_lock_count >= 5000)
+			if(++key_lock_count >= 3000)
 			{
 				KEY_LOCK_FLAG = 1;
 				//set_beep_count(10);

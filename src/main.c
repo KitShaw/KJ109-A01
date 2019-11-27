@@ -242,7 +242,7 @@ void main(void)
 			if(1 == task_1s_flag) {task_1s_flag = 0; task_1s();}
 			fan_handle();
 
-			I2C_CLK = ~I2C_CLK;
+			//I2C_CLK = ~I2C_CLK;
 	} 
 }
 
