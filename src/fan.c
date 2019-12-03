@@ -17,6 +17,7 @@
 #include "timing_off.h"
 #include "key.h"
 #include "eeprom.h"
+#include "beep.h"
 
 //unsigned int xdata PWMRD_40  _at_  0x740;
 //unsigned int xdata PWMRD_41  _at_  0x742;
@@ -42,12 +43,39 @@ unsigned char fan_init_speed;
 
 unsigned char fan_regulate_flag;  // 1要调整了, 0不调整
 
+//unsigned char init_up_power_status;  //上电时的初始状态, 0xaa为上电后是开机状态, 其他为关机状态
+
 /*
 void set_power_status(unsigned char sta)
 {
 	power_status = sta;
 }
 */
+
+//unsigned char read_power_up_init_status(void)
+//{
+//	return power_up_init_status;
+//}
+
+unsigned char read_init_up_power_status_from_eeprom(void)
+{
+	return eeprom_read_byte(21);
+}
+
+void chang_init_up_power(void) //改变上电初始状态
+{
+	//init_up_power_status = read_init_up_power_status_from_eeprom();
+	if(read_init_up_power_status_from_eeprom() == 0xaa)
+	{
+		eeprom_write_byte(21, 0x55);	
+		if(read_init_up_power_status_from_eeprom() == 0x55) set_beep_count(10);
+	}
+	else
+	{
+		eeprom_write_byte(21, 0xaa);
+		if(read_init_up_power_status_from_eeprom() == 0xaa) set_beep_count(10);
+	}
+}
 unsigned char read_power_status(void)
 {
 	return power_status;

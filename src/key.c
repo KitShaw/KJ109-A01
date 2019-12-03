@@ -33,8 +33,11 @@ bitval key_flag2;
 #define KEY_POWER_SPEED_FLAG2 key_flag2.bit0 
 #define KEY_POWER_SHORT_FLAG key_flag2.bit1
 #define KEY_SPEED_TIMER_FLAG key_flag2.bit2
+#define KEY_SPEED_AROM_FLAG key_flag2.bit3
+
 //按下电源和风速键后要等2个按键都释放在复位此位
 
+unsigned short key_speed_arom_count;
 unsigned short key_speed_timer_count;
 unsigned short key_power_count;
 unsigned short key_speed_count;
@@ -149,7 +152,25 @@ void key_task(void)
 	
 	if(read_power_status() == POWER_OFF_STATUS)
 	{
-		if((exKeyValueFlag & 0x0000031e0) == 0x0000000a0)  //80(s 2000a 20t
+		if(((exKeyValueFlag & 0x0000031e0) == 0x0000002080) )  //80(s 2000a 20t
+		{
+			if(0 == KEY_SPEED_AROM_FLAG)
+			{
+				if(++key_speed_arom_count >= 5000)
+					//显示软件版本号
+				{
+					KEY_SPEED_AROM_FLAG = 1;
+					chang_init_up_power();  //改变上电初始状态
+				}
+			}			
+		}
+		else
+		{
+			key_speed_arom_count = 0;
+			KEY_SPEED_AROM_FLAG = 0;
+		}
+
+		if(((exKeyValueFlag & 0x0000031e0) == 0x0000000a0) && (power_up_20s_count<20000))  //80(s 2000a 20t
 		{
 			if(0 == KEY_SPEED_TIMER_FLAG)
 			{
@@ -162,6 +183,7 @@ void key_task(void)
 			}
 			
 		}
+		
 		return; //关机状态直接返回
 	}
 	if(((exKeyValueFlag & 0x0000031e0) == 0x000000180) && (0 == LOCK_FLAG))

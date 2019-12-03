@@ -61,6 +61,10 @@ void fan_init(void);
 unsigned char read_fan_speed(void);
 void power_off(void);
 void power_on(void);
+void chang_init_up_power(void);  //改变上电初始状态
+unsigned char read_init_up_power_status_from_eeprom(void);
+
+
 void set_power_status(unsigned char sta);
 unsigned char read_power_status(void);
 void fan_pwm_start(void);

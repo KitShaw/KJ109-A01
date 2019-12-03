@@ -12,14 +12,14 @@
       <ToolsetName>MCS-51</ToolsetName>
       <TargetOption>
         <TargetCommonOption>
-          <Device>SC92F8447</Device>
+          <Device>SC92F8447B</Device>
           <Vendor>SC92Fxx Series</Vendor>
           <Cpu>IRAM(0-0xFF) IROM(0-0x3FFF)  XRAM(0-0x6FF) CLOCK(16000000)</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile>"LIB\STARTUP.A51" ("Standard 8051 Startup Code")</StartupFile>
           <FlashDriverDll></FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>SC92F844X.H</RegisterFile>
+          <RegisterFile>SC92F844xB.H</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>

@@ -181,8 +181,9 @@ void  Sys_Init(void)
 		WDTCON  = 0x10;
 	}
 //	test_i2c();
-	power_off();
-	//power_on();
+	if(read_init_up_power_status_from_eeprom() == 0xaa)power_on();
+	else power_off();
+	
 }
 void task_1ms(void)
 {

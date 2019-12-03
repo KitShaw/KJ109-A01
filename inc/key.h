@@ -22,6 +22,4 @@ void reset_lock_flag(void);
 void key_power_speed_com(void);
 
 
-
-
 #endif
