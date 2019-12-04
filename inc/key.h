@@ -20,6 +20,10 @@ unsigned char read_lock_flag(void);
 void reset_key_no_move_count(void);
 void reset_lock_flag(void);
 void key_power_speed_com(void);
+void key_power_arom_com(void);
+void key_power_ion_com(void);
+
+
 
 
 #endif

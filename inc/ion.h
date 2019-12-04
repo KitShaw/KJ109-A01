@@ -13,6 +13,8 @@
  void ion_init(void);
  void ion_on(void);
  void ion_off(void);
+ unsigned char read_ion_init_status(void);
+ void write_ion_to_eeprom(void);
  
  #endif  //__ION_H_
  

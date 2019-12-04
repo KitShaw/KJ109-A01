@@ -530,12 +530,15 @@ void power_on(void)
 {
 	power_status = POWER_ON_STATUS;
 	led_on();  //¿ªÏÔÊ¾
-	ion_on();
+	if(read_ion_init_status() == 0xaa) ion_off();
+	else ion_on();
 	//arom_on();
+	set_arom_level(read_arom_level_form_eeprom());
 	fan_pwm_start();
 	DUST_PWR_PIN = 0;
 	reset_key_no_move_count();
-	fan_speed = fan_init_speed;;
+	fan_speed = fan_init_speed;
+	
 	led_key_on();
 	//fan_pulse_count = FAN_LEVEL2_PULSE;
 }

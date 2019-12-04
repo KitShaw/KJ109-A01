@@ -17,6 +17,8 @@
  void regulate_arom_level(void);
  unsigned char read_arom_level(void);
  void set_arom_level(unsigned char level);
+ void write_arom_level_to_eeprom(void);
+ unsigned char read_arom_level_form_eeprom(void);
  
  #endif  //__ION_H_
  

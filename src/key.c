@@ -34,6 +34,13 @@ bitval key_flag2;
 #define KEY_POWER_SHORT_FLAG key_flag2.bit1
 #define KEY_SPEED_TIMER_FLAG key_flag2.bit2
 #define KEY_SPEED_AROM_FLAG key_flag2.bit3
+#define KEY_POWER_AROM_FLAG key_flag2.bit4
+#define KEY_POWER_AROM_FLAG2 key_flag2.bit5
+#define KEY_POWER_ION_FLAG key_flag2.bit6
+#define KEY_POWER_ION_FLAG2 key_flag2.bit7
+
+
+
 
 //按下电源和风速键后要等2个按键都释放在复位此位
 
@@ -46,6 +53,8 @@ unsigned short key_ion_count;
 unsigned short key_timer_count;
 unsigned short key_arom_count;
 unsigned short key_power_speed_count;
+unsigned short key_power_ion_count;
+unsigned short key_power_arom_count;
 unsigned short power_up_20s_count;  //上电20s计数, 20秒内可以查看版本号
 
 unsigned long xdata key_no_move_count;      //按键没要按下计数, 如果一分钟没有动作,童锁就锁住
@@ -119,8 +128,8 @@ void key_task(void)
 
 	
 
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000000100) && (0 == KEY_POWER_SPEED_FLAG2)
-		&& (0 == LOCK_FLAG))//电源键  //灵敏度不够
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000000100) && (0 == KEY_POWER_SPEED_FLAG2)		
+		&& (0 == KEY_POWER_ION_FLAG2) && (0 == KEY_POWER_AROM_FLAG2) && (0 == LOCK_FLAG))//电源键  //灵敏度不够
 	{
 		if(0 == KEY_POWER_FLAG)
 		{			
@@ -144,8 +153,7 @@ void key_task(void)
 		}
 		//if((exKeyValueFlag & 0x0000031e0) == 0x000000000) KEY_POWER_SHORT_FLAG = 0;
 		KEY_POWER_FLAG = 0;
-		key_power_count = 0;
-		
+		key_power_count = 0;		
 	}
 	
 	if(power_up_20s_count < 20000) power_up_20s_count++;
@@ -205,6 +213,8 @@ void key_task(void)
 		KEY_POWER_SPEED_FLAG = 0;
 		key_power_speed_count = 0;
 	}
+
+	
 	
 	if(((exKeyValueFlag & 0x0000031e0) == 0x000000080)&& (0 == KEY_POWER_SPEED_FLAG2)
 		&& (0 == LOCK_FLAG) )//风速键 
@@ -226,8 +236,31 @@ void key_task(void)
 			key_speed_count = 0;
 		}
 	}
+
+	if(((exKeyValueFlag & 0x0000031e0) == 0x0000001100) && (0 == LOCK_FLAG))
+	//电源按键加负离子
+	{
+		if(0 == KEY_POWER_ION_FLAG)
+		{			
+			if(++key_power_ion_count >= 50)
+			{
+				KEY_POWER_ION_FLAG = 1;	
+				KEY_POWER_ION_FLAG2 = 1;
+				write_ion_to_eeprom();
+				set_beep_count(10);
+				//key_power_speed_com();
+			}
+		}
+	}
+	else 
+	{		
+		if(((exKeyValueFlag & 0x0000001100) == 0)) KEY_POWER_ION_FLAG2 = 0;
+		KEY_POWER_ION_FLAG = 0;
+		key_power_ion_count = 0;
+	}
 	
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000001000) && (0 == LOCK_FLAG))//ion
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000001000) && (0 == KEY_POWER_ION_FLAG2)
+		&& (0 == LOCK_FLAG))//ion
 	{
 		if(0 == KEY_ION_FLAG)
 		{
@@ -246,8 +279,31 @@ void key_task(void)
 			key_ion_count = 0;
 		}
 	}
+
+
+	if(((exKeyValueFlag & 0x0000031e0) == 0x0000002100) && (0 == LOCK_FLAG))
+	//电源按键加香薰
+	{
+		if(0 == KEY_POWER_AROM_FLAG)
+		{			
+			if(++key_power_arom_count >= 50)
+			{
+				KEY_POWER_AROM_FLAG = 1;	
+				KEY_POWER_AROM_FLAG2 = 1;
+				//write_ion_to_eeprom();				
+				key_power_arom_com();
+			}
+		}
+	}
+	else 
+	{		
+		if(((exKeyValueFlag & 0x0000002100) == 0)) KEY_POWER_AROM_FLAG2 = 0;
+		KEY_POWER_AROM_FLAG = 0;
+		key_power_arom_count = 0;
+	}
 	
-	if(((exKeyValueFlag & 0x0000031e0) == 0x000002000) && (0 == LOCK_FLAG))//arom
+	if(((exKeyValueFlag & 0x0000031e0) == 0x000002000) && (0 == KEY_POWER_AROM_FLAG2)
+		&& (0 == LOCK_FLAG))//arom
 	{
 		if(0 == KEY_AROM_FLAG)
 		{
@@ -339,6 +395,13 @@ void key_power_speed_com(void)
 {
 	regulate_fan_speed();//速度加1
 	write_speed_to_eeprom();//写入eeprom
+	set_beep_count(10);
+}
+
+void key_power_arom_com(void)
+{
+	regulate_arom_level();
+	write_arom_level_to_eeprom();
 	set_beep_count(10);
 }
 

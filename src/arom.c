@@ -7,15 +7,38 @@
  
 #include "SC92F844X_C.h"
 #include "arom.h"
+#include "eeprom.h"
 
+unsigned char arom_init_speed;
 unsigned char arom_level;  
 unsigned int arom_work_count;
 void arom_init(void)
 {
 	P5CON |= 1<<5;  //P55输出模式
 	arom_off();
-	arom_level = 0;
+	arom_level = read_arom_level_form_eeprom();
 }
+
+
+void write_arom_level_to_eeprom(void)
+{
+	WDTCON = 0x10;
+	eeprom_write_byte(26, arom_level);
+	arom_init_speed = arom_level;
+}
+
+
+
+
+unsigned char read_arom_level_form_eeprom(void)
+{
+	unsigned char tmp;
+	WDTCON = 0x10;
+	tmp = eeprom_read_byte(26);
+	if((tmp == 1) || (tmp==2) || (tmp == 3))return tmp;
+	else return 0;
+}
+
 
 void arom_task(void)
 	// 1s掉用一次

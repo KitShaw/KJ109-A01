@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   AROM                                                              11/01/2019 20:20:50 PAGE 1   
+C51 COMPILER V9.52.0.0   AROM                                                              12/04/2019 21:08:42 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE AROM
@@ -17,84 +17,107 @@ line level    source
    7           
    8          #include "SC92F844X_C.h"
    9          #include "arom.h"
-  10          
-  11          unsigned char arom_level;  
-  12          unsigned int arom_work_count;
-  13          void arom_init(void)
-  14          {
-  15   1        P5CON |= 1<<5;  //P55输出模式
-  16   1        arom_off();
-  17   1        arom_level = 0;
-  18   1      }
-  19          
-  20          void arom_task(void)
-  21            // 1s掉用一次
-  22            // low 工作1分钟停12分钟
-  23            // mid 工作1分钟停8分钟
-  24            // high 工作1分钟停4分钟
-  25          {
-  26   1        switch(arom_level)
-  27   1        {
-  28   2          case 1://低档工作10分钟停10分钟
-  29   2           if(arom_work_count == 0)arom_on();
-  30   2           if(arom_work_count == 60)arom_off();
-  31   2           if(++arom_work_count>=780) arom_work_count = 0;
-  32   2          break;
-  33   2          case 2://中档 : 工作30分钟停10分钟
-  34   2            if(arom_work_count == 0)arom_on();
-  35   2            if(arom_work_count == 60)arom_off();
-  36   2            if(++arom_work_count>=540) arom_work_count = 0;
-  37   2          break;
-  38   2          case 3://高档: 连续工作
-  39   2            if(arom_work_count == 0)arom_on();
-  40   2            if(arom_work_count == 60)arom_off();
-  41   2            if(++arom_work_count>=300) arom_work_count = 0;
-  42   2          break;
-  43   2          default:
-  44   2            arom_off();
-  45   2          break;
-  46   2        }
-  47   1      }
-  48          
-  49          void arom_on(void)
-  50          {
-  51   1        AROM_PIN = 1;
-  52   1      }
-  53          
-  54          void arom_off(void)
-C51 COMPILER V9.52.0.0   AROM                                                              11/01/2019 20:20:50 PAGE 2   
+  10          #include "eeprom.h"
+  11          
+  12          unsigned char arom_init_speed;
+  13          unsigned char arom_level;  
+  14          unsigned int arom_work_count;
+  15          void arom_init(void)
+  16          {
+  17   1        P5CON |= 1<<5;  //P55输出模式
+  18   1        arom_off();
+  19   1        arom_level = read_arom_level_form_eeprom();
+  20   1      }
+  21          
+  22          
+  23          void write_arom_level_to_eeprom(void)
+  24          {
+  25   1        WDTCON = 0x10;
+  26   1        eeprom_write_byte(26, arom_level);
+  27   1        arom_init_speed = arom_level;
+  28   1      }
+  29          
+  30          
+  31          
+  32          
+  33          unsigned char read_arom_level_form_eeprom(void)
+  34          {
+  35   1        unsigned char tmp;
+  36   1        WDTCON = 0x10;
+  37   1        tmp = eeprom_read_byte(26);
+  38   1        if((tmp == 1) || (tmp==2) || (tmp == 3))return tmp;
+  39   1        else return 0;
+  40   1      }
+  41          
+  42          
+  43          void arom_task(void)
+  44            // 1s掉用一次
+  45            // low 工作1分钟停12分钟
+  46            // mid 工作1分钟停8分钟
+  47            // high 工作1分钟停4分钟
+  48          {
+  49   1        switch(arom_level)
+  50   1        {
+  51   2          case 1://低档工作10分钟停10分钟
+  52   2           if(arom_work_count == 0)arom_on();
+  53   2           if(arom_work_count == 60)arom_off();
+  54   2           if(++arom_work_count>=780) arom_work_count = 0;
+C51 COMPILER V9.52.0.0   AROM                                                              12/04/2019 21:08:42 PAGE 2   
 
-  55          {
-  56   1        AROM_PIN = 0;
-  57   1      }
-  58          
-  59          void regulate_arom_level(void)
-  60          //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
-  61          {
-  62   1        if(++arom_level> 3) arom_level = 0; 
-  63   1        arom_work_count = 0;
-  64   1      }
-  65          
-  66          void set_arom_level(unsigned char level)
-  67          {
-  68   1        arom_level = level;
-  69   1      }
-  70          
-  71          unsigned char read_arom_level(void)
-  72          {
-  73   1        return arom_level;
-  74   1      }
-  75          
+  55   2          break;
+  56   2          case 2://中档 : 工作30分钟停10分钟
+  57   2            if(arom_work_count == 0)arom_on();
+  58   2            if(arom_work_count == 60)arom_off();
+  59   2            if(++arom_work_count>=540) arom_work_count = 0;
+  60   2          break;
+  61   2          case 3://高档: 连续工作
+  62   2            if(arom_work_count == 0)arom_on();
+  63   2            if(arom_work_count == 60)arom_off();
+  64   2            if(++arom_work_count>=300) arom_work_count = 0;
+  65   2          break;
+  66   2          default:
+  67   2            arom_off();
+  68   2          break;
+  69   2        }
+  70   1      }
+  71          
+  72          void arom_on(void)
+  73          {
+  74   1        AROM_PIN = 1;
+  75   1      }
   76          
-  77          
+  77          void arom_off(void)
+  78          {
+  79   1        AROM_PIN = 0;
+  80   1      }
+  81          
+  82          void regulate_arom_level(void)
+  83          //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
+  84          {
+  85   1        if(++arom_level> 3) arom_level = 0; 
+  86   1        arom_work_count = 0;
+  87   1      }
+  88          
+  89          void set_arom_level(unsigned char level)
+  90          {
+  91   1        arom_level = level;
+  92   1      }
+  93          
+  94          unsigned char read_arom_level(void)
+  95          {
+  96   1        return arom_level;
+  97   1      }
+  98          
+  99          
+ 100          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    178    ----
+   CODE SIZE        =    219    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =      3    ----
+   DATA SIZE        =      4    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.

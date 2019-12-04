@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              12/03/2019 23:44:18 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              12/04/2019 21:12:59 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   52          void timer1_start(void);
   53          
   54          
-C51 COMPILER V9.52.0.0   MAIN                                                              12/03/2019 23:44:18 PAGE 2   
+C51 COMPILER V9.52.0.0   MAIN                                                              12/04/2019 21:12:59 PAGE 2   
 
   55          
   56          
@@ -126,7 +126,7 @@ line level    source
  114   1          DUST_PIN = 0; 
  115   1          dust_count = 0;
  116   1          timer1_start();   
-C51 COMPILER V9.52.0.0   MAIN                                                              12/03/2019 23:44:18 PAGE 3   
+C51 COMPILER V9.52.0.0   MAIN                                                              12/04/2019 21:12:59 PAGE 3   
 
  117   1        }
  118   1        dust_count++;
@@ -190,7 +190,7 @@ line level    source
  176   1        timing_off_init();
  177   1        beep_init();
  178   1        led_all_on();
-C51 COMPILER V9.52.0.0   MAIN                                                              12/03/2019 23:44:18 PAGE 4   
+C51 COMPILER V9.52.0.0   MAIN                                                              12/04/2019 21:12:59 PAGE 4   
 
  179   1        for(delay_count = 0; delay_count <80000; delay_count++)
  180   1        {
@@ -254,7 +254,7 @@ line level    source
  238   1        {
  239   2           WDTCON  = 0x10;     
  240   2            if(1 == task_1ms_flag) { task_1ms_flag = 0; task_1ms();}
-C51 COMPILER V9.52.0.0   MAIN                                                              12/03/2019 23:44:18 PAGE 5   
+C51 COMPILER V9.52.0.0   MAIN                                                              12/04/2019 21:12:59 PAGE 5   
 
  241   2            if(1 == task_10ms_flag) { task_10ms_flag = 0; task_10ms();}
  242   2            if(1 == task_100ms_flag) {task_100ms_flag = 0; task_100ms(); }
