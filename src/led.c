@@ -599,9 +599,11 @@ void  i2c_waik_ack(void)
    delay_us(5); 
    I2C_CLK = 0;
    sda_mode(IO_MODE_IN);
+   delay_us(5);
    while( 1 == I2C_DIN)
    {
       EEPROM_err_count++;
+	  WDTCON  = 0x10;
       if(EEPROM_err_count>=240)
       {
          EEPROM_err_count=0;
