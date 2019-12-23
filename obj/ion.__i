@@ -1,1 +1,0 @@
-"src\ion.c" BROWSE INCDIR(.\inc;.\lib) DEBUG OBJECTEXTEND PRINT(.\list\ion.lst) TABS (2) OBJECT(.\obj\ion.obj)

@@ -1,1 +1,0 @@
-"src\display.c" BROWSE INCDIR(.\inc;.\lib) DEBUG OBJECTEXTEND PRINT(.\list\display.lst) TABS (2) OBJECT(.\obj\display.obj)
