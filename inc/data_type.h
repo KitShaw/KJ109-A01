@@ -4,7 +4,10 @@
 
 //#define DEBUG_FAN_RETURN_PULSE
 
-#define VERSION 101
+#define VERSION 102
+// 101
+// 102 为了解决101风速中档调高档的时候, 会出现速度很慢才调上去的问题
+// 在风速调整里直接加上风速脉冲值.
 
 
 typedef bit 			    BOOL; 		// 布尔变量（位变量）

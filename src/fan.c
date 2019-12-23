@@ -155,6 +155,40 @@ void regulate_fan_speed(void)
 //调整转, 掉用一次切换一次, 自动, 低, 中, 高依次循环
 {
 	if(++fan_speed> FAN_SPEED_HIGH) fan_speed = FAN_SPEED_AUTO;	
+	switch(fan_speed)
+	{
+		case 0: //auto
+			switch(read_dust_level())
+			{
+				case DUST_LEVEL_EXCELLENT: //优1速档
+					fan_pulse_count = FAN_LEVEL1_PULSE;
+				break;
+				case DUST_LEVEL_MEDIUM: //中2档
+					fan_pulse_count = FAN_LEVEL2_PULSE;
+				break;
+				case DUST_LEVEL_BAD: //差3挡
+					fan_pulse_count = FAN_LEVEL3_PULSE;
+				break;
+				case DUST_LEVEL_12: //
+					fan_pulse_count = FAN_LEVEL2_PULSE;
+				break;
+				case DUST_LEVEL_23: //
+					fan_pulse_count = FAN_LEVEL2_PULSE;
+				break;
+			}
+		break;
+		case 1:		
+			fan_pulse_count = FAN_LEVEL1_PULSE;
+		break;
+		case 2: //
+			fan_pulse_count = FAN_LEVEL2_PULSE;
+		break;
+		case 3:
+			fan_pulse_count = FAN_LEVEL3_PULSE;		
+		break;
+		default:
+		break;
+	}
 }
 
 unsigned char read_fan_speed(void)
